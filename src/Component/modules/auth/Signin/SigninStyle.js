@@ -18,11 +18,10 @@ const SignInWrapper = styled.div`
             bottom:0;
             right:0;
             left:0;
-            // width: 50vw;
             padding: 0px 0px 0px 6rem;
 
             .logo{
-                height: 37px;
+                height: 40px;
             }
             .logoInformation{
                 font-size: 16px;
@@ -31,20 +30,22 @@ const SignInWrapper = styled.div`
             }
         }
     }
+    
     .rightContainer{
         position:relative;
         width: 50vw;
         height: 100vh;
         
         .right{
-            position:absolute;
+            position: absolute;
             height: fit-content;
-            width: 50vw;
+            width: fit-content;
             margin: auto;
-            left:0;
-            top:0;
-            bottom:0;
-            right:0;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            padding: 0% 0% 10% 0%;
 
             .welcome{
                 color: #57A1D8;
@@ -56,7 +57,7 @@ const SignInWrapper = styled.div`
                 font-size: 30px;    
             }
             .inputs{
-                padding: 8px 0px 0px 0px;
+                padding: 19px 0px 0px 0px;
                 width: 96%;
                 
                 .label{
@@ -70,13 +71,36 @@ const SignInWrapper = styled.div`
                     font-size: 14px;
                 }
             }
+            .submitContent{
+                padding: 19% 0px 0px 0%;
+                .submit{
+                    background-color: #04C35C;
+                    color: #ffffff;
+                    font-weight: bold;
+                    font-size: 16px;
+                    width: 94.2%;
+                    border: 1px solid transparent;
+                    border-radius: 4px;
+                }
+            }
             .forgetpw{
                 color: #57A1D8;
                 font-size: 14px;
                 float: right;
                 padding-top: 8px;
                 margin-right: 10px;
+                cursor: pointer;  
             }
+        }
+    }
+    @media only screen and (max-width: 810px) {
+        .leftContainer {
+          display: none;
+        }
+        .rightContainer{
+            position: abolute;
+            height: 100vh;
+            width: 100vw;
         }
     }
 
