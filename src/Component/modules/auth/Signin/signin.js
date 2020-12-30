@@ -11,6 +11,7 @@ class SignIn extends Component {
         };
     }
     render() {
+        console.log("h")
         return (
             <SignInWrapper >
                 <div className="signinContent">
