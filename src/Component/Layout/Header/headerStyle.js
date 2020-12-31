@@ -8,7 +8,7 @@ const HeaderStyle = styled.div`
     height: 20px;
   }
   .user{
-    color: #FFFFFF;
+    color: ${props=>props.theme.color};
     padding: 2px 29px 0px 0px;
 
     .pic{

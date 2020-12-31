@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const SignInWrapper = styled.div`
 .signinContent{
-    background-color: #222222;
+    background-color: ${props => props.theme.background};
     display: flex;
     
     .leftContainer {
@@ -25,7 +25,7 @@ const SignInWrapper = styled.div`
             }
             .logoInformation{
                 font-size: 16px;
-                color: #E8E8E8;
+                color: ${props => props.theme.signin.information};
                 padding: 17px 1px 0px 3px;
             }
         }
@@ -48,12 +48,12 @@ const SignInWrapper = styled.div`
             padding: 0% 0% 10% 0%;
 
             .welcome{
-                color: #57A1D8;
+                color: ${props => props.theme.sidestyleColor};
                 font-size: 16px;
             }
             .login{
-                font-weight: bold;
-                color: #E5E5E5;
+                font-weight: ${props => props.theme.fontBold};
+                color: ${props=>props.theme.headColor};
                 font-size: 30px;    
             }
             .inputs{
@@ -66,7 +66,7 @@ const SignInWrapper = styled.div`
                 }
                 .username{
                     background-color: transparent;
-                    color: #FFFFFF;
+                    color: ${props => props.theme.color};
                     border: 1px solid E8E8E8;
                     font-size: 14px;
                 }
@@ -74,9 +74,9 @@ const SignInWrapper = styled.div`
             .submitContent{
                 padding: 19% 0px 0px 0%;
                 .submit{
-                    background-color: #04C35C;
-                    color: #ffffff;
-                    font-weight: bold;
+                    background-color:  ${props => props.theme.signin.submit};
+                    color: ${props => props.theme.color};
+                    font-weight: ${props => props.theme.fontBold};
                     font-size: 16px;
                     width: 94.2%;
                     border: 1px solid transparent;
@@ -84,7 +84,7 @@ const SignInWrapper = styled.div`
                 }
             }
             .forgetpw{
-                color: #57A1D8;
+                color: ${props => props.theme.sidestyleColor};
                 font-size: 14px;
                 float: right;
                 padding-top: 8px;

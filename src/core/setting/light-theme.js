@@ -1,6 +1,7 @@
 const light = {
-    background: "",
+    background: "#222222",
     signin: {
+       
     },
     sidebar: {
     },

@@ -26,9 +26,9 @@ class SignIn extends Component {
         if (allFields[0].email !== "" && allFields[0].password !== "") {
             const mainData = details.admin
             if (JSON.stringify(mainData[0].auth) === JSON.stringify(allFields)) {
-                console.log(mainData)
                 Cookies.set('mainData', mainData)
-                window.location.reload()
+                window.location.replace("/ZeronSec/User");
+                Cookies.set('current',0)
             } else {
                 setTimeout(() => { window.location.replace("/Login"); }, 1000);
             }

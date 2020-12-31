@@ -33,7 +33,7 @@ class Page extends Component {
                         <Sider className="site-layout-background">
                             < Sidebar handleClick={this.handleClick} current={this.state.current}/>
                         </Sider>
-                        <Content style={{ margin: '0 10px' }} loading={loading}>
+                        <Content style={{ padding: '14px' }} loading={loading}>
                             <PageRouter/>
                         </Content>
                     </Layout>

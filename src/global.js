@@ -5,12 +5,19 @@ html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: #222222;
+  background-color: ${props=>props.theme.background};
 }
 *, ::after, ::before {
   box-sizing: unset !important;
 }
-
+.ant-tooltip-inner {
+  min-width: 0px !important;
+  min-height: 0px !important;
+  background-color: ${props=>props.theme.tooltipbckColor};
+  font-size: 12px;
+  letter-spacing:0.65px;
+  color: #B9B9B9;
+}
 .modal-dialog {
   position: revert !important;
 }

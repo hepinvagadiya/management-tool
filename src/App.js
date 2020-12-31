@@ -4,6 +4,8 @@ import AuthRouter from "./Component/modules/auth/authRouter";
 import { GlobalStyle } from "./global";
 import Cookies from 'js-cookie';
 import Page from "./Component/modules/page";
+import { ThemeProvider } from "styled-components";
+import themes from './core/setting/';
 
 class App extends Component {
   constructor(props) {
@@ -14,8 +16,10 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
+        <ThemeProvider theme={themes["dark"]}>
           <GlobalStyle />
-          {Cookies.get('mainData') ? <Page/> : <span><AuthRouter /><Redirect to={`/Login`}/></span>}
+          {Cookies.get('mainData') ? <Page /> : <span><AuthRouter /><Redirect to={`/Login`} /></span>}
+        </ThemeProvider>
       </BrowserRouter>
     );
   }

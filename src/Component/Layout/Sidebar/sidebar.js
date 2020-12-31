@@ -21,20 +21,20 @@ class Topbar extends Component {
                 <Menu
                     mode="inline"
                     selectedKeys={[current]}
-                    style={{ height: '100%', borderRight: 0, backgroundColor: "transparent", marginTop: "5px" }}
+                    className="menu"
                     onClick={this.props.handleClick}
                 >
                     {auth[1].SideMenu.map((menu, index) => (
                         <Menu.Item key={index}>
-                            <Link to={{ pathname: "/admin/" + menu.module, }} >
-                                <Tooltip placement="rightBottom" title={menu.module}>
-                                    <Icons type={menu.module} />
-                                </Tooltip>
-                            </Link>
+                            <Tooltip placement="right" title={menu.name}>
+                                <Link to={{ pathname: "/ZeronSec" + menu.routingPath, }}>
+                                    <Icons type={menu.iconName} />
+                                </Link>
+                            </Tooltip>
                         </Menu.Item>
                     ))}
                 </Menu>
-            </SidebarStyle>
+            </SidebarStyle >
         );
     }
 }

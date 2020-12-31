@@ -8,9 +8,24 @@ class Forgetpw extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            submit: false,
+            allFields: [{ email: "" }],
         };
     }
+    change = (e) => {
+        const { allFields } = this.state
+        const { name, value } = e.target;
+        allFields[0][name] = value;
+        this.setState({ allFields });
+    }
+    submit = () => {
+        const { allFields } = this.state
+        if (allFields[0].email === "") {
+            this.setState({ submit: true })
+        }
+    }
     render() {
+        const { allFields, submit } = this.state
         return (
             <ForgetpwStyle>
                 <div className="signinContent">
@@ -22,12 +37,15 @@ class Forgetpw extends Component {
                             <MTInput
                                 className="username"
                                 type="email"
+                                onChange={(e) => this.change(e)}
+                                name="email"
                             />
+                            {submit === true && !allFields[0].email && <span style={{ fontSize: "12px", color: "#b90000" }}>email is required</span>}
                         </div>
                         <div className="forgetpw">You’ll receive OTP via email.</div>
-                        <Link to={'/OTP'} >
-                            <div className="submitContent"><MTButton className="submit">Request OTP</MTButton></div>
-                        </Link>
+                        <div className="submitContent" onClick={this.submit}>
+                            {!allFields[0].email ? <MTButton className="submit">Request OTP</MTButton> : <Link to={'/OTP'} ><MTButton className="submit">Request OTP</MTButton></Link>}
+                        </div>
                     </div>
                 </div>
             </ForgetpwStyle>

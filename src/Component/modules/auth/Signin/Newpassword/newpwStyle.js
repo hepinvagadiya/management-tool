@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const NewpwStyle = styled.div`
 .signinContent{
-    background-color: #222222;
+    background-color: ${props=>props.theme.background};
     height: 100vh;
     width: 100vw;
     
@@ -21,12 +21,12 @@ const NewpwStyle = styled.div`
         }
         .login{
             padding: 10px;
-            font-weight: bold;
-            color: #E5E5E5;
+            font-weight: ${props=>props.theme.fontBold};
+            color: ${props=>props.theme.headColor};
             font-size: 30px;    
         }
         .welcome{
-            color: #57A1D8;
+            color: ${props=>props.theme.sidestyleColor};
             font-size: 16px;
         }
         .inputs{
@@ -39,13 +39,13 @@ const NewpwStyle = styled.div`
             }
             .username{
                 background-color: transparent;
-                color: #FFFFFF;
+                color: ${props=>props.theme.color};
                 border: 1px solid E8E8E8;
                 font-size: 14px;
             }
         }
         .forgetpw{
-            color: #57A1D8;
+            color: ${props=>props.theme.sidestyleColor};
             font-size: 14px;
             float: right;
             padding-top: 8px;
@@ -55,8 +55,8 @@ const NewpwStyle = styled.div`
             padding: 15% 0px 0px 0%;
             .submit{
                 background-color: #04C35C;
-                color: #ffffff;
-                font-weight: bold;
+                color: ${props=>props.theme.color};
+                font-weight: ${props=>props.theme.fontBold};
                 font-size: 16px;
                 width: 94.2%;
                 border: 1px solid transparent;

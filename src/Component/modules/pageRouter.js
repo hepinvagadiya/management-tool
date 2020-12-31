@@ -9,11 +9,11 @@ import TaskManagement from './Pages/Task_Manager/taskMan'
 const PageRouter = () => {
     return <div>
         <Switch>
-            <Route exact path={`/Admin/User`} component={User} />
-            <Route exact path={`/Admin/UserGroup`} component={UserGroup} />
-            <Route exact path={`/Admin/Blog`} component={Blog} />
-            <Route exact path={`/Admin/Chat_Room`} component={ChatRoom} />
-            <Route exact path={`/Admin/Task_Management`} component={TaskManagement} />
+            <Route exact path={`/ZeronSec/users`} component={User} />
+            <Route exact path={`/ZeronSec/groups`} component={UserGroup} />
+            <Route exact path={`/ZeronSec/blog`} component={Blog} />
+            <Route exact path={`/ZeronSec/chatroom`} component={ChatRoom} />
+            <Route exact path={`/ZeronSec/taskmanagement`} component={TaskManagement} />
         </Switch>
   </div>
 };

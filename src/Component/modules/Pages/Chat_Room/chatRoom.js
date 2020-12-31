@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { MTButton } from '../../component/MTForm';
+import { ChatRoomStyle } from './chatRoomStyle'
 
 class ChatRoom extends Component {
     constructor(props) {
@@ -9,7 +11,12 @@ class ChatRoom extends Component {
 
     render() {
         return (
-            <div>ChatRoom</div>
+            <ChatRoomStyle>
+                <div className="heading">
+                    <div className="title">ChatRoom</div>
+                    <div><MTButton className="createEle">Create</MTButton></div>
+                </div>
+            </ChatRoomStyle>
         );
     }
 }
