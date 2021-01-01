@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import SignInWrapper from './SigninStyle';
-import Logo from '../../../images/logo.svg';
+import Logo from '../../../../core/images/logo.svg';
 import { Link } from 'react-router-dom';
 import { MTButton, MTInput } from '../../component/MTForm';
-import { details } from '../../../../core/Array/array'
+import  details from '../../../../core/Array/array.json'
 import Cookies from 'js-cookie';
 
 
@@ -27,7 +27,7 @@ class SignIn extends Component {
             const mainData = details.admin
             if (JSON.stringify(mainData[0].auth) === JSON.stringify(allFields)) {
                 Cookies.set('mainData', mainData)
-                window.location.replace("/ZeronSec/User");
+                window.location.replace("/ZeronSec/users");
                 Cookies.set('current',0)
             } else {
                 setTimeout(() => { window.location.replace("/Login"); }, 1000);

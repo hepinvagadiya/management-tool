@@ -27,7 +27,7 @@ const BlogStyle = styled.div`
     .cardcontent{
         display: flex;
         flex-wrap: wrap;
-        padding-top: 0px;
+        padding: 10px;
         max-height: 80vh;
         overflow: auto;
         justify-content: space-around;
@@ -42,12 +42,15 @@ const BlogStyle = styled.div`
             margin: 10px;
 
             &:hover{
-                border-radius: 5px;
+                background-color: red;
             }
             
             .ant-card-cover img {
                 /* border-radius: 2px 2px 0 0; */
                 border-radius: 5px;
+            }
+            .author{
+                margin: 0px 0px 0px 5px;
             }
         }
         .ant-card-meta-title {

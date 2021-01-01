@@ -18,22 +18,22 @@ class Topbar extends Component {
         var auth = JSON.parse(Cookies.get('mainData'))
         return (
             <SidebarStyle>
-                <Menu
-                    mode="inline"
-                    selectedKeys={[current]}
-                    className="menu"
-                    onClick={this.props.handleClick}
-                >
-                    {auth[1].SideMenu.map((menu, index) => (
-                        <Menu.Item key={index}>
-                            <Tooltip placement="right" title={menu.name}>
+                {auth[1].SideMenu.map((menu, index) => (
+                    <Tooltip key={index} placement="right" title={menu.name}>
+                        <Menu
+                            mode="inline"
+                            selectedKeys={[current]}
+                            className="menu"
+                            onClick={this.props.handleClick}
+                        >
+                            <Menu.Item key={index}>
                                 <Link to={{ pathname: "/ZeronSec" + menu.routingPath, }}>
                                     <Icons type={menu.iconName} />
                                 </Link>
-                            </Tooltip>
-                        </Menu.Item>
-                    ))}
-                </Menu>
+                            </Menu.Item>
+                        </Menu>
+                    </Tooltip>
+                ))}
             </SidebarStyle >
         );
     }

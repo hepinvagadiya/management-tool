@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Logo from '../../../../images/logo.svg'
+import Logo from '../../../../../core/images/logo.svg'
 import { MTButton, MTInput } from '../../../component/MTForm';
 import OtpStyle from "./OtpStyle";
 import { Link } from 'react-router-dom';

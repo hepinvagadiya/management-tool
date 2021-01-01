@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Logo from '../../../../images/logo.svg'
+import Logo from '../../../../../core/images/logo.svg'
 import { MTButton, MTInput } from '../../../component/MTForm';
 import NewpwStyle from "./newpwStyle";
 import { Link } from 'react-router-dom';
@@ -20,9 +20,7 @@ class NewPw extends Component {
     }
     submit = () => {
         const { allFields } = this.state
-        if (allFields[0].newpassword ==! "" && allFields[0].confirmpassword ==! "") {
-            console.log("first")
-        }else{
+        if (allFields[0].newpassword === "" || allFields[0].confirmpassword === "") {
             this.setState({ submit: true })
         }
     }
@@ -37,12 +35,12 @@ class NewPw extends Component {
                         <div className="inputs">
                             <div className="label">New Password<sup>*</sup></div>
                             <MTInput className="username" onChange={(e) => this.change(e)} type="password" name="newpassword" />
-                            {submit === true && !allFields[0].newpassword && <span style={{ fontSize: "12px", color: "#b90000" }}>email is required</span>}
+                            {submit === true && !allFields[0].newpassword && <span style={{ fontSize: "12px", color: "#b90000" }}>NewPaswword is required</span>}
                         </div>
                         <div className="inputs">
                             <div className="label">Confirm Password<sup>*</sup></div>
                             <MTInput className="username" onChange={(e) => this.change(e)} type="password" name="confirmpassword" />
-                            {submit === true && !allFields[0].confirmpassword && <span style={{ fontSize: "12px", color: "#b90000" }}>email is required</span>}
+                            {submit === true && !allFields[0].confirmpassword && <span style={{ fontSize: "12px", color: "#b90000" }}>ConfirmPaswword is required</span>}
 
                         </div>
                         <div className="submitContent" onClick={this.submit}>

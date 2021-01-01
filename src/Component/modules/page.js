@@ -27,7 +27,7 @@ class Page extends Component {
             <PageStyle>
                 <Layout style={{ minHeight: '100vh' }}>
                     <Header className="site-layout-background" style={{ padding: 0 }} >
-                        <TopHeader />
+                        <TopHeader current={this.state.current}/>
                     </Header>
                     <Layout className="site-layout">
                         <Sider className="site-layout-background">

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { HeaderStyle } from './headerStyle';
 import { PageHeader } from 'antd';
-import Logo from '../../images/logo.svg'
+import Logo from '../../../core/images/logo.svg'
 import Cookies from 'js-cookie';
 
 

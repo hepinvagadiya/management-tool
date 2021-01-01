@@ -1,56 +1,6 @@
-export const details = {
-    "admin": [
-        {
-            "auth": [
-                {
-                    "email": "admin@gmail.com",
-                    "password": "admin",
-                }
-            ]
-        },
-        {
-            "SideMenu": [
-                {
-                    key: 1,
-                    uniquekey: "users",
-                    name: "Users",
-                    iconName: "usersMenu",
-                    routingPath: "/users",
-                },
-                {
-                    key: 2,
-                    uniquekey: "userGroups",
-                    name: "User Groups",
-                    iconName: "groupsMenu",
-                    routingPath: "/groups"
-                },
-                {
-                    key: 3,
-                    uniquekey: "blog",
-                    name: "Blog",
-                    iconName: "blogMenu",
-                    routingPath: "/blog"
-                },
-                {
-                    key: 4,
-                    uniquekey: "chatroom",
-                    name: "Chatroom",
-                    iconName: "chatroomMenu",
-                    routingPath: "/chatroom"
-                },
-                {
-                    key: 5,
-                    uniquekey: "taskmanagement",
-                    name: "Task Management",
-                    iconName: "taskmanagementMenu",
-                    routingPath: "/taskmanagement"
-                },
-            ]
-        },
-    ],
-}
+import { createSlice } from '@reduxjs/toolkit'
 
-export const posts = [
+const initialState = [
     {
         token:"1",
         title:"Sample Post One",
@@ -202,3 +152,11 @@ export const posts = [
         coverImg:"./image/cover.png"
     }
 ]
+
+const postsSlice = createSlice({
+  name: 'Post',
+  initialState,
+})
+
+
+export default postsSlice.reducer
