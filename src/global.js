@@ -18,6 +18,9 @@ html, body {
   letter-spacing:0.65px;
   color: #B9B9B9;
 }
+.ant-tooltip-arrow-content {
+  background-color: rgb(30 28 28);
+}
 .modal-dialog {
   position: revert !important;
 }

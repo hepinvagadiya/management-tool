@@ -1,18 +1,15 @@
-// import { configureStore } from '@reduxjs/toolkit'
-// import postsReducer from '../Redux/Blog/postsSlice'
-// import Data from './reducer';
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
+import data from "./Blog/postsReducer";
 
-// export default configureStore({
-//   reducer: {
-//     Posts: postsReducer,
-//   },
-// })
+const composeEnhancers = typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+    })
+    : compose;
 
-import { createStore } from 'redux'
-import rootReducer from './reducer'
-import { composeWithDevTools } from 'redux-devtools-extension';
-
-
-const store = createStore(rootReducer, composeWithDevTools())
+const store = createStore(
+    combineReducers({ data }),
+    composeEnhancers(applyMiddleware(thunk))
+);
 
 export default store;

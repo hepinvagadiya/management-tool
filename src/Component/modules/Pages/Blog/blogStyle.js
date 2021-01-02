@@ -42,15 +42,23 @@ const BlogStyle = styled.div`
             margin: 10px;
 
             &:hover{
-                background-color: red;
+                background-color: #536675;
+                transition: 1.2s;
             }
             
             .ant-card-cover img {
                 /* border-radius: 2px 2px 0 0; */
                 border-radius: 5px;
             }
+            .user{
+                padding: 2px 0px 0px;
+                position: absolute;
+            }
             .author{
-                margin: 0px 0px 0px 5px;
+                margin: 0px 0px 0px 17px;
+            }
+            .editDel{
+                float: right;
             }
         }
         .ant-card-meta-title {
