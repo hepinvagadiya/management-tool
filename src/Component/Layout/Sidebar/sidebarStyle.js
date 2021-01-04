@@ -21,19 +21,28 @@ const SidebarStyle = styled.div`
     border: 1px solid #394D5C;
     color: ${props => props.theme.sidestyleColor};
     left: 0;
-    a{
-      span{
-        svg{
-          path{
-            fill: red;
-          }
-        }
-      }
-    }
   }
   svg{
     path{
       fill: #8FA8BA;
+    }
+  }
+  &:hover{
+    svg{
+      path{
+        fill: #57A1D8;
+      }
+    }
+  }
+  .ant-menu-item-selected{
+    a{
+      span{
+        svg{
+          path{
+            fill: #57A1D8;
+          }
+        }
+      }
     }
   }
 }

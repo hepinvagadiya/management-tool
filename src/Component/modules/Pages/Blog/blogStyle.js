@@ -40,10 +40,20 @@ const BlogStyle = styled.div`
             border-radius: 5px;
             width: 315px;
             margin: 10px;
-
             &:hover{
                 background-color: #536675;
                 transition: 1.2s;
+                span{
+                    .editDel{
+                        span{
+                            svg{
+                                path{
+                                    fill: #88cdff;  
+                                }
+                            }
+                        } 
+                    }
+                }
             }
             
             .ant-card-cover img {
@@ -59,6 +69,13 @@ const BlogStyle = styled.div`
             }
             .editDel{
                 float: right;
+                span{
+                    svg{
+                        path{
+                            fill: transparent;  
+                        }
+                    }
+                } 
             }
         }
         .ant-card-meta-title {

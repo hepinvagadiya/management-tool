@@ -30,17 +30,20 @@ const NewpwStyle = styled.div`
             font-size: 16px;
         }
         .inputs{
-            padding: 19px 0px 0px 0px;
             width: 96%;
-            
+
+            .ant-input {
+                background-color: transparent;
+                border-radius: 2px;
+                border: 1px solid E8E8E8;
+                color: ${props => props.theme.color};
+            }
             .label{
                 font-size: 16px;
                 color: #979797;
             }
             .username{
                 background-color: transparent;
-                color: ${props=>props.theme.color};
-                border: 1px solid E8E8E8;
                 font-size: 14px;
             }
         }

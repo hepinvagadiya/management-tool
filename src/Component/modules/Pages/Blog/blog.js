@@ -28,7 +28,7 @@ export const Blog = () => {
                         {menu.createdTime}<br></br>
                         <span className="user"><Icons type="author" /></span>
                         <span className="author"> {menu.author}</span>
-                        <span className="editDel"><Icons type="post_edit" /> <Icons type="post_delete" /></span>
+                        <span className="editDel"><Icons type="post_edit"/> <Icons type="post_delete" /></span>
                     </span>
                 } />
         </Card>

@@ -18,7 +18,7 @@ class App extends Component {
       <BrowserRouter>
         <ThemeProvider theme={themes["dark"]}>
           <GlobalStyle />
-          {Cookies.get('mainData') ? <Page /> : <span><AuthRouter /><Redirect to={`/Login`} /></span>}
+          {Cookies.get('mainData') ? <Page /> : <span><AuthRouter /></span>}
         </ThemeProvider>
       </BrowserRouter>
     );

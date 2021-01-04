@@ -29,7 +29,6 @@ const OtpStyle = styled.div`
             font-size: 16px;
         }
         .inputs{
-            padding: 19px 0px 0px 0px;
             width: 96%;
             
             .label{
@@ -51,7 +50,7 @@ const OtpStyle = styled.div`
             margin-right: 10px;
         }
         .submitContent{
-            padding: 19% 0px 0px 0%;
+            padding: 10% 0px 0px 0%;
             .submit{
                 background-color: #04C35C;
                 color: ${props=>props.theme.color};

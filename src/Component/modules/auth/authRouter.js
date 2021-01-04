@@ -8,7 +8,7 @@ import Otp from './Signin/OTP/otp'
 const AuthRouter = () => {
     return <div>
         <Switch>
-            <Route exact path={`/Login`} component={SignIn} />
+            <Route exact path={`/`} component={SignIn} />
             <Route exact path={`/ForgetPassword`} component={Forgetpw} />
             <Route exact path={`/OTP`} component={Otp} />
             <Route exact path={`/NewPassword`} component={NewPw} />

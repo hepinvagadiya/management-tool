@@ -57,8 +57,13 @@ const SignInWrapper = styled.div`
                 font-size: 30px;    
             }
             .inputs{
-                padding: 19px 0px 0px 0px;
                 width: 96%;
+
+                .ant-input {
+                    background-color: transparent;
+                    border-radius: 2px;
+                    color: ${props => props.theme.color};
+                }
                 
                 .label{
                     font-size: 16px;
@@ -66,8 +71,6 @@ const SignInWrapper = styled.div`
                 }
                 .username{
                     background-color: transparent;
-                    color: ${props => props.theme.color};
-                    border: 1px solid E8E8E8;
                     font-size: 14px;
                 }
             }
@@ -87,8 +90,6 @@ const SignInWrapper = styled.div`
                 color: ${props => props.theme.sidestyleColor};
                 font-size: 14px;
                 float: right;
-                padding-top: 8px;
-                margin-right: 10px;
                 cursor: pointer;  
             }
         }

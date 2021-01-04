@@ -14,7 +14,7 @@ class Topbar extends Component {
     logout = () => {
         console.log("object")
         Cookies.remove('mainData')
-        window.location.replace("/Login");
+        window.location.replace("/");
     }
     render() {
         return (

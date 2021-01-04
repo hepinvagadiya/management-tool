@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import SignInWrapper from './SigninStyle';
 import Logo from '../../../../core/images/logo.svg';
 import { Link } from 'react-router-dom';
-import { MTButton, MTInput } from '../../component/MTForm';
-import  details from '../../../../core/Array/array.json'
+import { MTButton } from '../../component/MTForm';
+import details from '../../../../core/Array/array.json'
 import Cookies from 'js-cookie';
-
+import { Form, Input } from 'antd';
 
 class SignIn extends Component {
     constructor(props) {
@@ -28,16 +28,15 @@ class SignIn extends Component {
             if (JSON.stringify(mainData[0].auth) === JSON.stringify(allFields)) {
                 Cookies.set('mainData', mainData)
                 window.location.replace("/ZeronSec/users");
-                Cookies.set('current',0)
+                Cookies.set('current', 0)
             } else {
-                setTimeout(() => { window.location.replace("/Login"); }, 1000);
+                setTimeout(() => { window.location.replace("/"); }, 1000);
             }
         } else {
             this.setState({ submit: true })
         }
     }
     render() {
-        const { submit,allFields } = this.state
         return (
             <SignInWrapper >
                 <div className="signinContent">
@@ -59,33 +58,38 @@ class SignIn extends Component {
                         <div className="right">
                             <div className="welcome">Welcome back</div>
                             <div className="login">Login to your account</div>
-                            <div className="inputs">
-                                <div className="label">Email<sup>*</sup></div>
-                                <MTInput
-                                    className="username"
-                                    name="email"
-                                    type="text"
-                                    onChange={(e) => this.change(e)}
-                                />
-                                {submit === true && !allFields[0].email && <span style={{ fontSize: "12px", color: "#b90000" }}>email is required</span>}
+                            <Form onFinish={this.onFinish} >
+                                <div className="inputs">
+                                    <div className="label">Email<sup>*</sup></div>
+                                    <Form.Item name={['user', 'name']} rules={[{ required: true, message: 'Please input your Username!' }]} >
+                                        <Input
+                                            name="email"
+                                            type="text"
+                                            placeholder="Username"
+                                            onChange={(e) => this.change(e)}
+                                        />
+                                    </Form.Item>
+                                </div>
+                                <div className="inputs">
+                                    <div className="label">Password<sup>*</sup></div>
+                                    <Form.Item name="password" rules={[{ required: true, message: 'Please input your Password!' }]} >
+                                        <Input.Password
+                                            className="username"
+                                            name="password"
+                                            type="password"
+                                            placeholder="Password"
+                                            onChange={(e) => this.change(e)}
+                                        />
+                                    </Form.Item>
+                                </div>
 
-                            </div>
-                            <div className="inputs">
-                                <div className="label">Password<sup>*</sup></div>
-                                <MTInput
-                                    className="username"
-                                    name="password"
-                                    type="password"
-                                    onChange={(e) => this.change(e)}
-                                />
-                                {submit === true && !allFields[0].password && <span style={{ fontSize: "12px", color: "#b90000" }}>password is required</span>}
-                            </div>
-                            <Link to={'/ForgetPassword'} >
-                                <div className="forgetpw">Forgot password?</div>
-                            </Link>
-                            <div className="submitContent">
-                                <MTButton className="submit" onClick={() => this.submit()}>Login now</MTButton>
-                            </div>
+                                <Link to={'/ForgetPassword'} >
+                                    <div className="forgetpw">Forgot password?</div>
+                                </Link>
+                                <div className="submitContent">
+                                    <MTButton className="submit" htmlType= "submit" onClick={() => this.submit()}>Login now</MTButton>
+                                </div>
+                            </Form>
                         </div>
                     </div>
                 </div>
