@@ -77,6 +77,7 @@ const BlogStyle = styled.div`
                     }
                 } 
             }
+           
         }
         .ant-card-meta-title {
             color: ${props => props.theme.color};

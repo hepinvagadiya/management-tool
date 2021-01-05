@@ -64,7 +64,6 @@ const SignInWrapper = styled.div`
                     border-radius: 2px;
                     color: ${props => props.theme.color};
                 }
-                
                 .label{
                     font-size: 16px;
                     color: #979797;

@@ -75,7 +75,7 @@ class NewPw extends Component {
                                 </Form.Item>
                             </div>
                             <div className="submitContent" onClick={this.submit}>
-                                {!allFields[0].newpassword || !allFields[0].confirmpassword ? <MTButton className="submit">Change Password</MTButton> : <Link to={'/'}><MTButton className="submit">Change Password</MTButton></Link>}
+                                {!allFields[0].newpassword || !allFields[0].confirmpassword ? <MTButton className="submit">Change Password</MTButton> : <Link to={'/'}><MTButton className="submit" htmlType="submit">Change Password</MTButton></Link>}
                             </div>
                         </Form>
                     </div>

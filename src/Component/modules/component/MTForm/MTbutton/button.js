@@ -2,11 +2,11 @@ import React from 'react';
 import { Button } from 'antd';
 
 const MTButton = (props) => {
-    const { htmlType, type, ...rest } = props;
+    const { htmlType, type, key, ...rest } = props;
 
     return (
         <div>
-            <Button {...rest} htmlType={htmlType}></Button>
+            <Button key={key} htmlType={htmlType} {...rest}></Button>
         </div>
     )
 }

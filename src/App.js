@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Redirect } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import AuthRouter from "./Component/modules/auth/authRouter";
 import { GlobalStyle } from "./global";
 import Cookies from 'js-cookie';
