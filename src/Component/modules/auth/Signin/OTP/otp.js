@@ -49,6 +49,7 @@ class Otp extends Component {
                                     <Input
                                         className="username"
                                         name="otp"
+                                        placeholder="Enter otp"
                                         onChange={(e) => this.change(e)}
                                     />
                                 </Form.Item>

@@ -82,8 +82,10 @@ const BlogStyle = styled.div`
         .ant-card-meta-title {
             color: ${props => props.theme.color};
             font-size: 16px;
-            letter-spacing:0.75px
-        }
+            letter-spacing:0.75px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            }
         .ant-card-body {
             padding: 9px;
         }

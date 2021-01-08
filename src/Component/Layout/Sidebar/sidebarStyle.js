@@ -21,6 +21,7 @@ const SidebarStyle = styled.div`
     border: 1px solid #394D5C;
     color: ${props => props.theme.sidestyleColor};
     left: 0;
+    
   }
   svg{
     path{
@@ -34,8 +35,8 @@ const SidebarStyle = styled.div`
       }
     }
   }
-  .ant-menu-item-selected{
-    a{
+  
+    .ant-menu-item-selected{
       span{
         svg{
           path{
@@ -44,7 +45,6 @@ const SidebarStyle = styled.div`
         }
       }
     }
-  }
 }
 
 `;

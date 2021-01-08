@@ -18,6 +18,12 @@ class NewPw extends Component {
         allFields[0][name] = value;
         this.setState({ allFields });
     }
+    submit = () => {
+        const { allFields } = this.state
+        if (allFields[0].newpassword !== "" && allFields[0].confirmpassword !== "") {
+            window.location.replace('/')
+        }
+    }
     render() {
         const { allFields } = this.state
         return (
@@ -26,7 +32,7 @@ class NewPw extends Component {
                     <div className="leftContainer">
                         <img className="logo" src={Logo} alt="dsff"></img>
                         <div className="login">Change Password</div>
-                        <Form onFinish={this.onFinish}>
+                        <Form onFinish={this.submit}>
                             <div className="inputs">
                                 <div className="label">New Password<sup>*</sup></div>
                                 <Form.Item
@@ -39,6 +45,7 @@ class NewPw extends Component {
                                 >
                                     <Input.Password
                                         className="username"
+                                        placeholder="Enter password"
                                         onChange={(e) => this.change(e)}
                                         type="password"
                                         name="newpassword"
@@ -65,8 +72,9 @@ class NewPw extends Component {
                                             },
                                         }),
                                     ]}
-                                >
+                                    >
                                     <Input.Password
+                                        placeholder="Enter confirm password"
                                         className="username"
                                         onChange={(e) => this.change(e)}
                                         type="password"
@@ -74,8 +82,8 @@ class NewPw extends Component {
                                     />
                                 </Form.Item>
                             </div>
-                            <div className="submitContent" onClick={this.submit}>
-                                {!allFields[0].newpassword || !allFields[0].confirmpassword ? <MTButton className="submit">Change Password</MTButton> : <Link to={'/'}><MTButton className="submit" htmlType="submit">Change Password</MTButton></Link>}
+                            <div className="submitContent">
+                                <MTButton className="submit" htmlType="submit">Change Password</MTButton>
                             </div>
                         </Form>
                     </div>

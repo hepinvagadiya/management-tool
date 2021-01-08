@@ -46,6 +46,7 @@ class Forgetpw extends Component {
                                     <Input
                                         className="username"
                                         name="email"
+                                        placeholder="Enter email address"
                                         onChange={(e) => this.change(e)}
                                     />
                                 </Form.Item>

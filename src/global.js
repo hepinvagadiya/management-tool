@@ -27,11 +27,28 @@ html, body {
   background-color: rgb(30 28 28);
 }
 
+.ant-form-item-has-feedback.ant-form-item-has-success .ant-form-item-children-icon, .ant-form-item-has-feedback.ant-form-item-has-warning .ant-form-item-children-icon, .ant-form-item-has-feedback.ant-form-item-has-error .ant-form-item-children-icon, .ant-form-item-has-feedback.ant-form-item-is-validating .ant-form-item-children-icon {
+  right: -24px;
+  top: 52%;
+}
+.footer{
+  .ant-modal-content{
+    .ant-modal-footer{
+      display: none;
+    }
+  }
+}
 //Modal// 
-
 .ant-modal-content{
   background-color: #292A2B;
-
+  
+  .ant-modal-close-x {
+    color: #9EA4A9;
+    width: 56px;
+    height: 56px;
+    font-size: 11px;
+    line-height: 41px;
+  }
   .ant-modal-header{
       padding: 8px 24px;
       text-align: center;
@@ -59,6 +76,12 @@ html, body {
         color: #ffffff;
         letter-spacing: 0.35px;
       }
+      .viewHeader{
+        font-size: 16px;
+        color: #ffffff;
+        padding: 3px 0px 6px 3px;
+        letter-spacing:0.75px;
+      }
       .title{
         font-size: 12px;
         color: #429FE4;
@@ -66,6 +89,52 @@ html, body {
         top: -3px;
         padding: 4px;
         letter-spacing: 0.35px;
+      }
+      .viewImg{
+        height: 14rem;
+        width: 33rem;
+      }
+      .sideHeading{
+        font-size: 12px;
+        color: #88CDFF;
+        letter-spacing:0.75px;
+      }
+      .attech{
+        background-color: #222222;
+        width: fit-content;
+        border-radius: 8px;
+        font-size: 11px;
+        padding: 3px;
+        margin: 3px;
+        color: #8FA8BA;
+        letter-spacing:0.75px
+      }
+      .viewContent{
+        display: flex;
+
+        .createCont{
+          padding: 35px 0px 0px 22px;
+        }
+        .author{
+          padding: 0px 0px 0px 22px;
+        }
+        .sideHeading{
+          font-size: 12px;
+          color: #88CDFF;
+          letter-spacing:0.75px;
+
+          p{
+            color: #E5E5E5;
+            font-size: 11px;
+            letter-spacing:0.75px;
+          }
+        }
+      }
+      .postDetail{
+        color: #E5E5E5;
+        font-size: 11px;
+        padding: 14px;
+        letter-spacing:0.75px;
       }
   }
   .ant-modal-footer{
@@ -93,26 +162,82 @@ html, body {
         border: none;
        } 
   }
+  
   .inputs{
     width: 96%;
-
+  }
+    .inputs-inline {
+      width: 45%;
+      padding: 14px 10px 0px 13px;
+    }
+    .ant-form-inline .ant-form-item-with-help {
+      margin-bottom: 0px;
+    }
+    .ant-form-item {
+      margin-bottom: 0px;  
+      padding-bottom: 10px;
+  }
     .ant-input {
         background-color: #222222;
         border-radius: 2px;
         border: 1px solid #e8e8e82b; 
         color: ${props => props.theme.color};
+        &:hover{
+          background-color: #222222;
+        }
     }
-    
-    .label{
-        font-size: 12px;
-        padding: 4px;
-        color: #E5E5E5;
-        letter-spacing:0.75px
+    .ant-input-suffix {
+      margin-left: 4px;
+      span{
+        svg{
+          path{
+            fill: #429FE4;
+          }
+        }
+      }
+  }
+    .ant-radio-inner {
+      width: 16px;
+      height: 16px;
+      background-color: transparent;
+      border-color: #979797;
+      border-radius: 50%;
     }
-    .username{
-        background-color: transparent;
-        font-size: 14px;
+    .ant-radio-inner::after {
+        top: 4px;
+        left: 4.2px;
+        border-radius: 50%;
+        background-color: #57A1D8 ;
     }
+    .ant-radio-wrapper{
+      color: #9EA4A9;
+      font-size: 12px;
+      letter-spacing:0.65px
+    }
+    .ant-radio-wrapper-checked{
+      color: #FFFFFF;
+      font-size: 12px;
+      letter-spacing:0.65px
+    }
+    .ant-radio-checked{
+      .ant-radio-inner {
+        border:1px solid #57A1D8 !important;
+      }
+    }
+      .label{
+          font-size: 12px;
+          padding: 4px;
+          color: #E5E5E5;
+          letter-spacing:0.75px
+      }
+      .username{
+          background-color: #222222;
+          border: 1px solid #e8e8e82b;
+          font-size: 14px;
+          &:hover{
+            background-color: #222222;
+          }
+      }
     .select{
       background-color: #4C4D4F;
       letter-spacing: 0.82px;
@@ -121,7 +246,7 @@ html, body {
       color: #c8f2ff;
       border: none;
     }
-  
+    
     .ant-upload-list-item-info {
       height: 100%;
       padding: 0 4px;
@@ -143,10 +268,52 @@ html, body {
     .upload-list-inline{
       display: flex;
     }
+    .local{
+      display: inline;
+    }
     .upload-list-inline [class*='-upload-list-rtl'] .ant-upload-list-item {
       float: right;
     }
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+      background-color: #222222;
+      border-radius: 2px;
+      border: 1px solid #e8e8e82b; 
+      color: ${props => props.theme.color};
+    }
+    .ant-select-multiple .ant-select-selection-item {
+      background: #292A2B;
+      border: none;
+      border-radius: 8px;
+    }
+    .ant-select-arrow {
+      right: -9px;
+      width: 12px;
+      height: 12px;
+      color: #429FE4;
   }
+
+}
+.ant-select-dropdown {
+  background-color: #222222;
+  border-radius: 2px;
+  letter-spacing:0.75px;
+}
+.ant-select-item-option-content{
+  color: #FFFFFF;
+  font-size: 11px;
+  padding: 4px;
+
+  .ant-select-item-option-selected{
+    background-color: #172B3A;
+  }
+}
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  color: ${props => props.theme.color}; 
+  background-color: #172B3A;
+  font-weight: none;
+}
+.ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+  background-color: #555657;
 }
 body.ReactModal__Body--open > #root {
   filter: blur(3px);
@@ -169,12 +336,12 @@ body.ReactModal__Body--before-close > #root {
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #31363f transparent;
+  scrollbar-color: #429FE4 transparent;
 }
 
 ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
 }
 
 ::-webkit-scrollbar-track {
@@ -184,12 +351,12 @@ body.ReactModal__Body--before-close > #root {
 ::-webkit-scrollbar-thumb {
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
-  background-color: #31363f;
-  left: 4px;
+  background-color: #429FE4;
+  left: 3px;
 }
 
 ::-webkit-scrollbar-corner {
-  background: #31363f;
+  background: #429FE4;
 }
 
 `;
