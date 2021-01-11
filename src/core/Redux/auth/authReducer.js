@@ -1,15 +1,16 @@
 const initState = {
-    blogs: [],
+    auth: [],
 };
 export default (state = initState, action) => {
     switch (action.type) {
-        case 'GET_CARD_DATA':
+        case 'FOUND_USER':
             state = {
-                blogs: action.payload,
+                auth: action.payload,
             }
-        case 'DELETE_POST_DATA':
+
+        case 'ERROR_FINDING_USER':
             state = {
-                blogs: action.payload,
+                auth: action.payload,
             }
     }
     return state;

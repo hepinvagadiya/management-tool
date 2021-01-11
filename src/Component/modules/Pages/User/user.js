@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MTButton } from '../../component/MTForm';
 import { UserStyle } from './userStyle'
 import { Table } from 'antd';
-import { columns, listUsers } from '../../../../core/Array/array'
 import MTModal from '../../component/MTmodel/modal';
 import { Button, Form, Input, Radio, } from 'antd';
 import { Select } from 'antd';
+import { GET } from '../../../../core/Redux/User/userAction';
+import { useDispatch, useSelector } from 'react-redux';
+import Icons from '../../../modules/component/Icons/icons'
 
 export const User = () => {
+    let user = useSelector(state => state)
     const [newUser, setNewUser] = useState(false);
     const [allFields, setAllfields] = useState([{ number: "" }]);
-    const [UserData] = useState(listUsers);
     const [form] = Form.useForm();
     const { Option } = Select;
+    const dispatch = useDispatch()
     const Designation = ['Graphic Designer', 'Web Devloper'];
     const bloodGroup = ['A+', 'A', 'AB+'];
     const validateMessages = {
@@ -20,6 +23,47 @@ export const User = () => {
         types: { email: 'Email is not a valid email!', },
     };
 
+    const columns = [
+        {
+            "title": "User Name",
+            render: listUsers => `${listUsers.firstName} ${listUsers.lastName}`,
+            "key": "firstName",
+            "width": '25%',
+        },
+        {
+            "title": "Designation",
+            "dataIndex": "designation",
+            "key": "designation",
+            "width": '15%',
+        },
+        {
+            "title": "Email",
+            "dataIndex": "email",
+            "key": "email",
+            "width": '25%',
+        },
+        {
+            "title": "Last Login",
+            "dataIndex": "lastLogin",
+            "key": "lastLogin",
+            "width": '25%',
+        },
+        {
+            "title": "Action",
+            "dataIndex": "action",
+            "key": "action",
+            render: () => (
+                <span> <Icons type="post_edit" />   <span onClick={deleteTableRow}><Icons type="post_delete" /> </span></span>
+            ),
+        }
+    ];
+    useEffect(() => {
+        dispatch(GET())
+    }, [dispatch])
+
+    const deleteTableRow = () => {
+        console.log("delete")
+    }
     const change = (e) => {
         const { name, value } = e.target;
         allFields[0][name] = value;
@@ -188,8 +232,9 @@ export const User = () => {
                 <Table
                     pagination={{ pageSize: 12 }}
                     columns={columns}
-                    dataSource={UserData}
-                    scroll={{y : 'calc(77.5vh - 4em)'}}
+                    dataSource={user.userdata.table}
+                    scroll={{ y: 'calc(77.5vh - 4em)' }}
+                    sticky 
                 />
             </div>
         </UserStyle>

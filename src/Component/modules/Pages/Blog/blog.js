@@ -19,15 +19,10 @@ export const Blog = () => {
     const [create, setCreate] = useState(false);
     const [view, setView] = useState(false);
     const [title, setTitle] = useState("");
-    // const Maindata = blogs.data.blogs
     const [index, setToken] = useState("")
     const [fileList, updateFileList] = useState([]);
-    // const [DataSrc, setDataSrc] = useState(Maindata.posts);
     const children = [];
-    // console.log(Maindata.posts, 'Maindata')
-    console.log(blogs.data.blogs.posts, 'DataSrc')
-    console.log(blogs, 'asd')
-
+    
     useEffect(() => {
         dispatch(GET())
     }, [dispatch])
@@ -53,6 +48,12 @@ export const Blog = () => {
             showRemoveIcon: true,
             removeIcon: <Icons type="close" />,
         },
+    }
+    const onCancel = () =>{
+        document.body.classList.add('ReactModal__Body--before-close')
+        setDelete(false);
+        setView(false);
+        setCreate(false)
     }
     const deleteModal = (title, index) => {
         document.body.classList.remove('ReactModal__Body--before-close')
@@ -140,7 +141,7 @@ export const Blog = () => {
                         maskClosable={false}
                         footer={[
                             <Button key="submit" className="deleteEle" onClick={deleteEle}>Delete</Button>,
-                            <Button key="back" className="cancelEle" onClick={deleteEle}>Cancel</Button>
+                            <Button key="back" className="cancelEle" onClick={onCancel}>Cancel</Button>
                         ]}
                     >
                         <p className="warning">Are you sure to delete this post permenently?</p>
@@ -181,7 +182,7 @@ export const Blog = () => {
                         visible={create}
                         title="New Post"
                         onOk={form.submit}
-                        onCancel={createEle}
+                        onCancel={onCancel}
                         closable={true}
                         maskClosable={false}
                         footer={[

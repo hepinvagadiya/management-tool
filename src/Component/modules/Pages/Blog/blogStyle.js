@@ -30,16 +30,16 @@ const BlogStyle = styled.div`
         padding: 10px;
         max-height: 80vh;
         overflow: auto;
-        justify-content: space-around;
         color: red;
 
         .card{
             background-color: ${props => props.theme.body.blog.cardBgcolor};
             border: none;
-            padding: 2px;
             border-radius: 5px;
-            width: 315px;
-            margin: 10px;
+            width: 21rem;
+            padding: 2px;
+            margin: 9px;
+
             &:hover{
                 background-color: #536675;
                 transition: 1.2s;
@@ -111,6 +111,80 @@ const BlogStyle = styled.div`
             max-height: 60vh;
         }
     }
+
+    @media only screen and (max-width: 1915px) {
+        .cardcontent{
+            .card{
+                width: 20rem;
+                margin: 15px;
+            }
+        }
+    }
+    @media only screen and (max-width: 1680px) {
+        .cardcontent{
+            .card{
+                width: 22rem;
+                margin: 15px;
+            }
+        }
+    }
+    @media only screen and (max-width: 1600px) {
+        .cardcontent{
+            .card{
+                width: 20.3rem;
+                margin: 15px;
+            }
+        }
+    }
+    @media only screen and (max-width: 1440px) {
+        .cardcontent{
+            .card{
+                width: 25rem;
+                margin: 15px;
+            }
+        }
+    }   
+    @media only screen and (max-width: 1366px) {
+        .cardcontent{
+            .card{
+                width: 22.8rem;
+                margin: 15px;
+            }
+        }
+    }   
+    @media only screen and (max-width: 1280px) {
+        .cardcontent{
+            .card{
+                width: 21.8rem;
+                margin: 15px;
+            }
+        }
+    }   
+    @media only screen and (max-width: 1152px) {
+        .cardcontent{
+            .card{
+                width: 18.8rem;
+                margin: 15px;
+            }
+        }
+    }
+    @media only screen and (max-width: 1024px) {
+        .cardcontent{
+            .card{
+                width: 16rem;
+                margin: 18px;
+            }
+        }
+    }
+    @media only screen and (max-width: 800px) {
+        .cardcontent{
+            .card{
+                width: 18.5rem;
+                margin: 15px;
+            }
+        }
+    }
+   
 }
 `;
 
