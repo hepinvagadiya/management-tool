@@ -1,10 +1,91 @@
-export const GET = () => {
+import store from '../store'
+import axios from 'axios';
+
+var url = 'http://10.1.1.144:8081'
+
+export const UserData = () => {
     return async (dispatch) => {
-        fetch('http://10.1.1.31:3000/UserData.json').then((response) => response.json()).then((userdata) =>
+        return axios({
+            method: 'get',
+            url: `${url}/user/listAll`,
+        }).then(response => {
+            console.log(response, 'userDetail response')
             dispatch({
                 type: 'GET_USER_DATA',
-                payload: userdata,
+                payload: response.data
             })
-        )
+        })
+            .catch((error) => {
+                console.log(error, "error")
+            });
+    };
+};
+
+export const Registration = (firstName, lastName, email, username, contact, designation, BloodGroup, gender, address, password, confirmPassword) => {
+    return async (dispatch) => {
+        return axios({
+            method: 'post',
+            url: `${url}/user/create`,
+            data: {
+                "firstName": firstName,
+                "lastName": lastName,
+                "email": email,
+                "username": username,
+                "contact": contact,
+                "designation": designation,
+                "bloodGroup": BloodGroup,
+                "gender": gender,
+                "address": address,
+                "password": password,
+                "confirmPassword": confirmPassword,
+            },
+        }).then(response => {
+            console.log(response, "Registration response")
+            dispatch({
+                type: 'USER_REGISTRATION',
+                payload: response.data
+            })
+        })
+            .catch((error) => {
+                console.log(error, "error")
+            });
+    };
+};
+
+export const DeleteUser = (record) => {
+    return async (dispatch) => {
+        return axios({
+            method: 'delete',
+            url: `${url}/user/delete/${record}`,
+        }).then(response => {
+            let get = store.getState().table.table
+            const maindata = get.filter(p => p.token !== record)
+            dispatch({
+                type: 'DELETE_USER',
+                payload: maindata
+            })
+            console.log(response, "DeleteUser response")
+        })
+            .catch((error) => {
+                console.log(error, "error")
+            });
+    };
+};
+
+export const FindUser = (record) => {
+    return async (dispatch) => {
+        return axios({
+            method: 'get',
+            url: `${url}/user/findByToken/${record}`,
+        }).then(response => {
+            console.log(response.data.data, "FindUser response")
+            dispatch({
+                type: 'FIND_USER',
+                payload: response.data
+            })
+        })
+            .catch((error) => {
+                console.log(error, "error")
+            });
     };
 };

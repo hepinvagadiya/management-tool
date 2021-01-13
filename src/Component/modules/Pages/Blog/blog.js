@@ -22,7 +22,7 @@ export const Blog = () => {
     const [index, setToken] = useState("")
     const [fileList, updateFileList] = useState([]);
     const children = [];
-    
+
     useEffect(() => {
         dispatch(GET())
     }, [dispatch])
@@ -49,7 +49,7 @@ export const Blog = () => {
             removeIcon: <Icons type="close" />,
         },
     }
-    const onCancel = () =>{
+    const onCancel = () => {
         document.body.classList.add('ReactModal__Body--before-close')
         setDelete(false);
         setView(false);
@@ -207,6 +207,8 @@ export const Blog = () => {
                                         name="upload"
                                         valuePropName="fileList"
                                         getValueFromEvent={normFile}
+                                        name="upload"
+                                        rules={[{ required: true, message: 'Please Attech PNG file!' }]}
                                     >
                                         <Upload accept='.png' {...props1} className="upload-list-inline">
                                             <MTButton className="select">Select</MTButton>
@@ -224,7 +226,7 @@ export const Blog = () => {
                                 </div>
                                 <div className="inputs">
                                     <div className="label">Attechments</div>
-                                    <Form.Item>
+                                    <Form.Item name="upload" rules={[{ required: true, message: 'Please Attech any file !' }]} >
                                         <Upload {...localFiles} className="upload-list-inline local">
                                             <MTButton className="select">Select</MTButton>
                                         </Upload>
@@ -232,7 +234,7 @@ export const Blog = () => {
                                 </div>
                                 <div className="inputs">
                                     <div className="label">Hashtags</div>
-                                    <Form.Item>
+                                    <Form.Item name="select" rules={[{ required: true, message: 'Please Select Any Option!' }]} >
                                         <Select mode="tags" style={{ width: '100%' }} placeholder="Enter Tags">
                                             {children}
                                         </Select>

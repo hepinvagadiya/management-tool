@@ -46,6 +46,16 @@ const NewpwStyle = styled.div`
                 background-color: transparent;
                 font-size: 14px;
             }
+            .ant-input-suffix {
+                margin-left: 4px;
+                span{
+                  svg{
+                    path{
+                      fill: #429FE4;
+                    }
+                  }
+                }
+            }
         }
         .forgetpw{
             color: ${props=>props.theme.sidestyleColor};

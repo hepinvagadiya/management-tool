@@ -29,6 +29,10 @@ const ForgetpwStyle = styled.div`
             padding: 19px 0px 0px 0px;
             width: 96%;
             
+            .ant-form-item {
+                margin-bottom: 0px;
+            }
+
             .label{
                 font-size: 16px;
                 color: #979797;

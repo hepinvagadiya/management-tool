@@ -41,6 +41,9 @@ const OtpStyle = styled.div`
                 border: 1px solid E8E8E8;
                 font-size: 14px;
             }
+            .ant-form-item {
+                margin-bottom: 0px;
+            }
         }
         .forgetpw{
             color: ${props=>props.theme.sidestyleColor}                                               ;

@@ -53,12 +53,12 @@ const SignInWrapper = styled.div`
             }
             .login{
                 font-weight: ${props => props.theme.fontBold};
-                color: ${props=>props.theme.headColor};
+                color: ${props => props.theme.headColor};
                 font-size: 30px;    
             }
             .inputs{
                 width: 96%;
-
+               
                 .ant-input {
                     background-color: transparent;
                     border-radius: 2px;
@@ -71,6 +71,16 @@ const SignInWrapper = styled.div`
                 .username{
                     background-color: transparent;
                     font-size: 14px;
+                }
+                .ant-input-suffix {
+                    margin-left: 4px;
+                    span{
+                      svg{
+                        path{
+                          fill: #429FE4;
+                        }
+                      }
+                    }
                 }
             }
             .submitContent{

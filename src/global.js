@@ -161,7 +161,11 @@ html, body {
         color: #c8f2ff;
         border: none;
        } 
-  }
+      }
+      .ant-form-item-has-error .ant-select:not(.ant-select-disabled):not(.ant-select-customize-input) .ant-select-selector {
+       background-color: #222;
+       border-color: #333334 !important;
+   }
   
   .inputs{
     width: 96%;

@@ -1,14 +1,68 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { UserGroStyle } from './userGroStyle'
 import { MTButton } from '../../component/MTForm';
+import { Table } from 'antd';
 import MTModal from '../../component/MTmodel/modal';
 import { Button, Form, Input, Radio, } from 'antd';
+import { UserData } from '../../../../core/Redux/User/userAction';
+import { useDispatch, useSelector } from 'react-redux';
+import Icons from '../../../modules/component/Icons/icons'
+
 import { Select } from 'antd';
 
 export const UserGroup = () => {
     const [createUserGro, setCreateUserGro] = useState(false);
     const [form] = Form.useForm();
     const { Option } = Select;
+    const dispatch = useDispatch()
+
+    const user = useSelector(state => state)
+
+    useEffect(() => {
+        dispatch(UserData())
+    }, [dispatch])
+
+    const columns = [
+        {
+            "title": "User Name",
+            render: listUsers => `${listUsers.firstName} ${listUsers.lastName}`, 
+            "key": "firstName",
+            "width": '15%',
+        },
+        {
+            "title": "Designation",
+            "dataIndex": "designation",
+            "key": "designation",
+            "width": '15%',
+        },
+        {
+            "title": "Email",
+            "dataIndex": "email",
+            "key": "email",
+            "width": '20%',
+        },
+        {
+            "title": "Contect",
+            "dataIndex": "contact",
+            "key": "contact",
+            "width": '15%',
+        },
+        {
+            "title": "Created Time",
+            "dataIndex": "createdTime",
+            "key": "createdTime",
+            "width": '25%',
+        },
+        {
+            "title": "Action",
+            "dataIndex": "action",
+            "key": "action",
+            render: (text, record) => (
+                <span> <Icons type="post_edit" />   <span><Icons type="post_delete" /> </span></span>
+            ),
+        },
+
+    ];
 
     const CreatePostModal = () => {
         document.body.classList.remove('ReactModal__Body--before-close')
@@ -61,7 +115,7 @@ export const UserGroup = () => {
                         </div>
                         <div className="inputs">
                             <div className="label">Group Name</div>
-                            <Form.Item rules={[{ required: true, message: 'Please input Post Title!' }]} >
+                            <Form.Item name="select" rules={[{ required: true, message: 'Please input Post Title!' }]} >
                                 <Select
                                     mode="multiple"
                                     style={{ width: '100%' }}
@@ -85,6 +139,15 @@ export const UserGroup = () => {
                         </div>
                     </Form>
                 </MTModal>
+                <div className="tableContent">
+                    <Table
+                        sticky
+                        pagination={{ pageSize: 12 }}
+                        columns={columns}
+                        dataSource={user.table.table}
+                        scroll={{ y: 'calc(77.5vh - 4em)' }}
+                    />
+                </div>
             </div>
         </UserGroStyle>
     );

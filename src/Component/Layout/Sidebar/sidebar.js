@@ -3,8 +3,7 @@ import Icons from '../../modules/component/Icons/icons';
 import { SidebarStyle } from './sidebarStyle';
 import { Link } from "react-router-dom";
 import { Menu, Tooltip } from 'antd';
-import Cookies from 'js-cookie';
-
+import {sideBar} from '../../../core/Array/array'
 
 class Topbar extends Component {
     constructor(props) {
@@ -15,15 +14,14 @@ class Topbar extends Component {
 
     render() {
         const { current } = this.props
-        var auth = JSON.parse(Cookies.get('mainData'))
         return (
             <SidebarStyle>
-                {auth[1].SideMenu.map((menu, index) => (
+                {sideBar[0].SideMenu.map((menu, index) => (
                     <Tooltip key={index} placement="right" title={menu.name}>
                         <Link to={{ pathname: "/ZeronSec" + menu.routingPath, }}>
                             <Menu
                                 mode="inline"
-                                selectedKeys={[current]}
+                                selectedKeys={[current]}    
                                 className="menu"
                                 onClick={this.props.handleClick}
                             >

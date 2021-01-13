@@ -1,34 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import { MTButton } from '../../component/MTForm';
 import { UserStyle } from './userStyle'
-import { Table } from 'antd';
+import { Table, message } from 'antd';
 import MTModal from '../../component/MTmodel/modal';
 import { Button, Form, Input, Radio, } from 'antd';
 import { Select } from 'antd';
-import { GET } from '../../../../core/Redux/User/userAction';
+import { UserData, Registration, DeleteUser, FindUser } from '../../../../core/Redux/User/userAction';
 import { useDispatch, useSelector } from 'react-redux';
 import Icons from '../../../modules/component/Icons/icons'
 
 export const User = () => {
-    let user = useSelector(state => state)
-    const [newUser, setNewUser] = useState(false);
-    const [allFields, setAllfields] = useState([{ number: "" }]);
     const [form] = Form.useForm();
     const { Option } = Select;
+
     const dispatch = useDispatch()
-    const Designation = ['Graphic Designer', 'Web Devloper'];
-    const bloodGroup = ['A+', 'A', 'AB+'];
+    const user = useSelector(state => state)
+    const key = 'updatable';
+    const [newUser, setNewUser] = useState(false);
+    const [username, setUsername] = useState();
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState();
+    const [email, setEmail] = useState();
+    const [contact, setContact] = useState();
+    const [designation, setDesignation] = useState();
+    const [BloodGroup, setBloodGroup] = useState();
+    const [gender, setGender] = useState();
+    const [address, setAddress] = useState();
+    const [password, setPassword] = useState();
+    const [confirmPassword, setConfirmPassword] = useState();
     const validateMessages = {
         required: 'Email is required!',
         types: { email: 'Email is not a valid email!', },
     };
+
+    useEffect(() => {
+        dispatch(UserData())
+    }, [dispatch])
 
     const columns = [
         {
             "title": "User Name",
             render: listUsers => `${listUsers.firstName} ${listUsers.lastName}`,
             "key": "firstName",
-            "width": '25%',
+            "width": '15%',
         },
         {
             "title": "Designation",
@@ -40,66 +54,97 @@ export const User = () => {
             "title": "Email",
             "dataIndex": "email",
             "key": "email",
-            "width": '25%',
+            "width": '20%',
         },
         {
-            "title": "Last Login",
-            "dataIndex": "lastLogin",
-            "key": "lastLogin",
+            "title": "Contect",
+            "dataIndex": "contact",
+            "key": "contact",
+            "width": '15%',
+        },
+        {
+            "title": "Created Time",
+            "dataIndex": "createdTime",
+            "key": "createdTime",
             "width": '25%',
         },
         {
             "title": "Action",
             "dataIndex": "action",
             "key": "action",
-            render: () => (
-                <span> <Icons type="post_edit" />   <span onClick={deleteTableRow}><Icons type="post_delete" /> </span></span>
+            render: (text, record) => (
+                <span>
+                    <span onClick={() => EditTableRow(record.token)}>
+                        <Icons type="post_edit" />
+                    </span>
+                    <span onClick={() => deleteTableRow(record.token)}>
+                        <Icons type="post_delete" />
+                    </span>
+                </span>
             ),
-        }
+        },
+
     ];
-    useEffect(() => {
-        dispatch(GET())
-    }, [dispatch])
-
-    const deleteTableRow = () => {
-        console.log("delete")
+    const onCancel = () => {
+        document.body.classList.add('ReactModal__Body--before-close')
+        setNewUser(false);
     }
-    const change = (e) => {
-        const { name, value } = e.target;
-        allFields[0][name] = value;
-        setAllfields(allFields)
+    const deleteTableRow = (record) => {
+        dispatch(DeleteUser(record))
+        message.loading({ content: 'Loading...', key });
+        setTimeout(() => {
+            message.warning({ content: 'Deleted!', key, duration: 2 });
+        }, 1000);
+    }
+    const EditTableRow = (record) => {
+        dispatch(FindUser(record))
+        console.log(user,"maindata")
     }
 
-    const CreateNewUser = () => {
+    const CreateModal = (e) => {
+        e.preventDefault();
         document.body.classList.remove('ReactModal__Body--before-close')
         document.body.classList.add('ReactModal__Body--open')
         setNewUser(true)
     }
-
     const createUser = () => {
         document.body.classList.add('ReactModal__Body--before-close')
+        dispatch(Registration(firstName, lastName, email, username, contact, designation, BloodGroup, gender, address, password, confirmPassword))
         setNewUser(false)
+        form.resetFields();
+        message.loading({ content: 'Creating User...', key });
+        setTimeout(() => {
+            message.success({ content: 'Created!', key, duration: 2 });
+        }, 1000);
     }
 
     const checkMobileNo = () => {
-        if (allFields[0].number === "") {
+        if (contact === "") {
             return Promise.reject('Contect is required');
         }
-        if (allFields[0].number < 9999999999) { return Promise.resolve(); }
+        if (contact < 9999999999) { return Promise.resolve(); }
         return Promise.reject('Please input valid phone no!');
     };
+
+    function designationChange(value) {
+        setDesignation(value)
+    }
+    function blood(value) {
+        setBloodGroup(value)
+    }
+
 
     return (
         <UserStyle>
             <div className="heading">
                 <div className="title">User</div>
-                <div><MTButton className="createEle" onClick={CreateNewUser}>Create</MTButton></div>
+                <div><MTButton className="createEle" onClick={CreateModal}>Create</MTButton></div>
             </div>
             <MTModal
                 visible={newUser}
                 title="New User"
                 onOk={form.submit}
-                onCancel={createUser}
+                onCancel={onCancel}
                 closable={true}
                 maskClosable={false}
                 footer={[
@@ -109,11 +154,12 @@ export const User = () => {
                 <Form layout="inline" validateMessages={validateMessages} id="userform" form={form} onFinish={createUser}>
                     <div className="inputs-inline">
                         <div className="label">First Name</div>
-                        <Form.Item name={['user', 'firstname']} rules={[{ required: true, message: 'Please input First Name!' }]} >
+                        <Form.Item name="firstname" rules={[{ required: true, message: 'Please input First Name!' }]} >
                             <Input
                                 name="firstname"
                                 type="text"
                                 placeholder="Enter First Name"
+                                onChange={e => setFirstName(e.target.value)}
                             />
                         </Form.Item>
                     </div>
@@ -124,6 +170,7 @@ export const User = () => {
                                 name="lastname"
                                 type="text"
                                 placeholder="Enter Last Name"
+                                onChange={e => setLastName(e.target.value)}
                             />
                         </Form.Item>
                     </div>
@@ -134,6 +181,7 @@ export const User = () => {
                                 name="email"
                                 type="text"
                                 placeholder="Enter Email Address"
+                                onChange={e => setEmail(e.target.value)}
                             />
                         </Form.Item>
                     </div>
@@ -143,37 +191,58 @@ export const User = () => {
                             <Input
                                 name="number"
                                 placeholder="Enter Contect No"
-                                onChange={(e) => change(e)}
+                                onChange={e => setContact(e.target.value)}
                             />
                         </Form.Item>
                     </div>
                     <div className="inputs-inline">
                         <div className="label">Designation</div>
-                        <Form.Item rules={[{ required: true, message: 'Please Select Any Option!' }]} >
-                            <Select defaultValue={Designation[0]} >
-                                {Designation.map(province => (
-                                    <Option key={province}>{province}</Option>
-                                ))}
+                        <Form.Item name={['select', 'designation']} rules={[{ required: true, message: 'Please Select Any Option!' }]} >
+                            <Select onChange={designationChange} placeholder="Select designation">
+                                <Option value="Graphic Designer">Graphic Designer</Option>
+                                <Option value="Web Devloper">Web Devloper</Option>
                             </Select>
                         </Form.Item>
                     </div>
                     <div className="inputs-inline">
                         <div className="label">Blood Group</div>
-                        <Form.Item rules={[{ required: true, message: 'Please Select Any Option!' }]} >
-                            <Select defaultValue={bloodGroup[0]}>
-                                {bloodGroup.map(city => (
-                                    <Option key={city}>{city}</Option>
-                                ))}
+                        <Form.Item name={['select', 'bloodgroup']} rules={[{ required: true, message: 'Please Select Any Option!' }]} >
+                            <Select onChange={blood} placeholder="Select bloodgroup">
+                                <Option value="A">A</Option>
+                                <Option value="A+">A+</Option>
+                                <Option value="AB">AB</Option>
                             </Select>
                         </Form.Item>
                     </div>
-                    <div className="inputs" style={{ padding: "14px 10px 0px 13px" }}>
+                    <div className="inputs-inline" style={{ padding: "14px 10px 0px 13px" }}>
                         <div className="label">Gender</div>
                         <Form.Item name="radio-button" rules={[{ required: true, message: 'Please pick an item!' }]} >
-                            <Radio.Group>
-                                <Radio value="a" style={{ padding: "5px" }}>Male</Radio>
-                                <Radio value="b" style={{ padding: "5px" }}>female</Radio>
+                            <Radio.Group onChange={e => setGender(e.target.value)}>
+                                <Radio value="Male" style={{ padding: "5px" }}>Male</Radio>
+                                <Radio value="female" style={{ padding: "5px" }}>female</Radio>
                             </Radio.Group>
+                        </Form.Item>
+                    </div>
+                    <div className="inputs-inline" style={{ padding: "14px 10px 0px 13px" }}>
+                        <div className="label">Username</div>
+                        <Form.Item name={['user', 'username']} rules={[{ required: true, message: 'Please input Username!' }]} >
+                            <Input
+                                name="username"
+                                type="text"
+                                placeholder="Enter User Name"
+                                onChange={e => setUsername(e.target.value)}
+                            />
+                        </Form.Item>
+                    </div>
+                    <div className="inputs" style={{ padding: "0px 0px 0px 9px" }}>
+                        <div className="label">Address<sup>*</sup></div>
+                        <Form.Item name="address" rules={[{ required: true, message: 'Please input your Address!' }]}                        >
+                            <Input
+                                className="username"
+                                placeholder="Address"
+                                onChange={e => setAddress(e.target.value)}
+                                name="newpassword"
+                            />
                         </Form.Item>
                     </div>
                     <div className="inputs-inline">
@@ -189,7 +258,7 @@ export const User = () => {
                             <Input.Password
                                 className="username"
                                 placeholder="password"
-                                onChange={(e) => change(e)}
+                                onChange={e => setPassword(e.target.value)}
                                 type="password"
                                 name="newpassword"
                             />
@@ -199,7 +268,6 @@ export const User = () => {
                         <div className="label">Confirm Password<sup>*</sup></div>
                         <Form.Item
                             name="confirm"
-
                             dependencies={['password']}
                             hasFeedback
                             rules={[
@@ -220,7 +288,7 @@ export const User = () => {
                             <Input.Password
                                 placeholder="confirm password"
                                 className="username"
-                                onChange={(e) => change(e)}
+                                onChange={e => setConfirmPassword(e.target.value)}
                                 type="password"
                                 name="confirmpassword"
                             />
@@ -230,11 +298,11 @@ export const User = () => {
             </MTModal>
             <div className="tableContent">
                 <Table
+                    sticky
                     pagination={{ pageSize: 12 }}
                     columns={columns}
-                    dataSource={user.userdata.table}
+                    dataSource={user.table.table}
                     scroll={{ y: 'calc(77.5vh - 4em)' }}
-                    sticky 
                 />
             </div>
         </UserStyle>

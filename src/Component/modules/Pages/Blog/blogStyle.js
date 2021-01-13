@@ -144,10 +144,18 @@ const BlogStyle = styled.div`
             }
         }
     }   
+    @media only screen and (max-width: 1400px) {
+        .cardcontent{
+            .card{
+                width: 24rem;
+                margin: 15px;
+            }
+        }
+    }
     @media only screen and (max-width: 1366px) {
         .cardcontent{
             .card{
-                width: 22.8rem;
+                width: 17rem;
                 margin: 15px;
             }
         }

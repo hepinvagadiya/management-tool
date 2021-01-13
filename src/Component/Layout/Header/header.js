@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { HeaderStyle } from './headerStyle';
 import { PageHeader } from 'antd';
 import Logo from '../../../core/images/logo.svg'
-import Cookies from 'js-cookie';
-
 
 class Topbar extends Component {
     constructor(props) {
@@ -12,8 +10,7 @@ class Topbar extends Component {
         };
     }
     logout = () => {
-        console.log("object")
-        Cookies.remove('mainData')
+        localStorage.clear()
         window.location.replace("/");
     }
     render() {

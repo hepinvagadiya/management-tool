@@ -1,4 +1,5 @@
 import Icons from '../../Component/modules/component/Icons/icons';
+
 export const columns = [
     {
         "title": "User Name",
@@ -33,3 +34,45 @@ export const columns = [
         ),
     }
 ];
+
+export const sideBar = [
+    {
+        "SideMenu": [
+            {
+                key: 1,
+                uniquekey: "users",
+                name: "Users",
+                iconName: "usersMenu",
+                routingPath: "/users",
+            },
+            {
+                key: 2,
+                uniquekey: "userGroups",
+                name: "User Groups",
+                iconName: "groupsMenu",
+                routingPath: "/groups"
+            },
+            {
+                key: 3,
+                uniquekey: "blog",
+                name: "Blog",
+                iconName: "blogMenu",
+                routingPath: "/blog"
+            },
+            {
+                key: 4,
+                uniquekey: "chatroom",
+                name: "Chatroom",
+                iconName: "chatroomMenu",
+                routingPath: "/chatroom"
+            },
+            {
+                key: 5,
+                uniquekey: "taskmanagement",
+                name: "Task Management",
+                iconName: "taskmanagementMenu",
+                routingPath: "/taskmanagement"
+            },
+        ]
+    }
+]

@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SignInWrapper from './SigninStyle';
 import Logo from '../../../../core/images/logo.svg';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { MTButton } from '../../component/MTForm';
-import { Form, Input } from 'antd';
+import { Form, Input, message } from 'antd';
 import { Authentication } from '../../../../core/Redux/auth/authAction';
 
 export const SignIn = () => {
     const dispatch = useDispatch()
+    let user = useSelector(state => state)
     const [username, setUsername] = React.useState();
     const [password, setPassword] = React.useState();
+    const key = 'updatable';
 
     React.useEffect(() => {
         dispatch(Authentication())
@@ -18,8 +20,12 @@ export const SignIn = () => {
 
     const submit = () => {
         dispatch(Authentication(username, password))
-    }
+        message.loading({ content: 'Verifying User...', key });
+        setTimeout(() => {
+            if (user.auth.auth.status === false) { message.error({ content: user.auth.auth.message, key, duration: 2 }) } else { message.success({ content: user.auth.auth.message, key, duration: 2 }) }
+        }, 1000);
 
+    }
     return (
         <SignInWrapper >
             <div className="signinContent">
@@ -67,10 +73,10 @@ export const SignIn = () => {
                                     />
                                 </Form.Item>
                             </div>
-
                             <Link to={'/ForgetPassword'} >
                                 <div className="forgetpw">Forgot password?</div>
                             </Link>
+                            {/* {submitErr === true && <span style={{ fontSize: "12px", color: "rgb(255 0 0)" }}>{user.auth.auth.message}</span>} */}
                             <div className="submitContent">
                                 <MTButton className="submit" htmlType="submit">Login now</MTButton>
                             </div>

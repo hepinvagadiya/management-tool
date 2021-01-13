@@ -1,68 +1,63 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Logo from '../../../../../core/images/logo.svg'
 import { MTButton } from '../../../component/MTForm';
 import OtpStyle from "./OtpStyle";
 import { Form, Input } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetOtp } from '../../../../../core/Redux/auth/authAction';
 
-class Otp extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            submit: false,
-            allFields: [{ otp: "" }],
-        };
+export const Otp = () => {
+    const dispatch = useDispatch()
+    const [otp, setOtp] = React.useState();
+    let user = useSelector(state => state)
+    const [submitErr, setSubmit] = useState(false);
+
+    React.useEffect(() => {
+        dispatch(GetOtp())
+    }, [dispatch])
+
+    const submit = () => {
+        dispatch(GetOtp(otp))
+        setSubmit(true)
     }
-    change = (e) => {
-        const { allFields } = this.state
-        const { name, value } = e.target;
-        allFields[0][name] = value;
-        this.setState({ allFields });
-    }
-    submit = () => {
-        const { allFields } = this.state
-        if (allFields[0].otp !== "") {
-            window.location.replace('/NewPassword')
+    const validateMessages = {
+        required: 'Otp is required!',
+    };
+    const checkPrice = () => {
+        if (otp > 9999 && otp < 999999) {
+            return Promise.resolve();
         }
-    }
-    render() {
-        const { allFields } = this.state
-        const validateMessages = {
-            required: 'Otp is required!',
-        };
-        const checkPrice = () => {
-            if (allFields[0].otp > 99999 && allFields[0].otp < 999999) {
-                return Promise.resolve();
-            }
-            return Promise.reject('Otp must be in 6 digits!');
-        };
-        return (
-            <OtpStyle>
-                <div className="signinContent">
-                    <div className="leftContainer">
-                        <img className="logo" src={Logo} alt="dsff"></img>
-                        <div className="login">Verify OTP</div>
-                        <div className="welcome">Enter 6 digit OTP received via mail.</div>
-                        <Form onFinish={this.submit} requiredMark={"requiredMark"} validateMessages={validateMessages}>
-                            <div className="inputs">
-                                <div className="label">OTP<sup>*</sup></div>
-                                <Form.Item name={['user', 'number']} rules={[{ validator: checkPrice, required: true, }]}>
-                                    <Input
-                                        className="username"
-                                        name="otp"
-                                        placeholder="Enter otp"
-                                        onChange={(e) => this.change(e)}
-                                    />
-                                </Form.Item>
-                            </div>
-                            <div className="submitContent" >
-                                <MTButton className="submit" htmlType="submit">Verify OTP</MTButton>
-                            </div>
-                        </Form>
-                    </div>
+        return Promise.reject('Otp must be in 6 digits!');
+    };
+    return (
+        <OtpStyle>
+            <div className="signinContent">
+                <div className="leftContainer">
+                    <img className="logo" src={Logo} alt="dsff"></img>
+                    <div className="login">Verify OTP</div>
+                    <div className="welcome">Enter 6 digit OTP received via mail.</div>
+                    <Form onFinish={submit} requiredMark={"requiredMark"} validateMessages={validateMessages}>
+                        <div className="inputs">
+                            <div className="label">OTP<sup>*</sup></div>
+                            <Form.Item name={['user', 'number']} rules={[{ validator: checkPrice, required: true, }]}>
+                                <Input
+                                    className="username"
+                                    name="otp"
+                                    type="number"
+                                    placeholder="Enter otp"
+                                    onChange={e => setOtp(e.target.value)}
+                                />
+                            </Form.Item>
+                        </div>
+                        {submitErr === true && <span style={{ fontSize: "12px", color: "rgb(255 0 0)" }}>{user.otp.otp.message}</span>}
+                        <div className="submitContent" >
+                            <MTButton className="submit" htmlType="submit">Verify OTP</MTButton>
+                        </div>
+                    </Form>
                 </div>
-            </OtpStyle >
-        );
-    }
+            </div>
+        </OtpStyle >
+    );
 }
 
 export default Otp;
