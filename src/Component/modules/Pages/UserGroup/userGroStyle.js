@@ -59,11 +59,6 @@ const UserGroStyle = styled.div`
     .ant-table-tbody > tr.ant-table-row:hover > td {
         background: transparent;
      }
-    .ant-checkbox-inner {
-        background-color: transparent;
-        border-color: #029891;
-    }
-           
     .ant-pagination-item-link {
         background-color: #191818;
         border: none;
@@ -131,7 +126,6 @@ const UserGroStyle = styled.div`
         }
     }
     .usergrContent{
-        padding: 10px;
         max-height: 80vh;
         overflow: auto;
         justify-content: space-around;

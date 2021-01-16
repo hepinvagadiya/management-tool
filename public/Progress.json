@@ -1,0 +1,42 @@
+[
+    {
+        "subject": "Task 1 Previous",
+        "statusText": "In progress",
+        "dueDate": "14 January 2021",
+        "statusPercentage": 90,
+        "taskToken": "task-1",
+        "assignedTo": "John Deo",
+        "verifiedBy": "John Smith",
+        "priority": "Normal"
+    },
+    {
+        "subject": "Task 1 Previous",
+        "statusText": "In Progress",
+        "dueDate": "14 January 2021",
+        "statusPercentage": 50,
+        "taskToken": "task-1",
+        "assignedTo": "John Deo",
+        "verifiedBy": "John Smith",
+        "priority": "Normal"
+    },
+    {
+        "subject": "Task 1 Previous",
+        "statusText": "Waiting on someone else",
+        "dueDate": "14 January 2021",
+        "statusPercentage": 35,
+        "taskToken": "task-1",
+        "assignedTo": "John Deo",
+        "verifiedBy": "John Smith",
+        "priority": "Normal"
+    },
+    {
+        "subject": "Task 1 Previous",
+        "statusText": "Waiting on someone else",
+        "dueDate": "14 January 2021",
+        "statusPercentage": 0,
+        "taskToken": "task-1",
+        "assignedTo": "John Deo",
+        "verifiedBy": "John Smith",
+        "priority": "Normal"
+    }
+]

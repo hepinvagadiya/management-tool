@@ -21,24 +21,12 @@ export const UserData = () => {
     };
 };
 
-export const Registration = (firstName, lastName, email, username, contact, designation, BloodGroup, gender, address, password, confirmPassword) => {
+export const Registration = (data) => {
     return async (dispatch) => {
         return axios({
             method: 'post',
             url: `${url}/user/create`,
-            data: {
-                "firstName": firstName,
-                "lastName": lastName,
-                "email": email,
-                "username": username,
-                "contact": contact,
-                "designation": designation,
-                "bloodGroup": BloodGroup,
-                "gender": gender,
-                "address": address,
-                "password": password,
-                "confirmPassword": confirmPassword,
-            },
+            data: data,
         }).then(response => {
             console.log(response, "Registration response")
             dispatch({
@@ -78,9 +66,9 @@ export const FindUser = (record) => {
             method: 'get',
             url: `${url}/user/findByToken/${record}`,
         }).then(response => {
-            console.log(response.data.data, "FindUser response")
+            console.log(response.data, "FindUser response");
             dispatch({
-                type: 'FIND_USER',
+                type: 'FIND_USER_DATA',
                 payload: response.data
             })
         })

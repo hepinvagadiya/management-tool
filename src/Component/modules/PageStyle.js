@@ -26,7 +26,7 @@ aside{
 //Footer
 .ant-layout-footer {
     padding:0;
-    padding-left: 45%;
+    padding-left: 47%;
     color: ${props=>props.theme.headColor};
     font-size: 12px;
     background: ${props=>props.theme.header.background};
