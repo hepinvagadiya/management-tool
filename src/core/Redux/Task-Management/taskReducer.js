@@ -12,6 +12,11 @@ export default (state = initState, action) => {
                 TodoList: [...state.TodoList],
                 ProgressList: action.payload,
             }
+            // case 'COMPLETE_DATA':
+            //     state = {
+            //         TodoList: [...state.TodoList],
+            //         CompleteList: action.payload,
+            //     }
     }
     return state;
 };  

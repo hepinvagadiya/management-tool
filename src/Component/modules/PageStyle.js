@@ -17,16 +17,17 @@ const PageStyle = styled.div`
 aside{
     background: ${props=>props.theme.sidebar.background};
     width: 200px !important;
+    margin: 10px 0px 0px 5px;
     flex: 0 0 56px !important;
     max-width: 100px !important;
     min-width: 64px !important;
-    margin: 5px;
+    height: calc(91vh - 5px);
 } 
 
 //Footer
 .ant-layout-footer {
     padding:0;
-    padding-left: 47%;
+    text-align: center;
     color: ${props=>props.theme.headColor};
     font-size: 12px;
     background: ${props=>props.theme.header.background};

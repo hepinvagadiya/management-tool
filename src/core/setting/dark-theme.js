@@ -12,7 +12,7 @@ const dark = {
     },
 
     sidebar: {
-        background: "rgb(27 22 22 / 13%)"
+        background: "rgba(27, 22, 22, 0.13)"
     },
 
     header: {

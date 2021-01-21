@@ -29,14 +29,14 @@ export const Blog = () => {
 
     const props1 = {
         fileList,
-        beforeUpload: file => {
-            if (file.type !== 'image/png') {
-                message.error(`${file.name} is not a png file`);
-            }
-            return file.type === 'image/png';
-        },
         onChange: info => {
-            updateFileList(info.fileList.filter(file => !!file.status));
+            // info.fileList[1].status = "success"
+            info.file.status = 'done'
+            info.file.response = null
+            console.log(info, "info")
+            if (info.fileList.length === 2) {
+                updateFileList(info.fileList.pop(info.fileList[1]));
+            }
         },
         showUploadList: {
             showRemoveIcon: true,
@@ -50,6 +50,7 @@ export const Blog = () => {
         },
     }
     const onCancel = () => {
+        form.resetFields();
         document.body.classList.add('ReactModal__Body--before-close')
         setDelete(false);
         setView(false);
@@ -108,8 +109,7 @@ export const Blog = () => {
                 <div className="cardcontent">
                     {blogs.data.blogs === undefined ? null : blogs.data.blogs.map((menu, index) => (
                         <Card key={index} className="card" cover={<img src={coverImg} alt="cardimg" onClick={ViewPostModal} />}>
-                            <Meta
-                                title={new String(menu.title).length > 32 ? <Tooltip placement="bottom" title={menu.title}>{menu.title}</Tooltip> : menu.title}
+                            <Meta title={new String(menu.title).length > 32 ? <Tooltip placement="bottom" title={menu.title}>{menu.title}</Tooltip> : menu.title}
                                 description={
                                     <span>
                                         {menu.createdTime}<br></br>
@@ -190,7 +190,7 @@ export const Blog = () => {
                         ]}
                     >
                         <div className="newPostContent">
-                            <Form form={form} onFinish={createEle} id="create">
+                            <Form form={form} layout="inline" onFinish={createEle} id="create">
                                 <div className="inputs">
                                     <div className="label">Post Title</div>
                                     <Form.Item name={['user', 'name']} rules={[{ required: true, message: 'Please input Post Title!' }]} >
@@ -207,10 +207,9 @@ export const Blog = () => {
                                         name="upload"
                                         valuePropName="fileList"
                                         getValueFromEvent={normFile}
-                                        name="upload"
                                         rules={[{ required: true, message: 'Please Attech PNG file!' }]}
                                     >
-                                        <Upload accept='.png' {...props1} className="upload-list-inline">
+                                        <Upload  accept='.png' {...props1}  className="upload-list-inline">
                                             <MTButton className="select">Select</MTButton>
                                         </Upload>
                                     </Form.Item>
@@ -226,7 +225,7 @@ export const Blog = () => {
                                 </div>
                                 <div className="inputs">
                                     <div className="label">Attechments</div>
-                                    <Form.Item name="upload" rules={[{ required: true, message: 'Please Attech any file !' }]} >
+                                    <Form.Item name="upload-local" rules={[{ required: true, message: 'Please Attech any file !' }]} >
                                         <Upload {...localFiles} className="upload-list-inline local">
                                             <MTButton className="select">Select</MTButton>
                                         </Upload>

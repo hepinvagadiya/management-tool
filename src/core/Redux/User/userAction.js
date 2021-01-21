@@ -2,6 +2,8 @@ import store from '../store'
 import axios from 'axios';
 
 var url = 'http://10.1.1.144:8081'
+// var url = 'http://10.1.1.150:8080'
+// var url = 'http://10.1.1.20:8085'
 
 export const UserData = () => {
     return async (dispatch) => {
@@ -9,15 +11,14 @@ export const UserData = () => {
             method: 'get',
             url: `${url}/user/listAll`,
         }).then(response => {
-            console.log(response, 'userDetail response')
+            console.log(response, 'userDetail')
             dispatch({
                 type: 'GET_USER_DATA',
                 payload: response.data
             })
-        })
-            .catch((error) => {
-                console.log(error, "error")
-            });
+        }).catch((error) => {
+            console.log(error, "error")
+        });
     };
 };
 
@@ -28,15 +29,14 @@ export const Registration = (data) => {
             url: `${url}/user/create`,
             data: data,
         }).then(response => {
-            console.log(response, "Registration response")
+            console.log(response, "Registration")
             dispatch({
                 type: 'USER_REGISTRATION',
                 payload: response.data
             })
-        })
-            .catch((error) => {
-                console.log(error, "error")
-            });
+        }).catch((error) => {
+            console.log(error, "error")
+        });
     };
 };
 
@@ -52,11 +52,10 @@ export const DeleteUser = (record) => {
                 type: 'DELETE_USER',
                 payload: maindata
             })
-            console.log(response, "DeleteUser response")
-        })
-            .catch((error) => {
-                console.log(error, "error")
-            });
+            console.log(response, "DeleteUser")
+        }).catch((error) => {
+            console.log(error, "error")
+        });
     };
 };
 
@@ -66,14 +65,32 @@ export const FindUser = (record) => {
             method: 'get',
             url: `${url}/user/findByToken/${record}`,
         }).then(response => {
-            console.log(response.data, "FindUser response");
+            console.log(response.data, "FindUser");
             dispatch({
                 type: 'FIND_USER_DATA',
-                payload: response.data
+                payload: response
             })
-        })
-            .catch((error) => {
-                console.log(error, "error")
-            });
+        }).catch((error) => {
+            console.log(error, "error")
+        });
+    };
+};
+
+export const Update = (data, token, index) => {
+    return async (dispatch) => {
+        return axios({
+            method: 'put',
+            url: `${url}/user/update/${token}`,
+            data: data,
+        }).then(response => {
+            console.log(response, "Update")
+            dispatch({
+                type: 'USER_UPDATE',
+                payload: response.data,
+                index: index
+            })
+        }).catch((error) => {
+            console.log(error, "error")
+        });
     };
 };

@@ -4,87 +4,123 @@ import { MTButton } from '../../component/MTForm';
 import { Table } from 'antd';
 import MTModal from '../../component/MTmodel/modal';
 import { Button, Form, Input, Radio, } from 'antd';
-import { UserGroupData, GetUser, Registration } from '../../../../core/Redux/UserGroup/userGroupAction';
+import { UserGroupData, GetUserData, Registration, DeleteUserGroup, FindUserGroup, UpdateGroup } from '../../../../core/Redux/UserGroup/userGroupAction';
 import { useDispatch, useSelector } from 'react-redux';
 import Icons from '../../../modules/component/Icons/icons'
 
 import { Select } from 'antd';
 
 export const UserGroup = () => {
-    const [createUserGro, setCreateUserGro] = useState(false);
+    const user = useSelector(state => state)
     const [form] = Form.useForm();
     const { Option } = Select;
     const dispatch = useDispatch()
-    const user = useSelector(state => state).groupTable
+    const [loading, setLoading] = useState(false);
+    const [createUserGro, setCreateUserGro] = useState(false);
     const [delet, setDelete] = useState(false);
+    const [editUserGr, setEditUserGr] = useState(false);
+    const [editToken, setEdittoken] = useState("")
     const [title, setTitle] = useState("");
+    const [gettoken, setToken] = useState("");
+    const [select, selectIndex] = useState("")
 
     useEffect(() => {
         dispatch(UserGroupData())
-        dispatch(GetUser())
     }, [dispatch])
 
-    console.log(user.findUserGroup, 'user')
+    useEffect(() => {
+            if (user.groupTable.status === true) {
+            setCreateUserGro(false)
+            setLoading(false);
+            form.resetFields();
+        }
+        if (user.groupTable.editStatus === true) { form.resetFields(); setLoading(false); setEditUserGr(false) }
+        if (user.groupTable.findStatus) {
+            setEdittoken(user.groupTable.findUserGroup.data.token)
+            form.setFieldsValue(user.groupTable.findUserGroup.data);
+            if (user.groupTable.findStatus === true) { setEditUserGr(true) }
+        }
+    }, [user.groupTable.status, user.groupTable.findUserGroup, user.groupTable.editStatus])
+
     const columns = [
         {
             "title": "Group Name",
             "dataIndex": "groupName",
             "key": "groupName",
             "width": '30%',
+            "ellipsis": true,
+            sorter: (a, b) => a.groupName.length - b.groupName.length,
         },
         {
             "title": "Group Type",
             "dataIndex": "groupType",
             "key": "groupType",
             "width": '30%',
+            "ellipsis": true,
         },
         {
             "title": "Group Users",
             "dataIndex": "groupUsers",
             "key": "groupUsers",
             "width": '30%',
+            "ellipsis": true,
         },
-
         {
             "title": "Action",
             "dataIndex": "action",
             "key": "action",
-            render: (text, record) => (
+            "ellipsis": true,
+            render: (text, record, index) => (
                 <span>
-                    <span>
+                    <span onClick={() => selectRow(record.token, index)}>
                         <Icons type="post_edit" />
                     </span>
-                    <span onClick={() => deleteTableRow(record.groupName)}>
+                    <span onClick={() => deleteTableRow(record.groupName, record.token)}>
                         <Icons type="post_delete" />
                     </span>
                 </span>
             ),
         },
-
     ];
 
-    const onCancel = () => {
-        document.body.classList.add('ReactModal__Body--before-close')
-        setDelete(false);
-    }
     const CreatePostModal = () => {
+        dispatch(GetUserData())
         document.body.classList.remove('ReactModal__Body--before-close')
         document.body.classList.add('ReactModal__Body--open')
         setCreateUserGro(true)
     };
     const createGroup = (value) => {
-        console.log(value, "value")
         document.body.classList.add('ReactModal__Body--before-close')
-        setCreateUserGro(false)
         dispatch(Registration(value))
+        form.resetFields();
+        setLoading(true);
     };
-    const deleteTableRow = (title) => {
+    const deleteTableRow = (title, token) => {
         setDelete(true);
         setTitle(title);
+        setToken(token)
     }
     const deleteOk = () => {
         document.body.classList.add('ReactModal__Body--before-close')
+        dispatch(DeleteUserGroup(gettoken))
         setDelete(false);
+    }
+    const selectRow = (record, token) => {
+        dispatch(FindUserGroup(record))
+        selectIndex(token);
+    }
+    const editUserGrModal = (value) => {
+        document.body.classList.add('ReactModal__Body--before-close')
+        dispatch(UpdateGroup(value, editToken, select))
+        setLoading(true);
+    }
+    const onCancel = () => {
+        form.resetFields();
+        document.body.classList.add('ReactModal__Body--before-close')
+        setDelete(false);
+        setCreateUserGro(false)
+        setLoading(false);
+        setEditUserGr(false)
     }
 
     return (
@@ -110,22 +146,21 @@ export const UserGroup = () => {
                     <Icons type="groupsMenu" /> <span className="title">{title}</span>
                 </MTModal>
                 <MTModal
-                    visible={createUserGro}
-                    title="User Group"
+                    visible={editUserGr === true ? editUserGr : createUserGro}
+                    title={createUserGro === true ? 'User Group' : 'Edit UserGroup'}
                     onOk={form.submit}
-                    onCancel={createGroup}
+                    onCancel={onCancel}
                     closable={true}
                     maskClosable={false}
                     footer={[
-                        <Button key="submit" htmlType="submit" form="formgroup" className="deleteEle">Save</Button>,
+                        <Button key="submit" htmlType="submit" form="formgroup" loading={loading} className="deleteEle">Save</Button>,
                     ]}
                 >
-                    <Form id="formgroup" form={form} onFinish={createGroup}>
+                    <Form layout="inline" id="formgroup" form={form} onFinish={editUserGr === true ? editUserGrModal : createGroup} >
                         <div className="inputs">
                             <div className="label">Group Name</div>
                             <Form.Item name="groupName" rules={[{ required: true, message: 'Please input Post Title!' }]} >
                                 <Input
-                                    name="email"
                                     type="text"
                                     placeholder="Enter Group Name"
                                 />
@@ -135,8 +170,8 @@ export const UserGroup = () => {
                             <div className="label">Group Type</div>
                             <Form.Item name="groupType" rules={[{ required: true, message: 'Please pick an item!' }]} >
                                 <Radio.Group>
-                                    <Radio value="a" style={{ padding: "5px" }}>Public(Readable to user outside group)</Radio>
-                                    <Radio value="b" style={{ padding: "5px" }}>Private (Accessible to Group Users Only)</Radio>
+                                    <Radio value="Public" style={{ padding: "5px" }}>Public(Readable to user outside group)</Radio>
+                                    <Radio value="Private" style={{ padding: "5px" }}>Private (Accessible to Group Users Only)</Radio>
                                 </Radio.Group>
                             </Form.Item>
                         </div>
@@ -144,7 +179,9 @@ export const UserGroup = () => {
                             <div className="label">Group Type</div>
                             <Form.Item name="groupUsers" rules={[{ required: true, message: 'Please input Post Title!' }]} >
                                 <Select mode="multiple" style={{ width: '100%' }} placeholder="Select Any Group">
-                                    
+                                    {user.groupTable.getAllUser === undefined ? null : user.groupTable.getAllUser.map((menu, index) => (
+                                        <Option key={index} value={menu.value}>{menu.label}</Option>
+                                    ))}
                                 </Select>
                             </Form.Item>
                         </div>
@@ -155,7 +192,7 @@ export const UserGroup = () => {
                         sticky
                         pagination={{ pageSize: 12 }}
                         columns={columns}
-                        dataSource={user.groupTable}
+                        dataSource={user.groupTable.groupTable}
                         scroll={{ y: 'calc(77.5vh - 4em)' }}
                     />
                 </div>

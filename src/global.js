@@ -26,7 +26,85 @@ html, body {
 .ant-tooltip-arrow-content {
   background-color: rgb(30 28 28);
 }
+// ant-select-selector
+.ant-select-selector{
+  background-color: red;
+}
+// table //
+.ant-table {
+  background-color: #222222;
+  color: darkgray;
+  max-height: 77vh;
 
+  td.ant-table-column-sort {
+    background: #191818;
+  }
+  .ant-table-tbody{
+    background-color: #191818;
+    .ant-empty-normal {
+      color: rgb(66 159 228);
+      margin: 32px 0;
+      background-color: #191818;
+    }
+  }
+  .ant-table-thead > tr > th {
+    background: #121212;
+    color: darkgray;
+    white-space: nowrap;
+    border-bottom: 1px solid #429fe45e;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    &:hover{
+      background-color: #121212;
+    }
+  }
+  .ant-table-cell-scrollbar {
+    box-shadow: 0 1px 0 1px #121212;
+  }
+  .ant-table-tbody > tr > td {
+    white-space: nowrap;
+    border-bottom: 1px solid #2b2b2b;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    &:hover{
+      background-color: #191818;
+    }
+  }
+  .ant-table-tbody > tr.ant-table-row-selected > td {
+    background: #12181c;
+  }
+  .ant-table-tbody > tr.ant-table-row:hover > td {
+    background: transparent;
+  }
+}
+.ant-pagination-item-link {
+  background-color: #191818;
+  border: none;
+}
+.ant-pagination-item-active {
+  font-weight: 500;
+  background: #121212 !important;
+  border: none;
+}
+.ant-pagination-item {
+  background-color: #191818;
+  border: none;
+  a{
+    color: darkgray;
+  }
+}
+.ant-pagination{
+  .ant-pagination-item-link {
+    background-color: #191818;
+    color: rgb(2 152 129);
+    border: none;
+  }
+}
+.ant-pagination-disabled:hover .ant-pagination-item-link, .ant-pagination-disabled:focus .ant-pagination-item-link {
+  color: #52c41a;
+  border-color: #faad144d;
+  cursor: not-allowed;
+}
 .ant-form-item-has-feedback.ant-form-item-has-success .ant-form-item-children-icon, .ant-form-item-has-feedback.ant-form-item-has-warning .ant-form-item-children-icon, .ant-form-item-has-feedback.ant-form-item-has-error .ant-form-item-children-icon, .ant-form-item-has-feedback.ant-form-item-is-validating .ant-form-item-children-icon {
   right: -24px;
   top: 52%;
@@ -41,6 +119,7 @@ html, body {
 //Modal// 
 .ant-modal-content{
   background-color: #292A2B;
+  
   
   .ant-modal-close-x {
     color: #9EA4A9;
@@ -70,7 +149,12 @@ html, body {
       line-height: 1.5715;
       color: white;
       word-wrap: break-word;
-
+      
+      .ant-select-item-empty{
+        .ant-empty-normal {
+          color: rgb(66 159 228);
+        }
+      }
       .warning{
         font-size: 13px;
         color: #ffffff;
@@ -169,10 +253,32 @@ html, body {
   
   .inputs{
     width: 96%;
+    padding: 6px 10px 0px 13px;
+    .ant-form-item-explain, .ant-form-item-extra {
+      clear: both;
+      position: absolute;
+      min-height: 0px;
+      padding-top: 0px;
+      color: #ff4d4f;
+      font-size: 14px;
+    }
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+     margin: 0;
   }
     .inputs-inline {
       width: 45%;
-      padding: 14px 10px 0px 13px;
+      padding: 6px 10px 0px 13px;
+
+      .ant-form-item-explain, .ant-form-item-extra {
+        position: absolute;
+        min-height: 0px;
+        padding-top: 0px;
+        color: #ff4d4f;
+        font-size: 14px;
+      }
     }
     .ant-form-inline .ant-form-item-with-help {
       margin-bottom: 0px;
@@ -256,7 +362,10 @@ html, body {
       padding: 0 4px;
       margin: -3px 0px 0px 20px;
       background-color: #222222;
-      border-radius:8px;
+      border-radius: 8px;
+      &:hover{
+        background-color: #222222;
+      }
       
       .ant-form-item-control-input-content {
         flex: none;
@@ -282,12 +391,21 @@ html, body {
       background-color: #222222;
       border-radius: 2px;
       border: 1px solid #e8e8e82b; 
-      color: ${props => props.theme.color};
+      color: ${props => props.theme.color}; 
     }
     .ant-select-multiple .ant-select-selection-item {
       background: #292A2B;
       border: none;
       border-radius: 8px;
+      .ant-select-selection-item-remove{
+        .anticon-close{
+          svg{
+            path{
+              fill: #ffffff;
+            }
+          }
+        }
+      }
     }
     .ant-select-arrow {
       right: -9px;

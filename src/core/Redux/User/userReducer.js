@@ -12,7 +12,8 @@ export default (state = initState, action) => {
         case 'USER_REGISTRATION':
             return (
                 state = {
-                    table: [...state.table, action.payload.data]
+                    table: [...state.table, action.payload.data],
+                    status: action.payload.status,
                 }
             )
         case 'DELETE_USER':
@@ -25,7 +26,17 @@ export default (state = initState, action) => {
             return (
                 state = {
                     table: [...state.table],
-                    findUser: action.payload.data
+                    findUser: action.payload.data,
+                    findStatus: action.payload.status
+                }
+            )
+        case 'USER_UPDATE':
+            const maintable = [...state.table].slice();
+            maintable[action.index] = action.payload.data
+            return (
+                state = {
+                    table: maintable,
+                    editStatus: action.payload.status,
                 }
             )
     }

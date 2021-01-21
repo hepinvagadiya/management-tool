@@ -36,7 +36,8 @@ const BlogStyle = styled.div`
             background-color: ${props => props.theme.body.blog.cardBgcolor};
             border: none;
             border-radius: 5px;
-            width: 21rem;
+            width: 36vh;
+            min-width: 238px;
             padding: 2px;
             margin: 9px;
 
@@ -96,102 +97,102 @@ const BlogStyle = styled.div`
         }
 
     }
-    @media only screen and (max-height: 700px) {
-        .cardcontent{
-            max-height: 79vh;
-        }
-    }
-    @media only screen and (max-height: 648px) {
-        .cardcontent{
-            max-height: 65vh;
-        }
-    }
-    @media only screen and (max-height: 400px) {
-        .cardcontent{
-            max-height: 60vh;
-        }
-    }
+    // @media only screen and (max-height: 700px) {
+    //     .cardcontent{
+    //         max-height: 79vh;
+    //     }
+    // }
+    // @media only screen and (max-height: 648px) {
+    //     .cardcontent{
+    //         max-height: 65vh;
+    //     }
+    // }
+    // @media only screen and (max-height: 400px) {
+    //     .cardcontent{
+    //         max-height: 60vh;
+    //     }
+    // }
 
-    @media only screen and (max-width: 1915px) {
-        .cardcontent{
-            .card{
-                width: 20rem;
-                margin: 15px;
-            }
-        }
-    }
-    @media only screen and (max-width: 1680px) {
-        .cardcontent{
-            .card{
-                width: 22rem;
-                margin: 15px;
-            }
-        }
-    }
-    @media only screen and (max-width: 1600px) {
-        .cardcontent{
-            .card{
-                width: 20.3rem;
-                margin: 15px;
-            }
-        }
-    }
-    @media only screen and (max-width: 1440px) {
-        .cardcontent{
-            .card{
-                width: 25rem;
-                margin: 15px;
-            }
-        }
-    }   
-    @media only screen and (max-width: 1400px) {
-        .cardcontent{
-            .card{
-                width: 24rem;
-                margin: 15px;
-            }
-        }
-    }
-    @media only screen and (max-width: 1366px) {
-        .cardcontent{
-            .card{
-                width: 17rem;
-                margin: 15px;
-            }
-        }
-    }   
-    @media only screen and (max-width: 1280px) {
-        .cardcontent{
-            .card{
-                width: 21.8rem;
-                margin: 15px;
-            }
-        }
-    }   
-    @media only screen and (max-width: 1152px) {
-        .cardcontent{
-            .card{
-                width: 18.8rem;
-                margin: 15px;
-            }
-        }
-    }
-    @media only screen and (max-width: 1024px) {
-        .cardcontent{
-            .card{
-                width: 16rem;
-                margin: 18px;
-            }
-        }
-    }
-    @media only screen and (max-width: 800px) {
-        .cardcontent{
-            .card{
-                width: 18.5rem;
-                margin: 15px;
-            }
-        }
-    }
+    // @media only screen and (max-width: 1915px) {
+    //     .cardcontent{
+    //         .card{
+    //             width: 20rem;
+    //             margin: 15px;
+    //         }
+    //     }
+    // }
+    // @media only screen and (max-width: 1680px) {
+    //     .cardcontent{
+    //         .card{
+    //             width: 22rem;
+    //             margin: 15px;
+    //         }
+    //     }
+    // }
+    // @media only screen and (max-width: 1600px) {
+    //     .cardcontent{
+    //         .card{
+    //             width: 20.3rem;
+    //             margin: 15px;
+    //         }
+    //     }
+    // }
+    // @media only screen and (max-width: 1440px) {
+    //     .cardcontent{
+    //         .card{
+    //             width: 25rem;
+    //             margin: 15px;
+    //         }
+    //     }
+    // }   
+    // @media only screen and (max-width: 1400px) {
+    //     .cardcontent{
+    //         .card{
+    //             width: 24rem;
+    //             margin: 15px;
+    //         }
+    //     }
+    // }
+    // @media only screen and (max-width: 1366px) {
+    //     .cardcontent{
+    //         .card{
+    //             width: 17rem;
+    //             margin: 15px;
+    //         }
+    //     }
+    // }   
+    // @media only screen and (max-width: 1280px) {
+    //     .cardcontent{
+    //         .card{
+    //             width: 21.8rem;
+    //             margin: 15px;
+    //         }
+    //     }
+    // }   
+    // @media only screen and (max-width: 1152px) {
+    //     .cardcontent{
+    //         .card{
+    //             width: 18.8rem;
+    //             margin: 15px;
+    //         }
+    //     }
+    // }
+    // @media only screen and (max-width: 1024px) {
+    //     .cardcontent{
+    //         .card{
+    //             width: 16rem;
+    //             margin: 18px;
+    //         }
+    //     }
+    // }
+    // @media only screen and (max-width: 800px) {
+    //     .cardcontent{
+    //         .card{
+    //             width: 18.5rem;
+    //             margin: 15px;
+    //         }
+    //     }
+    // }
    
 }
 `;

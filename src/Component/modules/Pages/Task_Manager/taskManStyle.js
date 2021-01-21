@@ -90,7 +90,10 @@ const TaskManStyle = styled.div`
                     padding: 12px 16px 0px 0px;
                 }  
             }
-           
+           .filter{
+            background-color: #429fe4;
+            padding: 5px 11px 5px 13px;
+           }
             .footer{
                 display: flex;
 
@@ -356,6 +359,87 @@ const TaskManStyle = styled.div`
                 .todoFilter{
                     padding: 12px 16px 0px 0px;
                 }  
+            }
+            .footer{
+                display: flex;
+
+                .task-left-Content{
+                    width: 50vw;
+                    position:relative;
+                    .user{
+                        display: flex;
+                        padding-top: 22.2px;
+                        
+                        .username{
+                            font-size: 10px;
+                            font-style: normal;
+                            font-weight: normal;
+                            letter-spacing: 0.65px;
+                            line-height: 16px;
+                            color: #88CDFF;
+                            align-items: center;
+                            position: relative;
+                            left: 7px;
+                        }
+                    }
+                    .user2{
+                        display: flex;
+                        .username{
+                            font-style: normal;
+                            font-size: 10px;
+                            letter-spacing: 0.65px;
+                            font-weight: normal;
+                            color: #88CDFF;
+                            line-height: 20px;
+                            position: relative;
+                            align-items: center;
+                            left: 7px;
+                        }
+                    }
+                }
+                .task-right-Content{   
+                    width: 50vw;
+                    position:relative;  
+                    .normalContent{
+                        text-align-last: right;
+                        .normal{
+                            font-weight: normal;
+                            font-style: normal;
+                            line-height: 12px;
+                            font-size: 10px;
+                            text-align: right;
+                            align-items: center;
+                            color: #E5E5E5;
+                            letter-spacing: 0.65px;
+                        }
+                    }
+                    .workProgress{
+                        text-align-last: right;
+                        .workDetails{
+                            font-style: normal;
+                            font-size: 10px;
+                            font-weight: normal;
+                            line-height: 12px;
+                            text-align: right;
+                            align-items: center;
+                            letter-spacing: 0.65px;
+                            color: #88CDFF;
+                        }
+                    }
+                    .calender{
+                        text-align-last: right;
+                        .Date{
+                            font-style: normal;
+                            font-size: 10px;
+                            font-weight: normal;
+                            line-height: 12px;
+                            text-align: right;
+                            align-items: center;
+                            letter-spacing: 0.65px;
+                            color: #88CDFF;
+                        }
+                    }
+                }
             }
         }
     }

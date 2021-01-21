@@ -24,7 +24,6 @@ export const SignIn = () => {
         setTimeout(() => {
             if (user.auth.auth.status === false) { message.error({ content: user.auth.auth.message, key, duration: 2 }) } else { message.success({ content: user.auth.auth.message, key, duration: 2 }) }
         }, 1000);
-
     }
     return (
         <SignInWrapper >
