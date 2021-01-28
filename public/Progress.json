@@ -1,7 +1,7 @@
 [
     {
         "subject": "Task 1 Previous",
-        "statusText": "In progress",
+        "statusText": "In Progress",
         "dueDate": "14 January 2021",
         "statusPercentage": 90,
         "taskToken": "task-1",

@@ -66,6 +66,7 @@ const SignInWrapper = styled.div`
                 }
                 .label{
                     font-size: 16px;
+                    padding: 3px;
                     color: #979797;
                 }
                 .username{

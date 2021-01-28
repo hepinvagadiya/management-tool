@@ -65,11 +65,6 @@ const UserGroStyle = styled.div`
             max-height: calc(45vh - 4em) !important;
         }
     }
-    .usergrContent{
-        max-height: 80vh;
-        overflow: auto;
-        justify-content: space-around;
-    }
 `;
 
 export { UserGroStyle };

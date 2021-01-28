@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { UserGroStyle } from './userGroStyle'
 import { MTButton } from '../../component/MTForm';
-import { Table } from 'antd';
+import { Table, Tooltip } from 'antd';
 import MTModal from '../../component/MTmodel/modal';
 import { Button, Form, Input, Radio, } from 'antd';
 import { UserGroupData, GetUserData, Registration, DeleteUserGroup, FindUserGroup, UpdateGroup } from '../../../../core/Redux/UserGroup/userGroupAction';
@@ -13,7 +13,6 @@ import { Select } from 'antd';
 export const UserGroup = () => {
     const user = useSelector(state => state)
     const [form] = Form.useForm();
-    const { Option } = Select;
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false);
     const [createUserGro, setCreateUserGro] = useState(false);
@@ -23,31 +22,31 @@ export const UserGroup = () => {
     const [title, setTitle] = useState("");
     const [gettoken, setToken] = useState("");
     const [select, selectIndex] = useState("")
-
     useEffect(() => {
         dispatch(UserGroupData())
+        dispatch(GetUserData())
     }, [dispatch])
 
     useEffect(() => {
-            if (user.groupTable.status === true) {
+        if (user.groupTable.status === true) {
             setCreateUserGro(false)
             setLoading(false);
             form.resetFields();
         }
-        if (user.groupTable.editStatus === true) { form.resetFields(); setLoading(false); setEditUserGr(false) }
+        if (user.groupTable.editStatus === true) { setLoading(false); form.resetFields(); setEditUserGr(false) }
         if (user.groupTable.findStatus) {
             setEdittoken(user.groupTable.findUserGroup.data.token)
             form.setFieldsValue(user.groupTable.findUserGroup.data);
             if (user.groupTable.findStatus === true) { setEditUserGr(true) }
         }
-    }, [user.groupTable.status, user.groupTable.findUserGroup, user.groupTable.editStatus])
+    }, [user.groupTable.status, user.groupTable.findUserGroup, user.groupTable.findStatus, user.groupTable.editStatus, form])
 
     const columns = [
         {
             "title": "Group Name",
             "dataIndex": "groupName",
             "key": "groupName",
-            "width": '30%',
+            "width": '45%',
             "ellipsis": true,
             sorter: (a, b) => a.groupName.length - b.groupName.length,
         },
@@ -55,14 +54,7 @@ export const UserGroup = () => {
             "title": "Group Type",
             "dataIndex": "groupType",
             "key": "groupType",
-            "width": '30%',
-            "ellipsis": true,
-        },
-        {
-            "title": "Group Users",
-            "dataIndex": "groupUsers",
-            "key": "groupUsers",
-            "width": '30%',
+            "width": '45%',
             "ellipsis": true,
         },
         {
@@ -72,19 +64,22 @@ export const UserGroup = () => {
             "ellipsis": true,
             render: (text, record, index) => (
                 <span>
-                    <span onClick={() => selectRow(record.token, index)}>
-                        <Icons type="post_edit" />
-                    </span>
-                    <span onClick={() => deleteTableRow(record.groupName, record.token)}>
-                        <Icons type="post_delete" />
-                    </span>
+                    <Tooltip placement="bottom" title="Edit">
+                        <span onClick={() => selectRow(record.token, index)} style={{ cursor: "pointer" }}>
+                            <Icons type="post_edit" />
+                        </span>
+                    </Tooltip>
+                    <Tooltip placement="bottom" title="Delete">
+                        <span onClick={() => deleteTableRow(record.groupName, record.token)} style={{ cursor: "pointer" }}>
+                            <Icons type="post_delete" />
+                        </span>
+                    </Tooltip>
                 </span>
             ),
         },
     ];
 
     const CreatePostModal = () => {
-        dispatch(GetUserData())
         document.body.classList.remove('ReactModal__Body--before-close')
         document.body.classList.add('ReactModal__Body--open')
         setCreateUserGro(true)
@@ -133,7 +128,7 @@ export const UserGroup = () => {
                 {/* Delete Table Raw */}
                 <MTModal
                     visible={delet}
-                    title="Delete Post"
+                    title="Delete UserGroup"
                     onOk={deleteOk}
                     closable={false}
                     maskClosable={false}
@@ -142,7 +137,7 @@ export const UserGroup = () => {
                         <Button key="back" className="cancelEle" onClick={onCancel}>Cancel</Button>
                     ]}
                 >
-                    <p className="warning">Are you sure to delete this post permenently?</p>
+                    <p className="warning">Are you sure to delete this UserGroup permenently?</p>
                     <Icons type="groupsMenu" /> <span className="title">{title}</span>
                 </MTModal>
                 <MTModal
@@ -159,16 +154,17 @@ export const UserGroup = () => {
                     <Form layout="inline" id="formgroup" form={form} onFinish={editUserGr === true ? editUserGrModal : createGroup} >
                         <div className="inputs">
                             <div className="label">Group Name</div>
-                            <Form.Item name="groupName" rules={[{ required: true, message: 'Please input Post Title!' }]} >
+                            <Form.Item name="groupName" rules={[{ required: true, message: 'Please input Group Name!' }]} >
                                 <Input
                                     type="text"
+                                    autoComplete="off"
                                     placeholder="Enter Group Name"
                                 />
                             </Form.Item>
                         </div>
                         <div className="inputs">
                             <div className="label">Group Type</div>
-                            <Form.Item name="groupType" rules={[{ required: true, message: 'Please pick an item!' }]} >
+                            <Form.Item name="groupType" rules={[{ required: true, message: 'Please pick public or private!' }]} >
                                 <Radio.Group>
                                     <Radio value="Public" style={{ padding: "5px" }}>Public(Readable to user outside group)</Radio>
                                     <Radio value="Private" style={{ padding: "5px" }}>Private (Accessible to Group Users Only)</Radio>
@@ -176,13 +172,9 @@ export const UserGroup = () => {
                             </Form.Item>
                         </div>
                         <div className="inputs">
-                            <div className="label">Group Type</div>
-                            <Form.Item name="groupUsers" rules={[{ required: true, message: 'Please input Post Title!' }]} >
-                                <Select mode="multiple" style={{ width: '100%' }} placeholder="Select Any Group">
-                                    {user.groupTable.getAllUser === undefined ? null : user.groupTable.getAllUser.map((menu, index) => (
-                                        <Option key={index} value={menu.value}>{menu.label}</Option>
-                                    ))}
-                                </Select>
+                            <div className="label">Group Users</div>
+                            <Form.Item name="groupUsers" rules={[{ required: true, message: 'Please input Group User!' }]} >
+                                <Select mode="multiple" style={{ width: '100%' }} placeholder="Select Any Group" options={user.groupTable.getAllUser} />
                             </Form.Item>
                         </div>
                     </Form>
@@ -191,6 +183,7 @@ export const UserGroup = () => {
                     <Table
                         sticky
                         pagination={{ pageSize: 12 }}
+                        pagination={{ position: ['bottomRight'] }}
                         columns={columns}
                         dataSource={user.groupTable.groupTable}
                         scroll={{ y: 'calc(77.5vh - 4em)' }}

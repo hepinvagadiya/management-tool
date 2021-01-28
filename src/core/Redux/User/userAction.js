@@ -1,9 +1,9 @@
 import store from '../store'
 import axios from 'axios';
 
-var url = 'http://10.1.1.144:8081'
-// var url = 'http://10.1.1.150:8080'
 // var url = 'http://10.1.1.20:8085'
+var url = 'http://10.1.1.244:8085'
+
 
 export const UserData = () => {
     return async (dispatch) => {
@@ -35,7 +35,7 @@ export const Registration = (data) => {
                 payload: response.data
             })
         }).catch((error) => {
-            console.log(error, "error")
+            console.log(error.response, "error")
         });
     };
 };
@@ -54,7 +54,7 @@ export const DeleteUser = (record) => {
             })
             console.log(response, "DeleteUser")
         }).catch((error) => {
-            console.log(error, "error")
+            console.log(error.response, "error")
         });
     };
 };
@@ -71,7 +71,7 @@ export const FindUser = (record) => {
                 payload: response
             })
         }).catch((error) => {
-            console.log(error, "error")
+            console.log(error.response, "error")
         });
     };
 };
@@ -90,7 +90,7 @@ export const Update = (data, token, index) => {
                 index: index
             })
         }).catch((error) => {
-            console.log(error, "error")
+            console.log(error.response, "error")
         });
     };
 };

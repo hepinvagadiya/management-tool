@@ -1,29 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import SignInWrapper from './SigninStyle';
 import Logo from '../../../../core/images/logo.svg';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { MTButton } from '../../component/MTForm';
-import { Form, Input, message } from 'antd';
+import { Form, Input } from 'antd';
 import { Authentication } from '../../../../core/Redux/auth/authAction';
 
 export const SignIn = () => {
     const dispatch = useDispatch()
-    let user = useSelector(state => state)
     const [username, setUsername] = React.useState();
     const [password, setPassword] = React.useState();
-    const key = 'updatable';
-
-    React.useEffect(() => {
-        dispatch(Authentication())
-    }, [dispatch])
-
     const submit = () => {
         dispatch(Authentication(username, password))
-        message.loading({ content: 'Verifying User...', key });
-        setTimeout(() => {
-            if (user.auth.auth.status === false) { message.error({ content: user.auth.auth.message, key, duration: 2 }) } else { message.success({ content: user.auth.auth.message, key, duration: 2 }) }
-        }, 1000);
     }
     return (
         <SignInWrapper >
@@ -54,6 +43,7 @@ export const SignIn = () => {
                                 <Form.Item name="username" rules={[{ required: true, message: 'Please input your Username!' }]} >
                                     <Input
                                         name="username"
+                                        autoComplete="off"
                                         type="text"
                                         placeholder="Username"
                                         onChange={e => setUsername(e.target.value)}
@@ -65,6 +55,7 @@ export const SignIn = () => {
                                 <Form.Item name="password" rules={[{ required: true, message: 'Please input your Password!' }]} >
                                     <Input.Password
                                         className="username"
+                                        autoComplete="off"
                                         name="password"
                                         type="password"
                                         placeholder="Password"
@@ -75,7 +66,6 @@ export const SignIn = () => {
                             <Link to={'/ForgetPassword'} >
                                 <div className="forgetpw">Forgot password?</div>
                             </Link>
-                            {/* {submitErr === true && <span style={{ fontSize: "12px", color: "rgb(255 0 0)" }}>{user.auth.auth.message}</span>} */}
                             <div className="submitContent">
                                 <MTButton className="submit" htmlType="submit">Login now</MTButton>
                             </div>

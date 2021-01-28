@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MTButton } from '../../component/MTForm';
 import { UserStyle } from './userStyle'
-import { Table } from 'antd';
+import { Table, Tooltip } from 'antd';
 import MTModal from '../../component/MTmodel/modal';
 import { Button, Form, Input, Radio, } from 'antd';
 import { Select } from 'antd';
@@ -43,9 +43,10 @@ export const User = () => {
         if (user.table.findUser) {
             setEdittoken(user.table.findUser.data[0].token)
             form.setFieldsValue(user.table.findUser.data[0]);
-            if (user.table.findUser.status === true) { setEditUser(true) }
+
+            if (user.table.findUser.status === true) { setEditUser(true); setContact(user.table.findUser.data[0].contact) }
         }
-    }, [user.table.status, user.table.findUser, user.table.editStatus])
+    }, [user.table.status, user.table.findUser, user.table.editStatus, form])
 
     const columns = [
         {
@@ -91,16 +92,30 @@ export const User = () => {
             "ellipsis": true,
             render: (text, record, index) => (
                 <span>
-                    <span onClick={() => selectRow(record.token, index)}>
-                        <Icons type="post_edit" />
-                    </span>
-                    <span onClick={() => deleteTableRow(record.token, record.firstName + " " + record.lastName)}>
-                        <Icons type="post_delete" />
-                    </span>
+                    <Tooltip placement="bottom" title="Edit">
+                        <span onClick={() => selectRow(record.token, index)} style={{cursor: "pointer"}}>
+                            <Icons type="post_edit" />
+                        </span>
+                    </Tooltip>
+                    <Tooltip placement="bottom" title="Delete">
+                        <span onClick={() => deleteTableRow(record.token, record.firstName + " " + record.lastName)} style={{cursor: "pointer"}}>
+                            <Icons type="post_delete" />
+                        </span>
+                    </Tooltip>
                 </span>
             ),
         },
     ];
+    const opt = ['A', 'A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-']
+    const restrict = (event) => {
+        const regex = new RegExp("^[a-zA-Z]+$");
+        const key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+        if (!regex.test(key)) {
+            event.preventDefault();
+            return false;
+        }
+    }
+
     const CreateModal = (e) => {
         e.preventDefault();
         document.body.classList.remove('ReactModal__Body--before-close')
@@ -131,6 +146,7 @@ export const User = () => {
         document.body.classList.add('ReactModal__Body--before-close')
         dispatch(Update(value, editToken, select))
         setLoading(true);
+        setContact(value.contact)
     }
     const onCancel = () => {
         form.resetFields();
@@ -140,11 +156,13 @@ export const User = () => {
         setLoading(false);
         setEditUser(false)
     }
-
-    const checkMobileNo = () => {
-        if (contact === "") {
-            return Promise.reject('Contect is required');
+    const contectValid = (event) => {
+        if (event.charCode == 46) {
+            event.preventDefault();
         }
+    }
+    const checkMobileNo = () => {
+        if (contact === "") { return Promise.reject('Contect is required'); }
         if (contact < 9999999999) { return Promise.resolve(); }
         return Promise.reject('Please input valid phone no!');
     };
@@ -158,7 +176,7 @@ export const User = () => {
             {/* Delete Table Raw */}
             <MTModal
                 visible={delet}
-                title="Delete Post"
+                title="Delete User"
                 onOk={deleteOk}
                 closable={false}
                 maskClosable={false}
@@ -167,7 +185,7 @@ export const User = () => {
                     <Button key="back" className="cancelEle" onClick={onCancel}>Cancel</Button>
                 ]}
             >
-                <p className="warning">Are you sure to delete this post permenently?</p>
+                <p className="warning">Are you sure to delete this User permenently?</p>
                 <Icons type="usersMenu" /> <span className="title">{title}</span>
             </MTModal>
             {/* Create Table Raw */}
@@ -187,8 +205,9 @@ export const User = () => {
                         <div className="label">First Name</div>
                         <Form.Item name="firstName" rules={[{ required: true, message: 'Please input First Name!' }]} >
                             <Input
-                                name="firstname"
                                 type="text"
+                                autoComplete="off"
+                                onKeyPress={e => restrict(e)}
                                 placeholder="Enter First Name"
                             />
                         </Form.Item>
@@ -198,16 +217,19 @@ export const User = () => {
                         <Form.Item name="lastName" rules={[{ required: true, message: 'Please input Last Name!' }]} >
                             <Input
                                 name="lastname"
+                                autoComplete="off"
+                                onKeyPress={e => restrict(e)}
                                 type="text"
                                 placeholder="Enter Last Name"
                             />
                         </Form.Item>
                     </div>
-                    <div className="inputs-inline">
+                    <div className="inputs">
                         <div className="label">Email</div>
                         <Form.Item name="email" rules={[{ type: 'email', required: true }]}>
                             <Input
                                 name="email"
+                                autoComplete="off"
                                 type="text"
                                 placeholder="Enter Email Address"
                             />
@@ -218,25 +240,37 @@ export const User = () => {
                         <Form.Item name="username" rules={[{ required: true, message: 'Please input Username!' }]} >
                             <Input
                                 name="username"
+                                autoComplete="off"
+                                onKeyPress={e => restrict(e)}
                                 type="text"
                                 placeholder="Enter User Name"
                             />
                         </Form.Item>
                     </div>
+                    <div className="inputs-inline" style={{ padding: "6px 10px 0px 13px" }}>
+                        <div className="label">Role</div>
+                        <Form.Item name="role" rules={[{ required: true, message: 'Please Select Role!' }]} >
+                            <Select placeholder="Select Role">
+                                <Option value="ROLE_ADMIN">Admin</Option>
+                                <Option value="ROLE_USER">User</Option>
+                            </Select>
+                        </Form.Item>
+                    </div>
                     <div className="inputs-inline">
-                        <div className="label">Contect No.</div>
+                        <div className="label">Contact No.</div>
                         <Form.Item name="contact" rules={[{ validator: checkMobileNo, required: true }]}>
                             <Input
-                                name="number"
                                 type="number"
-                                placeholder="Enter Contect No"
+                                autoComplete="off"
+                                onKeyPress={e => contectValid(e)}
+                                placeholder="Enter Contact No"
                                 onChange={e => setContact(e.target.value)}
                             />
                         </Form.Item>
                     </div>
                     <div className="inputs-inline">
                         <div className="label">Designation</div>
-                        <Form.Item name="designation" rules={[{ required: true, message: 'Please Select Any Option!' }]} >
+                        <Form.Item name="designation" rules={[{ required: true, message: 'Please Select Designation!' }]} >
                             <Select placeholder="Select designation">
                                 <Option value="Graphic Designer">Graphic Designer</Option>
                                 <Option value="Web Devloper">Web Devloper</Option>
@@ -245,17 +279,17 @@ export const User = () => {
                     </div>
                     <div className="inputs-inline">
                         <div className="label">Blood Group</div>
-                        <Form.Item name="bloodGroup" rules={[{ required: true, message: 'Please Select Any Option!' }]}>
+                        <Form.Item name="bloodGroup" rules={[{ required: true, message: 'Please Select bloodGroup!' }]}>
                             <Select placeholder="Select bloodgroup">
-                                <Option value="A">A</Option>
-                                <Option value="A+">A+</Option>
-                                <Option value="AB">AB</Option>
+                                {opt.map((menu, index) => (
+                                    <Option key={index} value={menu}>{menu}</Option>
+                                ))}
                             </Select>
                         </Form.Item>
                     </div>
                     <div className="inputs-inline" style={{ padding: "6px 10px 0px 13px" }}>
                         <div className="label">Gender</div>
-                        <Form.Item name="gender" rules={[{ required: true, message: 'Please pick an item!' }]} >
+                        <Form.Item name="gender" rules={[{ required: true, message: 'Please Select Gender!' }]} >
                             <Radio.Group>
                                 <Radio value="Male" style={{ padding: "5px" }}>Male</Radio>
                                 <Radio value="female" style={{ padding: "5px" }}>female</Radio>
@@ -266,7 +300,7 @@ export const User = () => {
                     <div className="inputs" style={{ padding: "6px 0px 0px 9px" }}>
                         <div className="label">Address<sup>*</sup></div>
                         <Form.Item name="address" rules={[{ required: true, message: 'Please input your Address!' }]}                        >
-                            <Input placeholder="Address" />
+                            <Input placeholder="Enter address" autoComplete="off" onKeyPress={e => restrict(e)} />
                         </Form.Item>
                     </div>
                     <div className="inputs-inline">
@@ -281,6 +315,7 @@ export const User = () => {
                         >
                             <Input.Password
                                 className="username"
+                                autoComplete="off"
                                 placeholder="password"
                                 type="password"
                                 name="newpassword"
@@ -311,6 +346,7 @@ export const User = () => {
                             <Input.Password
                                 placeholder="confirm password"
                                 className="username"
+                                autoComplete="off"
                                 type="password"
                                 name="confirmpassword"
                             />
@@ -322,6 +358,7 @@ export const User = () => {
                 <Table
                     sticky
                     pagination={{ pageSize: 12 }}
+                    pagination={{ position: ['bottomRight'] }}
                     columns={columns}
                     dataSource={user.table.table}
                     scroll={{ y: 'calc(77.5vh - 4em)' }}

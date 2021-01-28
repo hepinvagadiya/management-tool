@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "6225fe94-5da2-4e3d-a3ad-38ad6ea8f8dd",
+		"name": "jenish",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "authentication",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"jenish\",\r\n    \"password\":\"jenish@12345\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "10.1.1.20:8080/login",
+					"host": [
+						"10",
+						"1",
+						"1",
+						"20"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Forgot password - email",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://10.1.1.20:8080/forgot-password?email=jenishdholariya2505@gmail.com",
+					"protocol": "http",
+					"host": [
+						"10",
+						"1",
+						"1",
+						"20"
+					],
+					"port": "8080",
+					"path": [
+						"forgot-password"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "jenishdholariya2505@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Forgot password- OTP request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://10.1.1.20:8080/verify-otp?otp=134886",
+					"protocol": "http",
+					"host": [
+						"10",
+						"1",
+						"1",
+						"20"
+					],
+					"port": "8080",
+					"path": [
+						"verify-otp"
+					],
+					"query": [
+						{
+							"key": "otp",
+							"value": "134886"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Forgot password - change password",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"newpassword\":\"jenish@12345\",\r\n    \"confirmpassword\":\"jenish@12345\",\r\n    \"username\":\"jenish\"\r\n}"
+				},
+				"url": {
+					"raw": "http://10.1.1.20:8080/change-password",
+					"protocol": "http",
+					"host": [
+						"10",
+						"1",
+						"1",
+						"20"
+					],
+					"port": "8080",
+					"path": [
+						"change-password"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -486,20 +486,20 @@ export const User = () => {
             "key": "action",
             render: () => (
                 <span> <Icons type="post_edit" />   <span onClick={deleteTableRow}><Icons type="post_delete" /> </span></span>
-                ),
-            },
-            
-        ];
-        useEffect(() => {
-            dispatch(UserData())
-        }, [dispatch])
-        
-        console.log(user.userdata.table,"knjsbndjfns")
-        const deleteTableRow = () => {
-            console.log("delete")
-        }
-        
-        const CreateNewUser = () => {
+            ),
+        },
+
+    ];
+    useEffect(() => {
+        dispatch(UserData())
+    }, [dispatch])
+
+    console.log(user.userdata.table, "knjsbndjfns")
+    const deleteTableRow = () => {
+        console.log("delete")
+    }
+
+    const CreateNewUser = () => {
         document.body.classList.remove('ReactModal__Body--before-close')
         document.body.classList.add('ReactModal__Body--open')
         setNewUser(true)
@@ -688,19 +688,19 @@ export const User = () => {
 export default User;
 
 
-  // case 'USER_REGISTRATION':
-        //     state.table.push(action.payload.data)
-        //     // console.log(state.table,"table")
-        //     console.log(state.table,"last")
-        //     state = {
-        //         ...state,
-        //         // table: [state.table, action.payload.data]
-        //         // createUser: action.payload,
-        //     }
+// case 'USER_REGISTRATION':
+//     state.table.push(action.payload.data)
+//     // console.log(state.table,"table")
+//     console.log(state.table,"last")
+//     state = {
+//         ...state,
+//         // table: [state.table, action.payload.data]
+//         // createUser: action.payload,
+//     }
 
 
 
-        import styled from 'styled-components';
+import styled from 'styled-components';
 
 const TaskManStyle = styled.div`
     .heading{
@@ -876,3 +876,29 @@ const TaskManStyle = styled.div`
 `;
 
 export { TaskManStyle };
+    
+
+<Form form={form} layout="inline" id="create">
+    <div className="inputs">
+        <div className="label">Filter Field</div>
+        <Form.Item name="field" rules={[{ required: true, message: 'Please input Filter Field!' }]} >
+            <Input
+                autoComplete="off"
+                name="email"
+                type="text"
+                placeholder="Select Field"
+            />
+        </Form.Item>
+    </div>
+    <div className="inputs">
+        <div className="label">Filter Value</div>
+        <Form.Item name="field" rules={[{ required: true, message: 'Please input Filter Value!' }]} >
+            <Input
+                autoComplete="off"
+                name="email"
+                type="text"
+                placeholder="Enter Value"
+            />
+        </Form.Item>
+    </div>
+</Form>

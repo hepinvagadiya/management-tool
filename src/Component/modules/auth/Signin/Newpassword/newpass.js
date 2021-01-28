@@ -11,10 +11,6 @@ export const NewPw = () => {
     const [password, setPassword] = React.useState();
     const [confirmPassword, setConfirmPassword] = React.useState();
 
-    React.useEffect(() => {
-        dispatch(ChangePassword())
-    }, [dispatch])
-
     const submit = () => {
         dispatch(ChangePassword(password, confirmPassword))
     }
@@ -36,6 +32,7 @@ export const NewPw = () => {
                                 }]}
                             >
                                 <Input.Password
+                                autoComplete="off"
                                     className="username"
                                     placeholder="Enter password"
                                     onChange={e => setPassword(e.target.value)}
@@ -68,6 +65,7 @@ export const NewPw = () => {
                                 <Input.Password
                                     placeholder="Enter confirm password"
                                     className="username"
+                                    autoComplete="off"
                                     onChange={e => setConfirmPassword(e.target.value)}
                                     type="password"
                                     name="confirmpassword"

@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 const SidebarStyle = styled.div`
+max-height: 77vh;
+overflow: auto;
 .ant-menu-inline .ant-menu-item, .ant-menu-inline .ant-menu-submenu-title {
     width: 39px !important;
     padding: 13px 0px 13px 22px !important;
@@ -15,7 +17,9 @@ const SidebarStyle = styled.div`
   background-color: transparent;
   overflow: auto;
 }
-
+.menu_item{
+  background-color: red;
+}
 .ant-menu{
   .ant-menu-item-selected::after, .ant-menu-item-selected::before, .ant-menu-item:after{
     border: 1px solid #394D5C;

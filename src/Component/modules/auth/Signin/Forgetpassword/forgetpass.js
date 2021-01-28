@@ -1,23 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Logo from '../../../../../core/images/logo.svg'
 import { MTButton } from '../../../component/MTForm';
 import ForgetpwStyle from "./forgetpwStyle";
 import { Form, Input } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ForgetPassword } from '../../../../../core/Redux/auth/authAction';
 
 export const Forgetpw = () => {
     const dispatch = useDispatch()
-    let user = useSelector(state => state)
     const [email, setEmail] = React.useState();
-    const [submitErr, setSubmit] = useState(false);
-    React.useEffect(() => {
-        dispatch(ForgetPassword())
-    }, [dispatch])
 
     const onFinish = () => {
         dispatch(ForgetPassword(email))
-        setTimeout(function () { setSubmit(true) }, 4000);
     };
     const validateMessages = {
         required: 'Email is required!',
@@ -37,6 +31,7 @@ export const Forgetpw = () => {
                             <Form.Item name={['user', 'email']} rules={[{ type: 'email', required: true }]} >
                                 <Input
                                     className="username"
+                                    autoComplete="off"
                                     name="email"
                                     placeholder="Enter email address"
                                     onChange={e => setEmail(e.target.value)}
@@ -47,7 +42,6 @@ export const Forgetpw = () => {
                         <span className="submitContent" >
                             <MTButton className="submit" htmlType="submit">Request OTP</MTButton>
                         </span>
-                        {submitErr === true && <span style={{ fontSize: "12px", color: "rgb(255 0 0)" }}>{user.email.email === undefined ? 'please Input Valid Email Address!' : null}</span>}
                     </Form>
                 </div>
             </div>  

@@ -3,8 +3,6 @@ import { PageStyle } from "./PageStyle";
 import { Layout } from 'antd';
 import TopHeader from '../Layout/Header/header';
 import Sidebar from '../Layout/Sidebar/sidebar';
-// import Footer from '../Layout/Footer/footer';
-// import PageRouter from './pageRouter'
 import Cookies from 'js-cookie';
 import PageRouter from './pageRouter';
 
@@ -20,24 +18,23 @@ class Page extends Component {
         this.setState({ current: e.key, });
         Cookies.set('current', e.key);
     }
-
     render() {
         const { Header, Content, Sider, loading, Footer } = Layout;
         return (
             <PageStyle>
                 <Layout style={{ minHeight: '100vh' }}>
                     <Header className="site-layout-background" style={{ padding: 0 }} >
-                        <TopHeader current={this.state.current}/>
+                        <TopHeader current={this.state.current} />
                     </Header>
                     <Layout className="site-layout">
-                        <Sider className="site-layout-background">
-                            < Sidebar handleClick={this.handleClick} current={this.state.current}/>
+                        <Sider >
+                            < Sidebar handleClick={this.handleClick} current={this.state.current} />
                         </Sider>
                         <Content style={{ padding: '15px 15px 0px 15px' }} loading={loading}>
-                            <PageRouter/>
+                            <PageRouter />
                         </Content>
                     </Layout>
-                    <Footer>Zeronsec India Pvt. Ltd. -2020</Footer>
+                    <Footer>Zeronsec India Pvt. Ltd. -2021</Footer>
                 </Layout>
             </PageStyle>
         );

@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "a902587a-63cb-484d-bcaf-6724c1a8f7c9",
+		"name": "UserDetail",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "UpdateByToken",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"firstName\":\"ggg\",\"lastName\":\"llllllll\",\"email\":\"ggkgvgggasasbnjghhg@gmail.com\",\"username\":\"jvhhhjj\",\"contact\":\"9998838533\",\"designation\":\"llll\",\"bloodGroup\":\"hhh\",\"gender\":\"kkk\",\"address\":\"llll\",\"password\":\"kk\",\"confirmPassword\":\"kk\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "10.1.1.150:8080/user/update/224682a8",
+					"host": [
+						"10",
+						"1",
+						"1",
+						"150"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"update",
+						"224682a8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User registration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"firstName\":\"test\",\"lastName\":\"asasx\",\"email\":\"ggkgvjjbgggasasbghehg@gmaeil.com\",\"username\":\"ne\",\"contact\":\"9099525133\",\"designation\":\"kkk\",\"bloodGroup\":\"hhh\",\"gender\":\"kkk\",\"address\":\"llll\",\"password\":\"kk\",\"confirmPassword\":\"kk\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "10.1.1.150:8080/user/create",
+					"host": [
+						"10",
+						"1",
+						"1",
+						"150"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllUserDetail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "10.1.1.150:8080/user/listAll",
+					"host": [
+						"10",
+						"1",
+						"1",
+						"150"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"listAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteByToken",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "10.1.1.150:8080/user/delete/02C23ccc",
+					"host": [
+						"10",
+						"1",
+						"1",
+						"150"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"delete",
+						"02C23ccc"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

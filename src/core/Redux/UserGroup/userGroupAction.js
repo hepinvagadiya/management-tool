@@ -1,8 +1,9 @@
 import axios from 'axios';
 import store from '../store'
 
-var url = 'http://10.1.1.158:8080'
 // var url = 'http://10.1.1.20:8085'
+var url = 'http://10.1.1.244:8085'
+
 
 export const UserGroupData = () => {
     return async (dispatch) => {
@@ -16,7 +17,7 @@ export const UserGroupData = () => {
                 payload: response.data
             })
         }).catch((error) => {
-            console.log(error, "error")
+            console.log(error.response, "error")
         });
     };
 };
@@ -29,11 +30,11 @@ export const GetUserData = () => {
         }).then(response => {
             console.log(response.data, "FindUser");
             dispatch({
-                type: 'FIND_USERS_DATA',
+                type: 'GET_USERS_DATA',
                 payload: response.data
             })
         }).catch((error) => {
-            console.log(error, "error")
+            console.log(error.response, "error")
         });
     };
 };
@@ -51,7 +52,7 @@ export const Registration = (data) => {
                 payload: response.data
             })
         }).catch((error) => {
-            console.log(error, "error")
+            console.log(error.response, "error")
         });
     };
 };
@@ -70,7 +71,7 @@ export const DeleteUserGroup = (record) => {
             })
             console.log(response, "DeleteUser")
         }).catch((error) => {
-            console.log(error, "error")
+            console.log(error.response, "error")
         });
     };
 };
@@ -88,7 +89,7 @@ export const FindUserGroup = (record) => {
                 payload: response
             })
         }).catch((error) => {
-            console.log(error, "error")
+            console.log(error.response, "error")
         });
     };
 };
@@ -100,14 +101,14 @@ export const UpdateGroup = (data, token, index) => {
             url: `${url}/group/update/${token}`,
             data: data,
         }).then(response => {
-            console.log(response, "Update")
+            console.log(response.data, "Update")
             dispatch({
                 type: 'USER_GROUP_UPDATE',
                 payload: response.data,
-                index: index
+                index: index,
             })
         }).catch((error) => {
-            console.log(error, "error")
+            console.log(error.response, "error")
         });
     };
 };

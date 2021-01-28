@@ -47,6 +47,11 @@ html, body {
       background-color: #191818;
     }
   }
+  .ant-table-container{
+    .ant-table-body{
+      height: 72vh;
+    }
+  }
   .ant-table-thead > tr > th {
     background: #121212;
     color: darkgray;
@@ -174,6 +179,19 @@ html, body {
         padding: 4px;
         letter-spacing: 0.35px;
       }
+      .profile{
+        // background-color: #1a1a1a;
+        border-radius: 50%;
+        border: 1px solid #429fe4;
+        padding: 9px 9px 5px 9px; 
+      }
+      .titlePro{
+        color: #83a8ba;
+        position: relative;
+        top: -3px;
+        padding: 8px;
+        letter-spacing: 0.35px;
+      }
       .viewImg{
         height: 14rem;
         width: 33rem;
@@ -250,7 +268,40 @@ html, body {
        background-color: #222;
        border-color: #333334 !important;
    }
-  
+  .taskName{
+    font-style: normal;
+    font-size: 12px;
+    font-weight: normal;
+    letter-spacing: 0.35px;
+    line-height: 14px;
+    color: #429FE4;
+    padding-left: 10px;
+  }
+  .mainContent{
+    margin: 25px;
+
+    .feedContent{
+      margin: 16px 0px 18px 7px;
+
+      .topicHading{
+        font-weight: normal;
+        font-style: normal;
+        font-size: 12px;
+        line-height: 14px;
+        color: #E5E5E5;
+        letter-spacing: 0.75px;
+    }
+    .topicDetails{
+      font-style: normal;
+      font-size: 12px;
+      font-weight: normal;
+      letter-spacing: 0.75px;
+      line-height: 14px;
+      color: #88CDFF;
+      margin: 12px 0px 12px 15px;
+    }
+  }
+}
   .inputs{
     width: 96%;
     padding: 6px 10px 0px 13px;
@@ -262,6 +313,7 @@ html, body {
       color: #ff4d4f;
       font-size: 14px;
     }
+
   }
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {

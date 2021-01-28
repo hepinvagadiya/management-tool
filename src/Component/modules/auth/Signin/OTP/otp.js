@@ -9,16 +9,9 @@ import { GetOtp } from '../../../../../core/Redux/auth/authAction';
 export const Otp = () => {
     const dispatch = useDispatch()
     const [otp, setOtp] = React.useState();
-    let user = useSelector(state => state)
-    const [submitErr, setSubmit] = useState(false);
-
-    React.useEffect(() => {
-        dispatch(GetOtp())
-    }, [dispatch])
 
     const submit = () => {
         dispatch(GetOtp(otp))
-        setSubmit(true)
     }
     const validateMessages = {
         required: 'Otp is required!',
@@ -41,6 +34,7 @@ export const Otp = () => {
                             <div className="label">OTP<sup>*</sup></div>
                             <Form.Item name={['user', 'number']} rules={[{ validator: checkPrice, required: true, }]}>
                                 <Input
+                                autoComplete="off"
                                     className="username"
                                     name="otp"
                                     type="number"
@@ -49,7 +43,6 @@ export const Otp = () => {
                                 />
                             </Form.Item>
                         </div>
-                        {submitErr === true && <span style={{ fontSize: "12px", color: "rgb(255 0 0)" }}>{user.otp.otp.message}</span>}
                         <div className="submitContent" >
                             <MTButton className="submit" htmlType="submit">Verify OTP</MTButton>
                         </div>

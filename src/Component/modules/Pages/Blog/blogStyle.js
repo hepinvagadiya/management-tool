@@ -24,78 +24,83 @@ const BlogStyle = styled.div`
             margin: -9px 11px 0px 0px;
            } 
     }
-    .cardcontent{
-        display: flex;
-        flex-wrap: wrap;
-        padding: 10px;
-        max-height: 80vh;
+    .body{
         overflow: auto;
-        color: red;
-
-        .card{
-            background-color: ${props => props.theme.body.blog.cardBgcolor};
-            border: none;
-            border-radius: 5px;
-            width: 36vh;
-            min-width: 238px;
-            padding: 2px;
-            margin: 9px;
-
-            &:hover{
-                background-color: #536675;
-                transition: 1.2s;
-                span{
+        
+        .cardcontent{
+            padding: 10px;
+            height: calc(54rem - 100px);
+            // height: 100%;
+            
+            .cardBox{
+                display: grid;
+                grid-template-columns: repeat(auto-fill,minmax(347px, 1fr));
+                grid-gap: 10px;
+                overflow-x:hidden;
+                
+                .card{
+                    border: none;
+                    width: 347px;
+                    background-color: ${props => props.theme.body.blog.cardBgcolor};
+                    padding: 2px;
+                    border-radius: 5px;
+                    height: 251px;
+                
+                    &:hover{
+                        transition: 1.2s;
+                        background-color: #536675;
+                        span{
+                            .editDel{
+                                span{
+                                    svg{
+                                        path{
+                                            fill: #88cdff;  
+                                        }
+                                    }
+                                }   
+                            }
+                        }
+                    }
+                
+                    .ant-card-cover img {
+                        /* border-radius: 2px 2px 0 0; */
+                        border-radius: 5px;
+                    }
+                    .user{
+                        position: absolute;
+                        padding: 2px 0px 0px;
+                    }
+                    .author{
+                        margin: 0px 0px 0px 17px;
+                    }
                     .editDel{
+                        float: right;
                         span{
                             svg{
                                 path{
-                                    fill: #88cdff;  
+                                    fill: transparent;  
                                 }
                             }
-                        } 
+                        }    
                     }
                 }
+                .ant-card-meta-title {
+                    color: ${props => props.theme.color};
+                    letter-spacing:0.75px;
+                    font-size: 16px;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+                .ant-card-body {
+                    padding: 9px;
+                }
+                .ant-card-meta-description {
+                    letter-spacing:0.75px;
+                    font-size: 10px;
+                    color: ${props => props.theme.headColor};
+                }
             }
-            
-            .ant-card-cover img {
-                /* border-radius: 2px 2px 0 0; */
-                border-radius: 5px;
-            }
-            .user{
-                padding: 2px 0px 0px;
-                position: absolute;
-            }
-            .author{
-                margin: 0px 0px 0px 17px;
-            }
-            .editDel{
-                float: right;
-                span{
-                    svg{
-                        path{
-                            fill: transparent;  
-                        }
-                    }
-                } 
-            }
-           
         }
-        .ant-card-meta-title {
-            color: ${props => props.theme.color};
-            font-size: 16px;
-            letter-spacing:0.75px;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            }
-        .ant-card-body {
-            padding: 9px;
-        }
-        .ant-card-meta-description {
-            color: ${props => props.theme.headColor};
-            letter-spacing:0.75px;
-            font-size: 10px;
-        }
-
     }
     // @media only screen and (max-height: 700px) {
     //     .cardcontent{

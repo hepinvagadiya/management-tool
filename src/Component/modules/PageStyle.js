@@ -21,7 +21,7 @@ aside{
     flex: 0 0 56px !important;
     max-width: 100px !important;
     min-width: 64px !important;
-    height: calc(91vh - 5px);
+    // height: calc(91vh - 5px);
 } 
 
 //Footer
