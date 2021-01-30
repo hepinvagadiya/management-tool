@@ -14,7 +14,7 @@ const HeaderStyle = styled.div`
     .pic{
       background-color: #363636 ;
       letter-spacing:1px;
-      padding: 5px;
+      padding: 6px 8px 6px 8px;
       border-radius: 50%;
       border: 1px solid #394D5C;
     }

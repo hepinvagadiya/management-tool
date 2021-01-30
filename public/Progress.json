@@ -1,42 +1,99 @@
 [
     {
-        "subject": "Task 1 Previous",
-        "statusText": "In Progress",
-        "dueDate": "14 January 2021",
-        "statusPercentage": 90,
-        "taskToken": "task-1",
-        "assignedTo": "John Deo",
-        "verifiedBy": "John Smith",
-        "priority": "Normal"
-    },
-    {
-        "subject": "Task 1 Previous",
-        "statusText": "In Progress",
-        "dueDate": "14 January 2021",
-        "statusPercentage": 50,
-        "taskToken": "task-1",
-        "assignedTo": "John Deo",
-        "verifiedBy": "John Smith",
-        "priority": "Normal"
-    },
-    {
-        "subject": "Task 1 Previous",
-        "statusText": "Waiting on someone else",
-        "dueDate": "14 January 2021",
-        "statusPercentage": 35,
-        "taskToken": "task-1",
-        "assignedTo": "John Deo",
-        "verifiedBy": "John Smith",
-        "priority": "Normal"
-    },
-    {
-        "subject": "Task 1 Previous",
-        "statusText": "Waiting on someone else",
-        "dueDate": "14 January 2021",
-        "statusPercentage": 0,
-        "taskToken": "task-1",
-        "assignedTo": "John Deo",
-        "verifiedBy": "John Smith",
-        "priority": "Normal"
+        "globalFilter": {
+            "Subject": "Task",
+            "AssignedTo": "John Deo"
+        },
+        "toDo": [
+            {
+                "subject": "Task 1",
+                "statusText": "Not Started",
+                "startDate": "31 January 2021,16:12",
+                "statusPercentage": 90,
+                "taskToken": "first_task",
+                "assignedTo": "John Deo",
+                "verifiedBy": "John Smith",
+                "priority": "Normal"
+            },
+            {
+                "subject": "Task 123",
+                "statusText": "Not Started",
+                "startDate": "31 January 2021,16:12",
+                "statusPercentage": 90,
+                "taskToken": "Second_task",
+                "assignedTo": "John Deo",
+                "verifiedBy": "John Smith",
+                "priority": "Low"
+            },
+            {
+                "subject": "Task 1234",
+                "statusText": "Not Started",
+                "startDate": "31 January 2021,16:12",
+                "statusPercentage": 90,
+                "taskToken": "Third_task",
+                "assignedTo": "John Deo",
+                "verifiedBy": "John Smith",
+                "priority": "High"
+            }
+        ],
+        "toDoFilter": {},
+        "inProgress": [
+            {
+                "subject": "Task 1 Previous",
+                "statusText": "In Progress",
+                "dueDate": "31 January 2021,16:12",
+                "statusPercentage": 90,
+                "taskToken": "task-1",
+                "assignedTo": "John Deo",
+                "verifiedBy": "John Smith",
+                "priority": "Normal",
+                "tooltip": "Complete"
+            },
+            {
+                "subject": "Task 2 Previous",
+                "statusText": "In Progress",
+                "dueDate": "29 January 2021,16:12",
+                "statusPercentage": 50,
+                "taskToken": "task-1",
+                "assignedTo": "John Deo",
+                "verifiedBy": "John Smith",
+                "priority": "Normal"
+            },
+            {
+                "subject": "Task 3 Previous",
+                "statusText": "Waiting on someone else",
+                "dueDate": "7 february 2021,16:12",
+                "statusPercentage": 35,
+                "taskToken": "task-1",
+                "assignedTo": "John Deo",
+                "verifiedBy": "John Smith",
+                "priority": "Normal"
+            },
+            {
+                "subject": "Task 4 Previous",
+                "statusText": "Waiting on someone else",
+                "dueDate": "29 January 2021,16:12",
+                "statusPercentage": 10,
+                "taskToken": "task-1",
+                "assignedTo": "John Deo",
+                "verifiedBy": "John Smith",
+                "priority": "Normal"
+            }
+        ],
+        "inProgressFilter": {},
+        "completed": [
+            {
+                "subject": "Task",
+                "statusText": "",
+                "statusPercentage": 0,
+                "startDate": "28 January 2021,16:12",
+                "dueDate": "29 January 2021,16:12",
+                "taskToken": "task 1 Previous",
+                "assignedTo": "John Deo",
+                "verifiedBy": "John Smith",
+                "priority": "Normal"
+            }
+        ],
+        "completedFilter": {}
     }
 ]

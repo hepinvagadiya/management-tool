@@ -1,8 +1,9 @@
 import axios from 'axios';
 import store from '../store'
 
-// var url = 'http://10.1.1.20:8085'
-var url = 'http://10.1.1.244:8085'
+var url = 'http://10.1.1.20:8085'
+// var url = 'http://10.1.1.244:8085'
+
 
 
 export const UserGroupData = () => {
@@ -10,6 +11,8 @@ export const UserGroupData = () => {
         return axios({
             method: 'get',
             url: `${url}/group/getAll`,
+            headers: { 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('Login')).data.jwtToken.token}` }
+
         }).then(response => {
             console.log(response, 'userGroup')
             dispatch({
@@ -27,6 +30,8 @@ export const GetUserData = () => {
         return axios({
             method: 'get',
             url: `${url}/group/getUsers`,
+            headers: { 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('Login')).data.jwtToken.token}` }
+
         }).then(response => {
             console.log(response.data, "FindUser");
             dispatch({
@@ -45,6 +50,8 @@ export const Registration = (data) => {
             method: 'post',
             url: `${url}/group/add`,
             data: data,
+            headers: { 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('Login')).data.jwtToken.token}` }
+
         }).then(response => {
             console.log(response, "Registration")
             dispatch({
@@ -62,6 +69,8 @@ export const DeleteUserGroup = (record) => {
         return axios({
             method: 'delete',
             url: `${url}/group/delete/${record}`,
+            headers: { 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('Login')).data.jwtToken.token}` }
+
         }).then(response => {
             let get = store.getState().groupTable.groupTable
             const maindata = get.filter(p => p.token !== record)
@@ -82,6 +91,8 @@ export const FindUserGroup = (record) => {
         return axios({
             method: 'get',
             url: `${url}/group/findByToken/${record}`,
+            headers: { 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('Login')).data.jwtToken.token}` }
+
         }).then(response => {
             console.log(response.data, "FindUser");
             dispatch({
@@ -100,6 +111,8 @@ export const UpdateGroup = (data, token, index) => {
             method: 'put',
             url: `${url}/group/update/${token}`,
             data: data,
+            headers: { 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('Login')).data.jwtToken.token}` }
+
         }).then(response => {
             console.log(response.data, "Update")
             dispatch({

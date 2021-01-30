@@ -6,10 +6,8 @@ import MTModal from '../../modules/component/MTmodel/modal';
 import { Button } from 'antd';
 import Icons from '../../modules/component/Icons/icons'
 
-
 export const Topbar = () => {
     const [Task, setTask] = useState(false);
-
     const LogoutModalOpen = () => {
         document.body.classList.add('ReactModal__Body--open')
         setTask(true);
@@ -24,6 +22,8 @@ export const Topbar = () => {
         document.body.classList.add('ReactModal__Body--before-close')
         setTask(false);
     }
+    const data = JSON.parse(localStorage.getItem('Login')).data.username
+    const user = data.toUpperCase();
     return (
         <HeaderStyle>
             <PageHeader
@@ -31,7 +31,7 @@ export const Topbar = () => {
                 title={<img className="logo" src={Logo} alt="dsff"></img>}
                 extra={[
                     <div key='0' className="user" onClick={LogoutModalOpen} style={{ cursor: "pointer" }}>
-                        <div className="pic" >VH</div>
+                        <div className="pic" >{user[0]}{user[1]}</div>
                     </div>
                 ]}
             />
@@ -47,7 +47,7 @@ export const Topbar = () => {
                 ]}
             >
                 <span className="profile"><Icons type="usersMenu" /></span>
-                <span className="titlePro">Hepin Vagadiya</span>
+                <span className="titlePro">{user}</span>
             </MTModal>
         </HeaderStyle>
     );

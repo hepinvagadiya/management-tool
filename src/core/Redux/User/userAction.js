@@ -1,15 +1,14 @@
 import store from '../store'
 import axios from 'axios';
 
-// var url = 'http://10.1.1.20:8085'
-var url = 'http://10.1.1.244:8085'
-
-
+var url = 'http://10.1.1.20:8085'
 export const UserData = () => {
+    // const token = JSON.parse(localStorage.getItem('Login')).data.jwtToken.token
     return async (dispatch) => {
         return axios({
             method: 'get',
             url: `${url}/user/listAll`,
+            headers: { 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('Login')).data.jwtToken.token}` }
         }).then(response => {
             console.log(response, 'userDetail')
             dispatch({
@@ -28,6 +27,7 @@ export const Registration = (data) => {
             method: 'post',
             url: `${url}/user/create`,
             data: data,
+            headers: { 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('Login')).data.jwtToken.token}` }
         }).then(response => {
             console.log(response, "Registration")
             dispatch({
@@ -45,6 +45,7 @@ export const DeleteUser = (record) => {
         return axios({
             method: 'delete',
             url: `${url}/user/delete/${record}`,
+            headers: { 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('Login')).data.jwtToken.token}` }
         }).then(response => {
             let get = store.getState().table.table
             const maindata = get.filter(p => p.token !== record)
@@ -64,6 +65,7 @@ export const FindUser = (record) => {
         return axios({
             method: 'get',
             url: `${url}/user/findByToken/${record}`,
+            headers: { 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('Login')).data.jwtToken.token}` }
         }).then(response => {
             console.log(response.data, "FindUser");
             dispatch({
@@ -82,6 +84,7 @@ export const Update = (data, token, index) => {
             method: 'put',
             url: `${url}/user/update/${token}`,
             data: data,
+            headers: { 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('Login')).data.jwtToken.token}` }
         }).then(response => {
             console.log(response, "Update")
             dispatch({

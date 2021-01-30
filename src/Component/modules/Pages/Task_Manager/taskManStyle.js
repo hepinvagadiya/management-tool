@@ -1,18 +1,71 @@
 import styled from 'styled-components';
 
 const TaskManStyle = styled.div`
+.heading{
+    display: flex;
+    justify-content: space-between;
+    padding: 9px;
+    border-bottom: 1px solid #e5e5e51f;
+    
+    .title{
+        color: ${props => props.theme.headColor};
+        font-size: 14px;
+        letter-spacing: 0.75px;
+        font-weight: ${props => props.theme.fontBold};
+    }
+    .createEle{
+       background-color:${props => props.theme.body.createElebgColor};
+       letter-spacing: 0.82px;
+       font-size: 13px;
+       color: ${props => props.theme.body.createEleColor};
+       border: none;
+       padding: 2px 14px 2px 14px;
+       margin: -9px 11px 0px 0px;
+    } 
+    .globalFilter{
+        background-color: #1F2022;
+        border: 1px solid #54585A;
+        border-radius: 5px;
+        margin: -3px 18px 0px 5px;
+        height: 24px;
+        width: 22px;
+        padding: 6px 0px 0px 8px;
+    }
+    .sideContent{
+        .subject{
+            background-color: #292A2B;
+            font-style: normal;
+            font-size: 11px;
+            font-weight: 500;
+            display: flex;
+            line-height: 13px;
+            letter-spacing: 0.85px;
+            align-items: center;
+            color: #8FA8BA;
+            width: fit-content;
+            padding: 6px;
+            border-radius: 8px;
+            margin: 0px 13px 0px 8px;
+
+            .close{
+                padding-left: 6px;
+            }
+        }
+    }
+}
+
 .filterModal{
     position: absolute;
     background-color: #151617;
-    padding: 14px 19px 17px 21px;
+    padding: 14px 11px 17px 21px;
     line-height: 1.5715;
     font-size: 14px;
-    margin-left: 16%;
+    margin-left: 16.4%;
     z-index: 10;
     width: 236px;
     .inputs{
         width: 100%;
-        padding: 0px 0px 12px 0px;
+        padding: 0px 0px 20px 0px;
         .label{
             font-size: 12px;
             padding: 4px;
@@ -43,10 +96,11 @@ const TaskManStyle = styled.div`
     .addField{
         background-color: #429fe4;
         height: 24px;
-        padding: 1px 1px 1px 8px;
+        padding: 1px 5px 1px 5px;
         border-radius: 3px;
         width: 16px;
-        margin: 98px 0px 0px 21px;
+        margin: 106px 0px 0px 21px;
+        border: none;
     }
     .subject{
         background-color: #222222;
@@ -73,7 +127,7 @@ const TaskManStyle = styled.div`
         letter-spacing: 0.82px;
         color: #000000;
         padding: 0px 17px;
-        margin: 26px 0px 0px 65%;
+        margin: 19px 0px 0px 62%;
         border: none;
     }
 }
@@ -201,35 +255,48 @@ const TaskManStyle = styled.div`
     }
 }
 
-
-    .heading{
+.body-content{
+    .filter{
+         margin: 10px;
+        color: #8FA8BA;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 11px;
+        line-height: 13px;
         display: flex;
-        justify-content: space-between;
-        padding: 9px;
-        border-bottom: 1px solid #e5e5e51f;
-        
-        .title{
-            color: ${props => props.theme.headColor};
-            font-size: 14px;
-            letter-spacing: 0.75px;
-            font-weight: ${props => props.theme.fontBold};
-        }
-        .createEle{
-           background-color:${props => props.theme.body.createElebgColor};
-           letter-spacing: 0.82px;
-           font-size: 13px;
-           color: ${props => props.theme.body.createEleColor};
-           border: none;
-           padding: 2px 14px 2px 14px;
-           margin: -9px 11px 0px 0px;
-        } 
+        align-items: center;
+        letter-spacing: 0.85px;
     }
-    .mainContent{
+    .subject{
+        background-color: #222222;
+        font-style: normal;
+        font-size: 11px;
+        font-weight: 500;
         display: flex;
-        flex-wrap: wrap;
-        padding: 5px 1px 0px 1px;
-        max-height: 86vh;
-        overflow-x: scroll;
+        line-height: 13px;
+        letter-spacing: 0.85px;
+        align-items: center;
+        color: #8FA8BA;
+        width: fit-content;
+        padding: 7px;
+        border-radius: 8px;
+        margin: 5px 0px 0px 13px;
+
+        .close{
+            padding-left: 6px;
+        }
+    }
+ }
+
+   
+    .mainContent{
+        display: grid;
+        grid-gap: 13px;
+        grid-template-columns: repeat(auto-fill,minmax(452px,1fr));
+        padding: 11px 1px 0px 1px;
+        height: 85vh;
+        overflow-x: hidden;
+        overflow-y: auto;
 
         .ant-card {
             color: rgba(0, 0, 0, 0.85);
@@ -260,23 +327,21 @@ const TaskManStyle = styled.div`
             line-height: 16px;
         }
 
-        .toDo-main{
-            height: 82.6vh;
-            width: 32.1%;
-            min-width: 341px;
+        .tasklistContent{
+            height: calc(85vh - 9px);
+            width: 100%;
             overflow-x: auto; 
             background: #2B2B2B;
             max-height: 100%;
-            margin: 10px 11px 0px 11px;
 
-            .header-todo{
+            .header{
                 height: 40px;
                 background: #252A2F; 
                 border-bottom: 1px solid rgba(136, 205, 255, 0.13);    
                 display: flex;
                 justify-content: space-between;
 
-                .todoTitle{
+                .title{
                     padding: 14px;
                     font-style: normal;
                     font-size: 14px;
@@ -286,102 +351,7 @@ const TaskManStyle = styled.div`
                     letter-spacing: 0.3499999940395355px;
                     color: #E5E5E5;
                 } 
-                .todoFilter{
-                    padding: 12px 16px 0px 0px;
-                }  
-            }
-           .body-content{
-               .filter{
-                    margin: 10px;
-                   color: #8FA8BA;
-                   font-style: normal;
-                   font-weight: normal;
-                   font-size: 11px;
-                   line-height: 13px;
-                   display: flex;
-                   align-items: center;
-                   letter-spacing: 0.85px;
-               }
-               .subject{
-                   background-color: #222222;
-                   font-style: normal;
-                   font-size: 11px;
-                   font-weight: 500;
-                   display: flex;
-                   line-height: 13px;
-                   letter-spacing: 0.85px;
-                   align-items: center;
-                   color: #8FA8BA;
-                   width: fit-content;
-                   padding: 7px;
-                   border-radius: 8px;
-                   margin: 5px 0px 0px 13px;
-
-                   .close{
-                       padding-left: 6px;
-                   }
-               }
-            }
-        }
-        .progress-main{
-            height: 82.6vh;
-            width: 32.1%;
-            min-width: 341px;
-            max-height: 100%;
-            overflow-x: auto; 
-            background: #2B2B2B;
-            margin: 10px 11px 0px 11px;
-
-            .header-progress{
-                height: 40px;
-                background: #252A2F;
-                border-bottom: 1px solid rgba(136, 205, 255, 0.13);  
-                display: flex;
-                justify-content: space-between;  
-
-                .progressTitle{
-                    padding: 14px;
-                    font-style: normal;
-                    font-size: 14px;
-                    line-height: 16px;
-                    font-weight: 700;
-                    text-align: left;
-                    letter-spacing: 0.3499999940395355px;
-                    color: #E5E5E5;
-                }
-                .todoFilter{
-                    padding: 12px 16px 0px 0px;
-                }  
-            }
-           
-        }
-        .completed-main{
-            height: 82.6vh;
-            width: 32.1%;
-            max-height: 100%;
-            min-width: 341px;
-            overflow-x: auto; 
-            background: #2B2B2B;
-            margin: 10px 11px 0px 11px;
-
-            .header-complete{
-                height: 40px;
-                background: #252A2F;
-                border-bottom: 1px solid rgba(136, 205, 255, 0.13);    
-                display: flex;
-                justify-content: space-between;
-
-                .completedTitle{
-                    padding: 14px;
-                    font-style: normal;
-                    font-size: 14px;
-                    line-height: 16px;
-                    font-weight: 700;
-                    text-align: left;
-                    letter-spacing: 0.3499999940395355px;
-                    color: #E5E5E5;
-                }
-                .todoFilter{
+                .filter{
                     padding: 12px 16px 0px 0px;
                 }  
             }

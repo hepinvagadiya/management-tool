@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "f97b86b9-10b8-4a03-a875-ef0792414ced",
+		"name": "file",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "UploadMultipleFile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": "/C:/Users/ABCD/Downloads/CreateIndexSettingsExample.zip"
+						},
+						{
+							"key": "files",
+							"type": "file",
+							"src": "/C:/Users/ABCD/Downloads/jcg-elasticsearch-example.zip"
+						}
+					]
+				},
+				"url": {
+					"raw": "10.1.1.20:8085/files/uploadMultipleFiles",
+					"host": [
+						"10",
+						"1",
+						"1",
+						"20"
+					],
+					"port": "8085",
+					"path": [
+						"files",
+						"uploadMultipleFiles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DownloadFile",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/ABCD/Downloads/MOCK_DATA.csv"
+						},
+						{
+							"key": "files",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "10.1.1.20:8085/file/downloadFile/F085B331",
+					"host": [
+						"10",
+						"1",
+						"1",
+						"20"
+					],
+					"port": "8085",
+					"path": [
+						"file",
+						"downloadFile",
+						"F085B331"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UploadSingleFile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/ABCD/Downloads/standalone-elastic-example-master.zip"
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "10.1.1.20:8085/file/uploadFile",
+					"host": [
+						"10",
+						"1",
+						"1",
+						"20"
+					],
+					"port": "8085",
+					"path": [
+						"file",
+						"uploadFile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeletFileBytoken",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "10.1.1.20:8085/file/deleteFile/F46dbff1",
+					"host": [
+						"10",
+						"1",
+						"1",
+						"20"
+					],
+					"port": "8085",
+					"path": [
+						"file",
+						"deleteFile",
+						"F46dbff1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

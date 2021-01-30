@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { MTButton } from '../../component/MTForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { BlogStyle } from './blogStyle'
-import { GET, Delete } from '../../../../core/Redux/Blog/postAction';
-import { Card, Button, Form, Input, Upload,  Select, Tooltip } from 'antd';
+import { BlogData, BlogCreate, Delete } from '../../../../core/Redux/Blog/postAction';
+import { Card, Button, Form, Input, Upload, Select, Tooltip } from 'antd';
 import coverImg from '../../../../core/images/sample_blog-cover.png'
 import Icons from '../../component/Icons/icons';
 import MTModal from '../../component/MTmodel/modal';
@@ -13,24 +13,31 @@ export const Blog = () => {
     const { Meta } = Card;
     const { Option } = Select;
     const [form] = Form.useForm();
-    const dispatch = useDispatch()
-    let blogs = useSelector(state => state)
     const [delet, setDelete] = useState(false);
     const [create, setCreate] = useState(false);
     const [view, setView] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [title, setTitle] = useState("");
     const [index, setToken] = useState("")
     const [fileList, updateFileList] = useState([]);
     const children = [];
+    const dispatch = useDispatch()
+    const blogs = useSelector(state => state)
 
     useEffect(() => {
-        dispatch(GET())
+        dispatch(BlogData())
     }, [dispatch])
-
+    console.log(blogs)
+    // useEffect(() => {
+    //     if (blogs.blogs.status === true) {
+    //         setCreate(false)
+    //         setLoading(false)
+    //         form.resetFields();
+    //     }
+    // }, [blogs.blogs.status, form])0..0 
     const props1 = {
         fileList,
         onChange: info => {
-            // info.fileList[1].status = "success"
             info.file.status = 'done'
             info.file.response = null
             console.log(info, "info")
@@ -77,9 +84,11 @@ export const Blog = () => {
         setCreate(true);
     };
 
-    const createEle = () => {
+    const createEle = (value) => {
+        console.log(value, "value")
         document.body.classList.add('ReactModal__Body--before-close')
-        setCreate(false);
+        dispatch(BlogCreate(value))
+        setLoading(true);
     };
     const ViewPostModal = () => {
         document.body.classList.remove('ReactModal__Body--before-close')
@@ -98,8 +107,6 @@ export const Blog = () => {
         return e && e.fileList;
     };
 
-
-
     children.push(<Option></Option>);
     return (
         <BlogStyle>
@@ -111,14 +118,15 @@ export const Blog = () => {
                 <div className="body">
                     <div className="cardcontent">
                         <div className="cardBox">
-                            {blogs.data.blogs === undefined ? null : blogs.data.blogs.map((menu, index) => (
+                            {blogs.blogs.blogs === undefined ? null : blogs.blogs.blogs.map((menu, index) => (
                                 <Card key={index} className="card" cover={<img src={coverImg} alt="cardimg" onClick={ViewPostModal} />}>
-                                    <Meta title={new String(menu.title).length > 32 ? <Tooltip placement="bottom" title={menu.title}>{menu.title}</Tooltip> : menu.title}
+                                    {/* <Meta title={new String(menu.Title).length > 32 ? <Tooltip placement="bottom" title={menu.Title}>{menu.Title}</Tooltip> : menu.Title} */}
+                                    <Meta title={menu.Title}
                                         description={
                                             <span>
-                                                {menu.createdTime}<br></br>
+                                                {menu.CreationTime}<br></br>
                                                 <span className="user"><Icons type="author" /></span>
-                                                <span className="author"> {menu.author}</span>  {menu.token}
+                                                <span className="author"> {menu.Author}</span>
                                                 <span className="editDel">
                                                     <Tooltip placement="bottom" title="edit">
                                                         <span>
@@ -126,7 +134,7 @@ export const Blog = () => {
                                                         </span>
                                                     </Tooltip>
                                                     <Tooltip placement="bottom" title="delete">
-                                                        <span onClick={() => deleteModal(menu.title, menu.token)}>
+                                                        <span onClick={() => deleteModal(menu.Title, menu.token)}>
                                                             <Icons type="post_delete" />
                                                         </span>
                                                     </Tooltip>
@@ -190,17 +198,16 @@ export const Blog = () => {
                                 closable={true}
                                 maskClosable={false}
                                 footer={[
-                                    <Button key="submit" form="create" className="deleteEle" htmlType="submit">Save</Button>,
+                                    <Button key="submit" loading={loading} form="create" className="deleteEle" htmlType="submit">Save</Button>,
                                 ]}
                             >
                                 <div className="newPostContent">
                                     <Form form={form} layout="inline" onFinish={createEle} id="create">
                                         <div className="inputs">
                                             <div className="label">Post Title</div>
-                                            <Form.Item name={['user', 'name']} rules={[{ required: true, message: 'Please input Post Title!' }]} >
+                                            <Form.Item name='title' rules={[{ required: true, message: 'Please input Post Title!' }]} >
                                                 <Input
                                                     autoComplete="off"
-                                                    name="email"
                                                     type="text"
                                                     placeholder="Enter Post Title"
                                                 />
@@ -209,7 +216,7 @@ export const Blog = () => {
                                         <div className="inputs">
                                             <div className="label">Post Cover Image </div>
                                             <Form.Item
-                                                name="upload"
+                                                name="image"
                                                 valuePropName="fileList"
                                                 getValueFromEvent={normFile}
                                                 rules={[{ required: true, message: 'Please Attech PNG file!' }]}
@@ -221,7 +228,7 @@ export const Blog = () => {
                                         </div>
                                         <div className="inputs">
                                             <div className="label">Post Content</div>
-                                            <Form.Item >
+                                            <Form.Item name='content'>
                                                 <Input.TextArea
                                                     autoComplete="off"
                                                     placeholder="Enter Post Content"
@@ -231,7 +238,7 @@ export const Blog = () => {
                                         </div>
                                         <div className="inputs">
                                             <div className="label">Attechments</div>
-                                            <Form.Item name="upload-local" rules={[{ required: true, message: 'Please Attech any file !' }]} >
+                                            <Form.Item name="files" rules={[{ required: true, message: 'Please Attech any file !' }]} >
                                                 <Upload {...localFiles} className="upload-list-inline local">
                                                     <MTButton className="select">Select</MTButton>
                                                 </Upload>
@@ -239,7 +246,7 @@ export const Blog = () => {
                                         </div>
                                         <div className="inputs">
                                             <div className="label">Hashtags</div>
-                                            <Form.Item name="select" rules={[{ required: true, message: 'Please Select Any Option!' }]} >
+                                            <Form.Item name="hashtags" rules={[{ required: true, message: 'Please Select Any Option!' }]} >
                                                 <Select mode="tags" style={{ width: '100%' }} placeholder="Enter Tags">
                                                     {children}
                                                 </Select>

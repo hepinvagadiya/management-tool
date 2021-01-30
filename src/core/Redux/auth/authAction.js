@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { message } from 'antd';
 
-// var url = 'http://10.1.1.20:8085'
-var url = 'http://10.1.1.244:8085'
+var url = 'http://10.1.1.20:8085'
+// var url = 'http://10.1.1.244:8085'
 
 export const Authentication = (username, password) => {
     return async (dispatch) => {

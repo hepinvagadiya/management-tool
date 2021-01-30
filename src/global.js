@@ -188,7 +188,6 @@ html, body {
       .titlePro{
         color: #83a8ba;
         position: relative;
-        top: -3px;
         padding: 8px;
         letter-spacing: 0.35px;
       }

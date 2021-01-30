@@ -14,7 +14,7 @@ const BlogStyle = styled.div`
             letter-spacing: 0.75px;
             font-weight: ${props => props.theme.fontBold};
         }
-           .createEle{
+        .createEle{
             background-color: ${props => props.theme.body.createElebgColor};
             letter-spacing: 0.82px;
             font-size: 13px;
@@ -22,29 +22,28 @@ const BlogStyle = styled.div`
             border: none;
             padding: 2px 14px 2px 14px;
             margin: -9px 11px 0px 0px;
-           } 
+        } 
     }
     .body{
         overflow: auto;
+        height: 85vh;
         
         .cardcontent{
             padding: 10px;
-            height: calc(54rem - 100px);
-            // height: 100%;
+            height: 100%;
             
             .cardBox{
                 display: grid;
                 grid-template-columns: repeat(auto-fill,minmax(347px, 1fr));
-                grid-gap: 10px;
-                overflow-x:hidden;
+                grid-gap: 12px;
                 
                 .card{
                     border: none;
-                    width: 347px;
+                    width: 100%;
                     background-color: ${props => props.theme.body.blog.cardBgcolor};
                     padding: 2px;
                     border-radius: 5px;
-                    height: 251px;
+                    height: 100%;
                 
                     &:hover{
                         transition: 1.2s;
@@ -102,102 +101,7 @@ const BlogStyle = styled.div`
             }
         }
     }
-    // @media only screen and (max-height: 700px) {
-    //     .cardcontent{
-    //         max-height: 79vh;
-    //     }
-    // }
-    // @media only screen and (max-height: 648px) {
-    //     .cardcontent{
-    //         max-height: 65vh;
-    //     }
-    // }
-    // @media only screen and (max-height: 400px) {
-    //     .cardcontent{
-    //         max-height: 60vh;
-    //     }
-    // }
-
-    // @media only screen and (max-width: 1915px) {
-    //     .cardcontent{
-    //         .card{
-    //             width: 20rem;
-    //             margin: 15px;
-    //         }
-    //     }
-    // }
-    // @media only screen and (max-width: 1680px) {
-    //     .cardcontent{
-    //         .card{
-    //             width: 22rem;
-    //             margin: 15px;
-    //         }
-    //     }
-    // }
-    // @media only screen and (max-width: 1600px) {
-    //     .cardcontent{
-    //         .card{
-    //             width: 20.3rem;
-    //             margin: 15px;
-    //         }
-    //     }
-    // }
-    // @media only screen and (max-width: 1440px) {
-    //     .cardcontent{
-    //         .card{
-    //             width: 25rem;
-    //             margin: 15px;
-    //         }
-    //     }
-    // }   
-    // @media only screen and (max-width: 1400px) {
-    //     .cardcontent{
-    //         .card{
-    //             width: 24rem;
-    //             margin: 15px;
-    //         }
-    //     }
-    // }
-    // @media only screen and (max-width: 1366px) {
-    //     .cardcontent{
-    //         .card{
-    //             width: 17rem;
-    //             margin: 15px;
-    //         }
-    //     }
-    // }   
-    // @media only screen and (max-width: 1280px) {
-    //     .cardcontent{
-    //         .card{
-    //             width: 21.8rem;
-    //             margin: 15px;
-    //         }
-    //     }
-    // }   
-    // @media only screen and (max-width: 1152px) {
-    //     .cardcontent{
-    //         .card{
-    //             width: 18.8rem;
-    //             margin: 15px;
-    //         }
-    //     }
-    // }
-    // @media only screen and (max-width: 1024px) {
-    //     .cardcontent{
-    //         .card{
-    //             width: 16rem;
-    //             margin: 18px;
-    //         }
-    //     }
-    // }
-    // @media only screen and (max-width: 800px) {
-    //     .cardcontent{
-    //         .card{
-    //             width: 18.5rem;
-    //             margin: 15px;
-    //         }
-    //     }
-    // }
+    
    
 }
 `;
