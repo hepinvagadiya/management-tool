@@ -83,6 +83,16 @@ axios({
     console.log(error);
 });
 
+axios({
+    method: 'post',
+    url: 'http://10.1.1.20:8085/file/uploadFile',
+    headers: { 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('Login')).data.jwtToken.token}` },
+}).then((response) => {
+    console.log(response);
+}, (error) => {
+    console.log(error);
+});
+
 
 
 // ===========================================sign in  ===================================
@@ -876,7 +886,7 @@ const TaskManStyle = styled.div`
 `;
 
 export { TaskManStyle };
-    
+
 
 <Form form={form} layout="inline" id="create">
     <div className="inputs">

@@ -5,26 +5,48 @@ import NewpwStyle from "./newpwStyle";
 import { Form, Input } from 'antd';
 import { useDispatch } from 'react-redux';
 import { ChangePassword } from '../../../../../core/Redux/auth/authAction';
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import { Link } from "react-router-dom";
 
 export const NewPw = () => {
     const dispatch = useDispatch()
-    const [password, setPassword] = React.useState();
-    const [confirmPassword, setConfirmPassword] = React.useState();
 
-    const submit = () => {
-        dispatch(ChangePassword(password, confirmPassword))
+    const submit = (value) => {
+        dispatch(ChangePassword(value))
     }
+    const restrict = (event) => {
+        const regex = new RegExp("^[a-zA-Z]+$");
+        const key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+        if (!regex.test(key)) {
+            event.preventDefault();
+            return false;
+        }
+    }
+
     return (
         <NewpwStyle>
             <div className="signinContent">
                 <div className="leftContainer">
+                    <div className="backButton"> <Link to={{ pathname: "/" }}><ArrowLeftOutlined /></Link></div>
                     <img className="logo" src={Logo} alt="dsff"></img>
                     <div className="login">Change Password</div>
                     <Form onFinish={submit}>
                         <div className="inputs">
+                            <div className="label">Username</div>
+                            <Form.Item name="username" rules={[{ required: true, message: 'Please input Username!' }]} >
+                                <Input
+                                    name="username"
+                                    autoComplete="off"
+                                    onKeyPress={e => restrict(e)}
+                                    type="text"
+                                    placeholder="Enter User Name"
+                                />
+                            </Form.Item>
+                        </div>
+                        <div className="inputs">
                             <div className="label">New Password<sup>*</sup></div>
                             <Form.Item
-                                name="password"
+                                name="newpassword"
                                 hasFeedback
                                 rules={[{
                                     required: true,
@@ -32,10 +54,9 @@ export const NewPw = () => {
                                 }]}
                             >
                                 <Input.Password
-                                autoComplete="off"
+                                    autoComplete="off"
                                     className="username"
                                     placeholder="Enter password"
-                                    onChange={e => setPassword(e.target.value)}
                                     type="password"
                                     name="newpassword"
                                 />
@@ -44,7 +65,7 @@ export const NewPw = () => {
                         <div className="inputs">
                             <div className="label">Confirm Password<sup>*</sup></div>
                             <Form.Item
-                                name="confirm"
+                                name="confirmpassword"
                                 dependencies={['password']}
                                 hasFeedback
                                 rules={[
@@ -54,7 +75,7 @@ export const NewPw = () => {
                                     },
                                     ({ getFieldValue }) => ({
                                         validator(_, value) {
-                                            if (!value || getFieldValue('password') === value) {
+                                            if (!value || getFieldValue('newpassword') === value) {
                                                 return Promise.resolve();
                                             }
                                             return Promise.reject('The two passwords that you entered do not match!');
@@ -66,7 +87,6 @@ export const NewPw = () => {
                                     placeholder="Enter confirm password"
                                     className="username"
                                     autoComplete="off"
-                                    onChange={e => setConfirmPassword(e.target.value)}
                                     type="password"
                                     name="confirmpassword"
                                 />

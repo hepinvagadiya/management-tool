@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Logo from '../../../../../core/images/logo.svg'
 import { MTButton } from '../../../component/MTForm';
 import OtpStyle from "./OtpStyle";
 import { Form, Input } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { GetOtp } from '../../../../../core/Redux/auth/authAction';
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import { Link } from "react-router-dom";
+
 
 export const Otp = () => {
     const dispatch = useDispatch()
@@ -26,6 +29,7 @@ export const Otp = () => {
         <OtpStyle>
             <div className="signinContent">
                 <div className="leftContainer">
+                    <div className="backButton"> <Link to={{ pathname: "/" }}><ArrowLeftOutlined /></Link></div>
                     <img className="logo" src={Logo} alt="dsff"></img>
                     <div className="login">Verify OTP</div>
                     <div className="welcome">Enter 6 digit OTP received via mail.</div>
@@ -34,7 +38,7 @@ export const Otp = () => {
                             <div className="label">OTP<sup>*</sup></div>
                             <Form.Item name={['user', 'number']} rules={[{ validator: checkPrice, required: true, }]}>
                                 <Input
-                                autoComplete="off"
+                                    autoComplete="off"
                                     className="username"
                                     name="otp"
                                     type="number"

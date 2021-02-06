@@ -1,127 +1,146 @@
 import axios from 'axios';
 import store from '../store'
-
+import { message } from 'antd';
 var url = 'http://10.1.1.20:8085'
-// var url = 'http://10.1.1.244:8085'
-
-
 
 export const UserGroupData = () => {
+    const key = 'updatable';
     return async (dispatch) => {
         return axios({
             method: 'get',
             url: `${url}/group/getAll`,
-            headers: { 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('Login')).data.jwtToken.token}` }
-
+            headers: { 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('Login')).data.jwtToken.token}` }
         }).then(response => {
-            console.log(response, 'userGroup')
             dispatch({
                 type: 'GET_USER_GROUP_DATA',
                 payload: response.data
             })
         }).catch((error) => {
-            console.log(error.response, "error")
+            if (error.response !== undefined) {
+                message.error({ content:`UserGroup : ${error.response.data.message}`, key, duration: 2 })
+            } else {
+                message.error({ content: 'Authentication : Please check your network connection and try again.', key, duration: 2 });
+            }
+            return error;
         });
     };
 };
-
 export const GetUserData = () => {
+    const key = 'updatable';
     return async (dispatch) => {
         return axios({
             method: 'get',
             url: `${url}/group/getUsers`,
-            headers: { 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('Login')).data.jwtToken.token}` }
-
+            headers: { 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('Login')).data.jwtToken.token}` }
         }).then(response => {
-            console.log(response.data, "FindUser");
             dispatch({
                 type: 'GET_USERS_DATA',
                 payload: response.data
             })
         }).catch((error) => {
-            console.log(error.response, "error")
+            if (error.response !== undefined) {
+                message.error({ content:`UserGroup : ${error.response.data.message}`, key, duration: 2 })
+            } else {
+                message.error({ content: 'Please check your network connection and try again.', key, duration: 2 });
+            }
+            return error;
         });
     };
 };
-
 export const Registration = (data) => {
+    console.log('KFNJKDNJHFJSF')
+    const key = 'updatable';
     return async (dispatch) => {
         return axios({
             method: 'post',
             url: `${url}/group/add`,
             data: data,
-            headers: { 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('Login')).data.jwtToken.token}` }
-
+            headers: { 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('Login')).data.jwtToken.token}` }
         }).then(response => {
-            console.log(response, "Registration")
             dispatch({
                 type: 'USER_GROUP_REGISTRATION',
                 payload: response.data
             })
         }).catch((error) => {
-            console.log(error.response, "error")
+            if (error.response !== undefined) {
+                message.error({ content:`UserGroup : ${error.response.data.message}`, key, duration: 2 })
+            } else {
+                message.error({ content: 'Please check your network connection and try again.', key, duration: 2 });
+            }
+            return error;
         });
     };
 };
-
 export const DeleteUserGroup = (record) => {
+    const key = 'updatable';
     return async (dispatch) => {
         return axios({
             method: 'delete',
             url: `${url}/group/delete/${record}`,
-            headers: { 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('Login')).data.jwtToken.token}` }
+            headers: { 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('Login')).data.jwtToken.token}` }
 
         }).then(response => {
             let get = store.getState().groupTable.groupTable
             const maindata = get.filter(p => p.token !== record)
             dispatch({
                 type: 'DELETE_USER_GROUP',
-                payload: maindata
+                payload: maindata,
+                delStatus: response.data.status,
             })
-            console.log(response, "DeleteUser")
         }).catch((error) => {
-            console.log(error.response, "error")
+            if (error.response !== undefined) {
+                message.error({ content:`UserGroup : ${error.response.data.message}`, key, duration: 2 })
+            } else {
+                message.error({ content: 'Please check your network connection and try again.', key, duration: 2 });
+            }
+            return error;
         });
     };
 };
-
-
 export const FindUserGroup = (record) => {
+    const key = 'updatable';
     return async (dispatch) => {
         return axios({
             method: 'get',
             url: `${url}/group/findByToken/${record}`,
-            headers: { 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('Login')).data.jwtToken.token}` }
-
+            headers: { 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('Login')).data.jwtToken.token}` }
         }).then(response => {
-            console.log(response.data, "FindUser");
             dispatch({
                 type: 'FIND_USERGROUP_DATA',
                 payload: response
             })
         }).catch((error) => {
-            console.log(error.response, "error")
+            if (error.response !== undefined) {
+                message.error({ content:`UserGroup : ${error.response.data.message}`, key, duration: 2 })
+            } else {
+                message.error({ content: 'Please check your network connection and try again.', key, duration: 2 });
+            }
+            return error;
         });
     };
 };
-
 export const UpdateGroup = (data, token, index) => {
+    console.log("object")
+    const key = 'updatable';
     return async (dispatch) => {
         return axios({
             method: 'put',
             url: `${url}/group/update/${token}`,
             data: data,
-            headers: { 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('Login')).data.jwtToken.token}` }
-
+            headers: { 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('Login')).data.jwtToken.token}` }
         }).then(response => {
-            console.log(response.data, "Update")
             dispatch({
                 type: 'USER_GROUP_UPDATE',
                 payload: response.data,
                 index: index,
             })
         }).catch((error) => {
-            console.log(error.response, "error")
+            if (error.response !== undefined) {
+                message.error({ content:`UserGroup : ${error.response.data.message}`, key, duration: 2 })
+            } else {
+                message.error({ content: 'Please check your network connection and try again.', key, duration: 2 });
+            }
+            return error;
         });
     };
 };

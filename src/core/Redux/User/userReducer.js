@@ -6,6 +6,7 @@ export default (state = initState, action) => {
         case 'GET_USER_DATA':
             return (
                 state = {
+                    ...state,
                     table: action.payload.data,
                 }
             )
@@ -19,7 +20,9 @@ export default (state = initState, action) => {
         case 'DELETE_USER':
             return (
                 state = {
-                    table: action.payload
+                    ...state,
+                    table: action.payload,
+                    delStatus: action.delStatus
                 }
             )
         case 'FIND_USER_DATA':
@@ -27,7 +30,7 @@ export default (state = initState, action) => {
                 state = {
                     table: [...state.table],
                     findUser: action.payload.data,
-                    findStatus: action.payload.status
+                    findStatus: action.findStatus
                 }
             )
         case 'USER_UPDATE':

@@ -13,6 +13,139 @@ html, body {
 #root {
   filter: none;
 }
+.backButton{
+  margin: 0px 0px 28px 0px;
+  span{
+      svg{
+          height: 2em;
+          width: 2em;
+          path{
+              fill: white;
+          }
+      }
+  }
+}
+.ant-message-notice-content {
+  display: inline-block;
+  padding: 10px 16px;
+  background: #151617;
+  color: white;
+  border-radius: 5px;
+}
+.ant-popover {
+  top: 155px !important;
+}
+.ant-popover-title {
+  min-width: 177px;
+  min-height: 0px; */
+  margin: 0;
+  padding: 5px 16px 4px; 
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 500;
+  border-bottom: none;
+  background-color: #151617;
+}
+.ant-popover-placement-bottomRight > .ant-popover-content > .ant-popover-arrow{
+  top: 9px;
+  border-top-color: #151617;
+  border-left-color: #151617;
+}
+.ant-popover-inner {
+  background-color: #151617;
+} 
+.filterModal{
+    line-height: 1.5715;
+    font-size: 14px;
+    z-index: 10;
+      .inputs{
+        width: 100%;
+        padding: 0px 0px 20px 0px;  
+        .label{
+            font-size: 12px;
+            padding: 4px;
+            color: #E5E5E5;
+            letter-spacing:0.75px
+        }
+        .ant-input {
+            background-color: #222222;
+            border-radius: 2px;
+            border: 1px solid #e8e8e82b; 
+            color: ${props => props.theme.color};
+            &:hover{
+              background-color: #222222;
+            }
+           
+        }
+        .ant-form-item-explain, .ant-form-item-extra {
+            clear: both;
+            position: absolute;
+            min-height: 0px;
+            padding-top: 0px;
+            color: #ff4d4f;
+            font-size: 14px;
+        }
+        .ant-btn:hover, .ant-btn:focus {
+          color: #000000 !important;
+          background: #429fe4 !important;
+          border-color: #40a9ff;
+        }
+      }
+    .ant-form-inline .ant-form-item {
+      -ms-flex: none;
+      flex: none;
+      -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+      margin-right: 3px;
+      margin-bottom: 0;
+  }
+    .ant-form-inline .ant-form-item-with-help {
+        margin-bottom: 5px;
+    }
+    .addField{
+        background-color: #429fe4;
+        height: 24px;
+        padding: 1px 5px 1px 5px;
+        border-radius: 3px;
+        width: 16px;
+        margin: 106px 0px 0px 32px;
+        border: none;
+    }
+    .subject{
+        background-color: #222222;
+        font-style: normal;
+        font-size: 11px;
+        font-weight: 500;
+        display: flex;
+        line-height: 11px;
+        letter-spacing: 0.85px;
+        align-items: center;
+        color: #8FA8BA;
+        width: fit-content;
+        padding: 7px;
+        border-radius: 6px;
+        margin: 8px 0px 0px 0px ;
+        cursor: pointer;
+    }
+        .close{
+            padding-left: 6px;
+            cursor: pointer;
+        }
+    }
+    .search{
+        background-color: #429FE4;
+        font-size: 13px;
+        letter-spacing: 0.82px;
+        color: #000000;
+        padding: 0px 17px;
+        margin: 19px 0px 0px 67%;
+        border: none;
+        &:hover{
+          background-color: #429FE4;
+          color: #000000;
+        }
+    }
+}
+
 //ToolTip //
 
 .ant-tooltip-inner {
@@ -191,6 +324,11 @@ html, body {
         padding: 8px;
         letter-spacing: 0.35px;
       }
+      .email{
+        color: #83a8ba;
+        padding: 0px 0px 0px 43px;
+
+      }
       .viewImg{
         height: 14rem;
         width: 33rem;
@@ -266,7 +404,27 @@ html, body {
       .ant-form-item-has-error .ant-select:not(.ant-select-disabled):not(.ant-select-customize-input) .ant-select-selector {
        background-color: #222;
        border-color: #333334 !important;
-   }
+      }
+      .viewtaskName{
+        color: #FFFFFF;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 19px;
+        letter-spacing: 0.75px;
+        padding: 5px;
+       }
+    .viewMain{
+      display: grid;
+      grid-gap: 10px;
+      grid-template-columns: 30% 70%;
+      .leftContent{
+        
+      }
+      .rightContent{
+
+      }
+    }
   .taskName{
     font-style: normal;
     font-size: 12px;
@@ -331,6 +489,9 @@ html, body {
         font-size: 14px;
       }
     }
+    .ant-select-selection-placeholder {
+      opacity: 0.7;
+    }
     .ant-form-inline .ant-form-item-with-help {
       margin-bottom: 0px;
     }
@@ -346,7 +507,11 @@ html, body {
         &:hover{
           background-color: #222222;
         }
+        &::placeholder {
+          opacity: 0.5;
+        }
     }
+   
     .ant-input-suffix {
       margin-left: 4px;
       span{
@@ -413,11 +578,21 @@ html, body {
       padding: 0 4px;
       margin: -3px 0px 0px 20px;
       background-color: #222222;
+      color:#8FA8BA;
       border-radius: 8px;
       &:hover{
         background-color: #222222;
+        color:#8FA8BA;
       }
-      
+      .ant-upload-text-icon{
+        span{
+          svg{
+            path{
+              fill: transparent;
+            }
+          }
+        }
+      }
       .ant-form-item-control-input-content {
         flex: none;
       }
@@ -438,6 +613,16 @@ html, body {
     .upload-list-inline [class*='-upload-list-rtl'] .ant-upload-list-item {
       float: right;
     }
+    .ant-upload-list-item {
+      position: relative;
+      height: 26.001px;
+      margin-top: 6px;
+      font-size: 13px;
+  }
+  .ant-upload-list-text .ant-upload-list-item-name, .ant-upload-list-picture .ant-upload-list-item-name {
+    flex: auto;
+    padding: 0px 0px;
+  }
     .ant-select:not(.ant-select-customize-input) .ant-select-selector {
       background-color: #222222;
       border-radius: 2px;

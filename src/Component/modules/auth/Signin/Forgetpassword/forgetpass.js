@@ -5,6 +5,8 @@ import ForgetpwStyle from "./forgetpwStyle";
 import { Form, Input } from 'antd';
 import { useDispatch } from 'react-redux';
 import { ForgetPassword } from '../../../../../core/Redux/auth/authAction';
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import { Link } from "react-router-dom";
 
 export const Forgetpw = () => {
     const dispatch = useDispatch()
@@ -23,6 +25,7 @@ export const Forgetpw = () => {
         <ForgetpwStyle>
             <div className="signinContent">
                 <div className="leftContainer">
+                    <div className="backButton"> <Link to={{ pathname: "/" }}><ArrowLeftOutlined /></Link></div>
                     <img className="logo" src={Logo} alt="dsff"></img>
                     <div className="login">Forgot Password</div>
                     <Form onFinish={onFinish} requiredMark={"requiredMark"} validateMessages={validateMessages}>
@@ -44,7 +47,7 @@ export const Forgetpw = () => {
                         </span>
                     </Form>
                 </div>
-            </div>  
+            </div>
         </ForgetpwStyle>
     );
 }

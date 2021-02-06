@@ -1,29 +1,21 @@
 import axios from 'axios';
 import { message } from 'antd';
-
+import { sideBar } from '../../Array/array'
 var url = 'http://10.1.1.20:8085'
-// var url = 'http://10.1.1.244:8085'
 
-export const Authentication = (username, password) => {
+export const Authentication = (value) => {
+    const key = 'updatable';
+    message.loading({ content: 'Verifying User...', key });
     return async (dispatch) => {
         return axios({
             method: 'post',
             url: `${url}/login`,
-            data: {
-                "username": username,
-                "password": password
-            },
+            data: value,
         }).then(response => {
-            console.log(response, "authResponse")
-            const key = 'updatable';
-            message.loading({ content: 'Verifying User...', key });
-            setTimeout(() => {
-                console.log(response)
-                message.error({ content: [response.data.message], key, duration: 2 })
-            }, 1000);
+            setTimeout(() => { message.error({ content: [response.data.message], key, duration: 2 }) }, 1000);
             if (response.data.status === true) {
-                localStorage.setItem("Login", JSON.stringify(response.data))
-                window.location.replace('/ZeronSec/users')
+                sessionStorage.setItem("Login", JSON.stringify(response.data))
+                window.location.replace(`/ZeronSec${sideBar[0].SideMenu[sessionStorage.getItem('current')].routingPath}`)
             }
             dispatch({
                 type: 'FOUND_USER',
@@ -31,22 +23,23 @@ export const Authentication = (username, password) => {
             })
         })
             .catch((error) => {
-                const key = 'updatable';
-                if (error.response.status === 404) { message.error({ content: 'User not found', key, duration: 2 }) } else { setTimeout(() => { message.error({ content: [error.response.data.message], key, duration: 2 }) }, 1000); }
-                console.log(error.response, "auth error")
+                if (error.data && error.status === 404) {
+                    message.error({ content: 'User not found', key, duration: 2 })
+                } else {
+                    message.error({ content: 'Authentication : Please check your network connection and try again.', key, duration: 2 });
+                }
+                return error;
             });
     };
 };
-
 export const ForgetPassword = (email) => {
+    const key = 'updatable';
+    message.loading({ content: 'Verifying Email...', key });
     return async (dispatch) => {
         return axios({
             method: 'post',
             url: `${url}/forgot-password?email=${email}`,
         }).then(response => {
-            console.log(response, "res")
-            const key = 'updatable';
-            message.loading({ content: 'Verifying Email...', key });
             setTimeout(() => { message.error({ content: [response.data.message], key, duration: 2 }) }, 1000);
             if (response.data.status === true) { window.location.replace('/OTP') }
             dispatch({
@@ -55,21 +48,24 @@ export const ForgetPassword = (email) => {
             })
         })
             .catch((error) => {
-                const key = 'updatable';
-                if (error.response.status === 404) { message.error({ content: 'User not found', key, duration: 2 }) } else { setTimeout(() => { message.error({ content: [error.response.data.message], key, duration: 2 }) }, 1000); }
-                console.log(error.response, "auth error")
+                if (error.response !== undefined) {
+                    message.error({ content: error.response.data.message, key, duration: 2 })
+                } else {
+                    message.error({ content: 'Authentication : Please check your network connection and try again.', key, duration: 2 });
+                }
+                return error;
             });
     };
 };
 
 export const GetOtp = (otp) => {
+    const key = 'updatable';
+    message.loading({ content: 'Verifying OTP...', key });
     return async (dispatch) => {
         return axios({
             method: 'post',
             url: `${url}/verify-otp?otp=${otp}`,
         }).then(response => {
-            const key = 'updatable';
-            message.loading({ content: 'Verifying OTP...', key });
             setTimeout(() => { message.error({ content: [response.data.message], key, duration: 2 }) }, 1000);
             if (response.data.status === true) {
                 window.location.replace('/NewPassword')
@@ -80,27 +76,25 @@ export const GetOtp = (otp) => {
             })
         })
             .catch((error) => {
-                const key = 'updatable';
-                setTimeout(() => { message.error({ content: [error.response.data.message], key, duration: 2 }) }, 1000);
-                console.log(error, "error")
+                if (error.response !== undefined) {
+                    message.error({ content: error.response.data.message, key, duration: 2 })
+                } else {
+                    message.error({ content: 'Authentication : Please check your network connection and try again.', key, duration: 2 });
+                }
+                return error;
             });
     };
 };
 
-export const ChangePassword = (password, confirmPassword) => {
+export const ChangePassword = (value) => {
+    const key = 'updatable';
+    message.loading({ content: 'Verifying Passwords...', key });
     return async (dispatch) => {
         return axios({
             method: 'post',
             url: `${url}/change-password`,
-            data: {
-                "newpassword": password,
-                "confirmpassword": confirmPassword,
-                "username": "hepin"
-            },
+            data: value,
         }).then(response => {
-            console.log(response, "res")
-            const key = 'updatable';
-            message.loading({ content: 'Verifying Passwords...', key });
             setTimeout(() => { message.error({ content: [response.data.message], key, duration: 2 }) }, 1000);
             if (response.data.status === true) {
                 window.location.replace('/')
@@ -111,9 +105,12 @@ export const ChangePassword = (password, confirmPassword) => {
             })
         })
             .catch((error) => {
-                const key = 'updatable';
-                setTimeout(() => { message.error({ content: [error.response.data.message], key, duration: 2 }) }, 1000);
-                console.log(error, "error")
+                if (error.response !== undefined) {
+                    message.error({ content: error.response.data.message, key, duration: 2 })
+                } else {
+                    message.error({ content: 'Authentication : Please check your network connection and try again.', key, duration: 2 });
+                }
+                return error;
             });
     };
 };

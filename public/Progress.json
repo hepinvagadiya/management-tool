@@ -36,12 +36,15 @@
                 "priority": "High"
             }
         ],
-        "toDoFilter": {},
+        "toDoFilter": {
+            "subject": "Task 1",
+            "Verifier": "John Smith"
+        },
         "inProgress": [
             {
                 "subject": "Task 1 Previous",
                 "statusText": "In Progress",
-                "dueDate": "31 January 2021,16:12",
+                "dueDate": "10 February 2021,16:12",
                 "statusPercentage": 90,
                 "taskToken": "task-1",
                 "assignedTo": "John Deo",
@@ -80,7 +83,10 @@
                 "priority": "Normal"
             }
         ],
-        "inProgressFilter": {},
+        "inProgressFilter": {
+            "subject": "Task 1",
+            "Verifier": "John Smith"
+        },
         "completed": [
             {
                 "subject": "Task",
@@ -94,6 +100,9 @@
                 "priority": "Normal"
             }
         ],
-        "completedFilter": {}
+        "completedFilter": {
+            "subject": "Task 1",
+            "Verifier": "John Smith"
+        }
     }
 ]

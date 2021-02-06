@@ -7,6 +7,7 @@ export default (state = initState, action) => {
         case 'GET_USER_GROUP_DATA':
             return (
                 state = {
+                    ...state,
                     groupTable: action.payload.data,
                 }
             )
@@ -20,6 +21,7 @@ export default (state = initState, action) => {
         case 'USER_GROUP_REGISTRATION':
             return (
                 state = {
+                    ...state,
                     groupTable: [...state.groupTable, action.payload.data],
                     status: action.payload.status,
                 }
@@ -27,14 +29,15 @@ export default (state = initState, action) => {
         case 'DELETE_USER_GROUP':
             return (
                 state = {
-                    groupTable: action.payload
+                    ...state,
+                    groupTable: action.payload,
+                    delStatus: action.delStatus
                 }
             )
         case 'FIND_USERGROUP_DATA':
             return (
                 state = {
                     ...state,
-                    groupTable: [...state.groupTable],
                     findStatus: action.payload.data.status,
                     findUserGroup: action.payload.data,
                 }
@@ -45,6 +48,7 @@ export default (state = initState, action) => {
             return (
                 state = {
                     groupTable: maintable,
+                    getAllUser: [...state.getAllUser],
                     editStatus: action.payload.status,
                 }
             )

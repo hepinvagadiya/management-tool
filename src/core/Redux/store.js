@@ -1,9 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
-import email from './auth/authReducer';
 import auth from './auth/authReducer';
-import otp from './auth/authReducer';
-import changePassword from './auth/authReducer'
 import blogs from "./Blog/postsReducer";
 import table from './User/userReducer';
 import groupTable from './UserGroup/userGroupReducer'
@@ -14,7 +11,13 @@ const composeEnhancers = typeof window === "object" && window.__REDUX_DEVTOOLS_E
     })
     : compose;
 const store = createStore(
-    combineReducers({ auth, otp, email, blogs, table, changePassword, ProgressList, groupTable }),
+    combineReducers({
+        auth,
+        table,
+        groupTable,
+        blogs,
+        ProgressList,
+    }),
     composeEnhancers(applyMiddleware(thunk)),
 );
 export default store;   

@@ -30,7 +30,7 @@ const BlogStyle = styled.div`
         
         .cardcontent{
             padding: 10px;
-            height: 100%;
+            height: calc(100% - 55px);
             
             .cardBox{
                 display: grid;
@@ -97,6 +97,25 @@ const BlogStyle = styled.div`
                     letter-spacing:0.75px;
                     font-size: 10px;
                     color: ${props => props.theme.headColor};
+                }
+            }
+        }
+        .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+            position: relative;
+            background-color: #191818;
+            border: none;
+            border-radius: 2px;
+            color: #a9a9a9;
+            &:focus{
+                border: none;
+            }
+        }
+        .ant-select-arrow{
+            span{
+                svg{
+                    path{
+                        fill: #048c77;
+                    }
                 }
             }
         }

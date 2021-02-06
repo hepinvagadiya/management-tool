@@ -7,7 +7,6 @@ import { Button, Form, Input, Radio, } from 'antd';
 import { UserGroupData, GetUserData, Registration, DeleteUserGroup, FindUserGroup, UpdateGroup } from '../../../../core/Redux/UserGroup/userGroupAction';
 import { useDispatch, useSelector } from 'react-redux';
 import Icons from '../../../modules/component/Icons/icons'
-
 import { Select } from 'antd';
 
 export const UserGroup = () => {
@@ -22,25 +21,20 @@ export const UserGroup = () => {
     const [title, setTitle] = useState("");
     const [gettoken, setToken] = useState("");
     const [select, selectIndex] = useState("")
+
     useEffect(() => {
-        dispatch(UserGroupData())
         dispatch(GetUserData())
+        dispatch(UserGroupData())
     }, [dispatch])
-
     useEffect(() => {
-        if (user.groupTable.status === true) {
-            setCreateUserGro(false)
-            setLoading(false);
-            form.resetFields();
-        }
         if (user.groupTable.editStatus === true) { setLoading(false); form.resetFields(); setEditUserGr(false) }
+        if (user.groupTable.delStatus === true) { setLoading(false); setDelete(false); }
+        if (user.groupTable.status === true) { setCreateUserGro(false); setLoading(false); form.resetFields(); }
         if (user.groupTable.findStatus) {
-            setEdittoken(user.groupTable.findUserGroup.data.token)
+            setEdittoken(user.groupTable.findUserGroup.data.token);
             form.setFieldsValue(user.groupTable.findUserGroup.data);
-            if (user.groupTable.findStatus === true) { setEditUserGr(true) }
         }
-    }, [user.groupTable.status, user.groupTable.findUserGroup, user.groupTable.findStatus, user.groupTable.editStatus, form])
-
+    }, [user.groupTable.status, user.groupTable.findUserGroup, user.groupTable.findStatus, user.groupTable.editStatus, user.groupTable.delStatus, form])
     const columns = [
         {
             "title": "Group Name",
@@ -82,31 +76,28 @@ export const UserGroup = () => {
     const CreatePostModal = () => {
         document.body.classList.remove('ReactModal__Body--before-close')
         document.body.classList.add('ReactModal__Body--open')
-        setCreateUserGro(true)
-    };
-    const createGroup = (value) => {
-        document.body.classList.add('ReactModal__Body--before-close')
-        dispatch(Registration(value))
         form.resetFields();
-        setLoading(true);
+        setCreateUserGro(true)
     };
     const deleteTableRow = (title, token) => {
         setDelete(true);
         setTitle(title);
         setToken(token)
     }
-    const deleteOk = () => {
-        document.body.classList.add('ReactModal__Body--before-close')
-        dispatch(DeleteUserGroup(gettoken))
-        setDelete(false);
-    }
     const selectRow = (record, token) => {
         dispatch(FindUserGroup(record))
         selectIndex(token);
+        setEditUserGr(!editUserGr)
     }
-    const editUserGrModal = (value) => {
+    const userGroupActions = (value) => {
         document.body.classList.add('ReactModal__Body--before-close')
-        dispatch(UpdateGroup(value, editToken, select))
+        if (createUserGro) {
+            dispatch(Registration(value))
+        } else if (editUserGr) {
+            dispatch(UpdateGroup(value, editToken, select))
+        } else {
+            dispatch(DeleteUserGroup(gettoken))
+        }
         setLoading(true);
     }
     const onCancel = () => {
@@ -125,33 +116,33 @@ export const UserGroup = () => {
                 <div ><MTButton className="createEle" onClick={CreatePostModal}>Create</MTButton></div>
             </div>
             <div className="usergrContent">
-                {/* Delete Table Raw */}
-                <MTModal
-                    visible={delet}
-                    title="Delete UserGroup"
-                    onOk={deleteOk}
-                    closable={false}
-                    maskClosable={false}
-                    footer={[
-                        <Button key="submit" className="deleteEle" onClick={deleteOk}>Delete</Button>,
-                        <Button key="back" className="cancelEle" onClick={onCancel}>Cancel</Button>
-                    ]}
-                >
+                <div className="tableContent">
+                    <Table
+                        sticky
+                        pagination={{ position: ['bottomRight'] }}
+                        columns={columns}
+                        dataSource={user.groupTable.groupTable}
+                        scroll={{ y: 'calc(77.5vh - 4em)' }}
+                    />
+                </div>
+            </div>
+            <MTModal
+                visible={delet ? delet : editUserGr ? editUserGr : createUserGro}
+                title={delet ? "Delete UserGroup" : createUserGro === true ? 'User Group' : 'Edit UserGroup'}
+                onOk={form.submit}
+                onCancel={onCancel}
+                closable={delet ? false : true}
+                maskClosable={false}
+                footer={delet ? [
+                    <Button key="submit" loading={loading} className="deleteEle" onClick={userGroupActions}>Delete</Button>,
+                    <Button key="back" className="cancelEle" onClick={onCancel}>Cancel</Button>
+                ] : [<Button key="submit" loading={loading} htmlType="submit" form="formgroup" className="deleteEle">Save</Button>]}
+            >
+                {delet ? <span>
                     <p className="warning">Are you sure to delete this UserGroup permenently?</p>
                     <Icons type="groupsMenu" /> <span className="title">{title}</span>
-                </MTModal>
-                <MTModal
-                    visible={editUserGr === true ? editUserGr : createUserGro}
-                    title={createUserGro === true ? 'User Group' : 'Edit UserGroup'}
-                    onOk={form.submit}
-                    onCancel={onCancel}
-                    closable={true}
-                    maskClosable={false}
-                    footer={[
-                        <Button key="submit" htmlType="submit" form="formgroup" loading={loading} className="deleteEle">Save</Button>,
-                    ]}
-                >
-                    <Form layout="inline" id="formgroup" form={form} onFinish={editUserGr === true ? editUserGrModal : createGroup} >
+                </span>
+                    : <Form layout="inline" id="formgroup" form={form} onFinish={userGroupActions} >
                         <div className="inputs">
                             <div className="label">Group Name</div>
                             <Form.Item name="groupName" rules={[{ required: true, message: 'Please input Group Name!' }]} >
@@ -177,19 +168,8 @@ export const UserGroup = () => {
                                 <Select mode="multiple" style={{ width: '100%' }} placeholder="Select Any Group" options={user.groupTable.getAllUser} />
                             </Form.Item>
                         </div>
-                    </Form>
-                </MTModal>
-                <div className="tableContent">
-                    <Table
-                        sticky
-                        pagination={{ pageSize: 12 }}
-                        pagination={{ position: ['bottomRight'] }}
-                        columns={columns}
-                        dataSource={user.groupTable.groupTable}
-                        scroll={{ y: 'calc(77.5vh - 4em)' }}
-                    />
-                </div>
-            </div>
+                    </Form>}
+            </MTModal>
         </UserGroStyle>
     );
 }

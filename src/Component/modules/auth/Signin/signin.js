@@ -1,18 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SignInWrapper from './SigninStyle';
 import Logo from '../../../../core/images/logo.svg';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { MTButton } from '../../component/MTForm';
 import { Form, Input } from 'antd';
 import { Authentication } from '../../../../core/Redux/auth/authAction';
 
 export const SignIn = () => {
     const dispatch = useDispatch()
-    const [username, setUsername] = React.useState();
-    const [password, setPassword] = React.useState();
-    const submit = () => {
-        dispatch(Authentication(username, password))
+    const submit = (value) => {
+        dispatch(Authentication(value))
     }
     return (
         <SignInWrapper >
@@ -46,7 +44,6 @@ export const SignIn = () => {
                                         autoComplete="off"
                                         type="text"
                                         placeholder="Username"
-                                        onChange={e => setUsername(e.target.value)}
                                     />
                                 </Form.Item>
                             </div>
@@ -59,7 +56,6 @@ export const SignIn = () => {
                                         name="password"
                                         type="password"
                                         placeholder="Password"
-                                        onChange={e => setPassword(e.target.value)}
                                     />
                                 </Form.Item>
                             </div>

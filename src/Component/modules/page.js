@@ -1,44 +1,35 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { PageStyle } from "./PageStyle";
 import { Layout } from 'antd';
 import TopHeader from '../Layout/Header/header';
 import Sidebar from '../Layout/Sidebar/sidebar';
-import Cookies from 'js-cookie';
 import PageRouter from './pageRouter';
 
-class Page extends Component {
-    constructor() {
-        super();
-        this.state = {
-            current: Cookies.get('current'),
-            loading: true,
-        }
+export const Page = () => {
+    const [current, setcurrent] = useState(sessionStorage.getItem('current'))
+    const handleClick = (e) => {
+        setcurrent(e.key)
+        sessionStorage.setItem('current', e.key);
     }
-    handleClick = (e) => {
-        this.setState({ current: e.key, });
-        Cookies.set('current', e.key);
-    }
-    render() {
-        const { Header, Content, Sider, loading, Footer } = Layout;
-        return (
-            <PageStyle>
-                <Layout style={{ minHeight: '100vh' }}>
-                    <Header className="site-layout-background" style={{ padding: 0 }} >
-                        <TopHeader current={this.state.current} />
-                    </Header>
-                    <Layout className="site-layout">
-                        <Sider >
-                            < Sidebar handleClick={this.handleClick} current={this.state.current} />
-                        </Sider>
-                        <Content style={{ padding: '15px 15px 0px 15px' }} loading={loading}>
-                            <PageRouter />
-                        </Content>
-                    </Layout>
-                    <Footer>Zeronsec India Pvt. Ltd. -2021</Footer>
+    const { Header, Content, Sider, Footer } = Layout;
+    return (
+        <PageStyle>
+            <Layout style={{ minHeight: '100vh' }}>
+                <Header className="site-layout-background" style={{ padding: 0 }} >
+                    <TopHeader current={current} />
+                </Header>
+                <Layout className="site-layout">
+                    <Sider >
+                        < Sidebar handleClick={handleClick} current={current} />
+                    </Sider>
+                    <Content style={{ padding: '15px 15px 0px 15px' }} >
+                        <PageRouter />
+                    </Content>
                 </Layout>
-            </PageStyle>
-        );
-    }
+                <Footer>Zeronsec India Pvt. Ltd. -2021</Footer>
+            </Layout>
+        </PageStyle>
+    );
 }
 
 export default Page;

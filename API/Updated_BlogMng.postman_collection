@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "abb5b055-68e9-485e-a6de-3c590d053dca",
+		"name": "BlogMng",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create Blog",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJicmluZGEiLCJpc1VzZXIiOnRydWUsImV4cCI6MTYxMjI2MzY3MCwiaWF0IjoxNjEyMjQ1NjcwfQ.ehUrwJ1XZ1BugBc7wQFPnK5JZVexZGogOEIqsggGngyKDDlgaxkPKggLHc6h5to5O2URT637QhPF43kPPkQAXw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"title\":\"First Blog\",\"content\":\"bfcdvbhcfvjfvbikuj\",\"hashTags\":\"#abc#xyz\",\"authorToken\":\"530de5b9\",\"coverImageToken\":\"8117D109\",\"filesToken\":[\"8117D109\"]}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8085/blogPost/createBlog",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"blogPost",
+						"createBlog"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Blog",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJicmluZGEiLCJpc1VzZXIiOnRydWUsImV4cCI6MTYxMjI2MzY3MCwiaWF0IjoxNjEyMjQ1NjcwfQ.ehUrwJ1XZ1BugBc7wQFPnK5JZVexZGogOEIqsggGngyKDDlgaxkPKggLHc6h5to5O2URT637QhPF43kPPkQAXw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"token\":\"43C74111\",\"title\":\"First Blog\",\"content\":\"bbbbbb\",\"hashTags\":\"#abc#xyz\",\"authorToken\":\"530de5b9\",\"coverImageToken\":\"8117D109\",\"filesToken\":[\"8117D109\"]}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8085/blogPost/updateBlog",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"blogPost",
+						"updateBlog"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "BF8DC70D",
+							"disabled": true
+						},
+						{
+							"key": "authorToken",
+							"value": "B123S567",
+							"disabled": true
+						},
+						{
+							"key": "title",
+							"value": "abc Xyz",
+							"disabled": true
+						},
+						{
+							"key": "image",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "content",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "files",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "files",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "hashtags",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "author",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Blog",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJicmluZGEiLCJpc1VzZXIiOnRydWUsImV4cCI6MTYxMjI2MzY3MCwiaWF0IjoxNjEyMjQ1NjcwfQ.ehUrwJ1XZ1BugBc7wQFPnK5JZVexZGogOEIqsggGngyKDDlgaxkPKggLHc6h5to5O2URT637QhPF43kPPkQAXw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "token",
+							"value": "43C74111",
+							"type": "text"
+						},
+						{
+							"key": "authorToken",
+							"value": "530de5b9",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8085/blogPost/delete",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"blogPost",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
