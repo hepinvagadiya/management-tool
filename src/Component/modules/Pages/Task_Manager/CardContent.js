@@ -45,12 +45,12 @@ export const CardContent = (props) => {
         form.resetFields();
         setTask(false);
         setFeedTask(false);
-        setConfirmTask(false)
+        setConfirmTask(false);
         setViewTask(false)
     }
     return (
         <span>
-            <span onClick={ViewModal}>
+            <span >
                 <span style={{ display: "flex", justifyContent: "space-between" }}>
                     <div className="taskName">{content === 'Complete' ? <span><span>{new Date() > new Date(menu.dueDate) ? <Icons type="warning" /> : null}</span> <span>{menu.statusText !== 'In Progress' ? <Icons type="error" /> : null}</span></span> : null} {menu.subject}</div>
                     <Tooltip placement="bottom" title={content}>
@@ -59,7 +59,7 @@ export const CardContent = (props) => {
                         </div>
                     </Tooltip>
                 </span>
-                <div className="footer">
+                <div className="footer" onClick={ViewModal}>
                     <div className="task-left-Content">
                         {content === 'Complete' ? <Progress percent={menu.statusPercentage} status="active" /> : null}
                         <div className="user" style={content === 'Complete' ? { paddingTop: '1px' } : { paddingTop: '22px' }}>
@@ -95,7 +95,7 @@ export const CardContent = (props) => {
                 closable={Task ? false : true}
                 maskClosable={false}
                 className={ViewTask ? 'footer' : null}
-                width={ViewTask ? 750 : null}
+                width={ViewTask ? 750 : Task ? 500 : 550}
                 footer={ViewTask ? null : FeedTask ? [<Button key="back" className="cancelEle" onClick={onCancel}>Close</Button>] :
                     Task ? [
                         <Button key="submit" className="deleteEle" onClick={() => StartTask(menu.taskToken)}>Start</Button>,
@@ -107,22 +107,52 @@ export const CardContent = (props) => {
                     <span className="viewtaskName">{menu.subject}</span>
                     <div className="viewMain">
                         <div className="leftContent">
-                            <span>
-                                <span>Project Name: </span>
-                                <span>Management Tool</span>
+                            <span className="content">
+                                <span className="project">Project Name: </span><br></br>
+                                <span className="projectName">Management Tool</span>
                             </span>
-                            <span>
-                                <span>Priority:</span>
-                                <span><span style={{ paddingLeft: "2px" }}> <Icons type={menu.priority} /></span>
-                                    <span className="normal" style={menu.priority === 'High' ? { color: '#E43838' } : menu.priority === 'Low' ? { color: '#88CDFF' } : { color: '#E5E5E5' }}>{menu.priority}</span>
-                                </span>
+                            <span className="content">
+                                <span className="project">Priority:</span><br></br>
+                                <span className="projectName"><span style={{ paddingLeft: "2px" }}> <Icons type={menu.priority} /></span> <span className="normal" style={menu.priority === 'High' ? { color: '#E43838' } : menu.priority === 'Low' ? { color: '#88CDFF' } : { color: '#E5E5E5' }}>{menu.priority}</span>                                </span>
+                            </span>
+                            <span className="content">
+                                <span className="project">Assigned To: </span><br></br>
+                                <span className="projectName">{menu.assignedTo}</span>
+                            </span>
+                            <span className="content">
+                                <span className="project">Status: </span><br></br>
+                                <span className="projectName"><Progress percent={menu.statusPercentage} status="active" /></span>
+                            </span>
+                            <span className="content">
+                                <span className="project">Start Date: </span><br></br>
+                                <span className="projectName">{menu.startDate}</span>   
+                            </span>
+                            <span className="content">
+                                <span className="project">Due Date: </span><br></br>
+                                <span className="projectName">{menu.dueDate}</span>
+                            </span>
+                            <span className="content">
+                                <span className="project">Task Verifier: </span><br></br>
+                                <span className="projectName">{menu.verifiedBy}</span>
                             </span>
                         </div>
                         <div className="rightContent">
-                            <span>Description:</span>
-                            <p>This is sample post created for design make sure if content is bigger<br></br> then scroll will be automatic generated.<br></br><br></br>
-                            This is sample post created for design make sure if content is bigger then scroll will be automatic generatedThis is sample post created for design make sure if content is bigger then scroll will be automatic generated.This is sample post created for design make sure if content is bigger then scroll will be automatic generated.<br></br><br></br>
-                            Content is over for this blog post.</p>
+                            <span className="content">
+                                <span className="project">Description:</span><br></br>
+                                <span className="projectDetails">This is sample post created for design make sure if content is bigger<br></br> then scroll will be automatic generated.<br></br>
+                            This is sample post created for design make sure if content is bigger then scroll will be automatic generatedThis is sample post created for design make sure if content is bigger then scroll will be automatic generated.This is sample post created for design make sure if content is bigger then scroll will be automatic generated.<br></br>
+                            Content is over for this blog post.</span>
+                            </span>
+                            <span className="content">
+                                <span className="project">Attachments:</span><br></br>
+                                <span className="projectName">
+                                    <div className="subject" style={{ backgroundColor: '#222222' }}>attachment1_post123.pdf<span className="close"><Icons type="DownloadFile" /></span></div>
+                                </span>
+                            </span>
+                            <span className="content">
+                                <span className="project">Feedback:</span><br></br>
+                                <span className="projectDetails">Click Here</span>
+                            </span>
                         </div>
                     </div>
                 </span> : FeedTask ? <div className="newPostContent">

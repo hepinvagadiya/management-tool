@@ -62,47 +62,6 @@ const TaskManStyle = styled.div`
     .task-left-Content{
         width: 50vw;
         position:relative;
-
-        .ant-progress {
-            color: rgba(0, 0, 0, 0.85);
-            font-size: 14px;
-            line-height: 0.4;
-            list-style: none;
-            display: flex;
-            flex-direction: column-reverse;
-        }
-        .ant-progress-text {
-            display: inline;
-            width: 2em;
-            color: #69C25B;
-            word-break: normal;
-            font-style: normal;
-            margin-left: 0;
-            font-size: 9px;
-            font-weight: normal;
-            line-height: 11px;
-            letter-spacing: 0.65px;
-            align-items: center;
-        }
-        .ant-progress-inner {
-            position: relative;
-            display: inline-block;
-            width: 70%;
-            overflow: hidden;
-            vertical-align: middle;
-            background: rgba(196, 196, 196, 0.01);
-            border: 1px solid rgba(136, 205, 255, 0.14);
-            border-radius: 0px;
-            .ant-progress-success-bg, .ant-progress-bg {
-                position: relative;
-                background-color: #88CDFF;
-                border-radius: 0px;
-
-                &::before {
-                    background: #222222;
-                    border-radius: 0px;
-                }
-            }
         }
         .user{
             display: flex;
@@ -221,7 +180,7 @@ const TaskManStyle = styled.div`
         height: calc(100% - 55px);
         .content{
             display: grid;
-            padding: 10px;
+            padding: 9px;
             grid-gap: 13px;
             grid-template-columns: repeat(auto-fill,minmax(452px,1fr));
             

@@ -17,9 +17,10 @@ export const UserGroupData = () => {
             })
         }).catch((error) => {
             if (error.response !== undefined) {
-                message.error({ content:`UserGroup : ${error.response.data.message}`, key, duration: 2 })
+                if (error.response.status === 401) { sessionStorage.clear(); window.location.replace("/") }
+                message.error({ content: `UserGroup : ${error.response.data.message}`, key, duration: 2 })
             } else {
-                message.error({ content: 'Authentication : Please check your network connection and try again.', key, duration: 2 });
+                message.error({ content: 'net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
             }
             return error;
         });
@@ -39,9 +40,9 @@ export const GetUserData = () => {
             })
         }).catch((error) => {
             if (error.response !== undefined) {
-                message.error({ content:`UserGroup : ${error.response.data.message}`, key, duration: 2 })
+                message.error({ content: `UserGroup : ${error.response.data.message}`, key, duration: 2 })
             } else {
-                message.error({ content: 'Please check your network connection and try again.', key, duration: 2 });
+                message.error({ content: 'net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
             }
             return error;
         });
@@ -63,9 +64,9 @@ export const Registration = (data) => {
             })
         }).catch((error) => {
             if (error.response !== undefined) {
-                message.error({ content:`UserGroup : ${error.response.data.message}`, key, duration: 2 })
+                message.error({ content: `UserGroup : ${error.response.data.message}`, key, duration: 2 })
             } else {
-                message.error({ content: 'Please check your network connection and try again.', key, duration: 2 });
+                message.error({ content: 'net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
             }
             return error;
         });
@@ -89,9 +90,9 @@ export const DeleteUserGroup = (record) => {
             })
         }).catch((error) => {
             if (error.response !== undefined) {
-                message.error({ content:`UserGroup : ${error.response.data.message}`, key, duration: 2 })
+                message.error({ content: `UserGroup : ${error.response.data.message}`, key, duration: 2 })
             } else {
-                message.error({ content: 'Please check your network connection and try again.', key, duration: 2 });
+                message.error({ content: 'net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
             }
             return error;
         });
@@ -111,9 +112,9 @@ export const FindUserGroup = (record) => {
             })
         }).catch((error) => {
             if (error.response !== undefined) {
-                message.error({ content:`UserGroup : ${error.response.data.message}`, key, duration: 2 })
+                message.error({ content: `UserGroup : ${error.response.data.message}`, key, duration: 2 })
             } else {
-                message.error({ content: 'Please check your network connection and try again.', key, duration: 2 });
+                message.error({ content: 'net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
             }
             return error;
         });
@@ -136,9 +137,9 @@ export const UpdateGroup = (data, token, index) => {
             })
         }).catch((error) => {
             if (error.response !== undefined) {
-                message.error({ content:`UserGroup : ${error.response.data.message}`, key, duration: 2 })
+                message.error({ content: `UserGroup : ${error.response.data.message}`, key, duration: 2 })
             } else {
-                message.error({ content: 'Please check your network connection and try again.', key, duration: 2 });
+                message.error({ content: 'net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
             }
             return error;
         });

@@ -43,7 +43,7 @@ export default (state = initState, action) => {
                 }
             )
         case 'USER_GROUP_UPDATE':
-            const maintable = [...state.groupTable].slice();
+            const maintable = [...state.groupTable]
             maintable[action.index] = action.payload.data
             return (
                 state = {

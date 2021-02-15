@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { UserGroStyle } from './userGroStyle'
-import { MTButton } from '../../component/MTForm';
+import { MTButton, MTInput } from '../../component/MTForm';
 import { Table, Tooltip } from 'antd';
 import MTModal from '../../component/MTmodel/modal';
-import { Button, Form, Input, Radio, } from 'antd';
+import { Button, Form, Radio, } from 'antd';
 import { UserGroupData, GetUserData, Registration, DeleteUserGroup, FindUserGroup, UpdateGroup } from '../../../../core/Redux/UserGroup/userGroupAction';
 import { useDispatch, useSelector } from 'react-redux';
 import Icons from '../../../modules/component/Icons/icons'
@@ -143,16 +143,15 @@ export const UserGroup = () => {
                     <Icons type="groupsMenu" /> <span className="title">{title}</span>
                 </span>
                     : <Form layout="inline" id="formgroup" form={form} onFinish={userGroupActions} >
-                        <div className="inputs">
-                            <div className="label">Group Name</div>
-                            <Form.Item name="groupName" rules={[{ required: true, message: 'Please input Group Name!' }]} >
-                                <Input
-                                    type="text"
-                                    autoComplete="off"
-                                    placeholder="Enter Group Name"
-                                />
-                            </Form.Item>
-                        </div>
+                        <MTInput
+                            className="inputs"
+                            name="groupName"
+                            type="text"
+                            label="Group Name"
+                            placeholder="Enter Group Name"
+                            message="Please input Groupname!"
+                            onKeyPress={true}
+                        />
                         <div className="inputs">
                             <div className="label">Group Type</div>
                             <Form.Item name="groupType" rules={[{ required: true, message: 'Please pick public or private!' }]} >

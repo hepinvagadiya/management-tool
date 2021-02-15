@@ -34,7 +34,7 @@ const BlogStyle = styled.div`
             
             .cardBox{
                 display: grid;
-                grid-template-columns: repeat(auto-fill,minmax(347px, 1fr));
+                grid-template-columns: repeat(auto-fill,minmax(300px, 1fr));
                 grid-gap: 12px;
                 
                 .card{

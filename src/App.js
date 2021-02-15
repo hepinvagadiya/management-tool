@@ -5,15 +5,9 @@ import { GlobalStyle } from "./global";
 import Page from "./Component/modules/page";
 import { ThemeProvider } from "styled-components";
 import themes from './core/setting/';
-import { useSelector } from 'react-redux';
 
 export const App = () => {
   const ref = React.useRef();
-  // const user = useSelector(state => state)
-  // useEffect(() => {
-  //   console.log(user.auth.auth.status, "authentication")
-  // }, [user])
-
   useEffect(() => {
     ref.current = sessionStorage.getItem('current') ? null : sessionStorage.setItem('current', 0);
   });

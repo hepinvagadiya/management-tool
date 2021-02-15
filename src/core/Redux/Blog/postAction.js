@@ -13,14 +13,19 @@ export const BlogData = () => {
             headers: { 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('Login')).data.jwtToken.token}` }
         }).then(response => {
             dispatch({
-                type: 'GET_CARD_DATA',
+                type: 'GET_BLOG_DATA',
                 payload: response.data
             })
         }).catch((error) => {
             if (error.response !== undefined) {
+                if (error.response.status === 401) {
+                    message.warning('JWT_Token is expire', 10)
+                    setTimeout(() => { sessionStorage.clear(); window.location.replace("/") }, 10000);
+
+                }
                 message.error({ content: `Blog : ${error.response.data.message}`, key, duration: 2 })
             } else {
-                message.error({ content: 'Authentication : Please check your network connection and try again.', key, duration: 2 });
+                message.error({ content: 'net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
             }
             return error;
         });
@@ -35,50 +40,91 @@ export const BlogCreate = (data, authorToken) => {
             headers: { 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('Login')).data.jwtToken.token}` },
             data: { ...data, authorToken },
         }).then(response => {
-            console.log(response, "create blog")
             dispatch({
                 type: 'CREATE_NEW_BLOG',
-                payload: response
+                payload: response.data
             })
         }).catch((error) => {
             if (error.response !== undefined) {
                 message.error({ content: `Blog : ${error.response.data.message}`, key, duration: 2 })
             } else {
-                message.error({ content: 'Please check your network connection and try again.', key, duration: 2 });
+                message.error({ content: 'net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
             }
             return error;
         });
     };
 };
-const formdata = new FormData();
-
-export const DeleteBlog = (BlogToken, authorToken) => {
+export const updateBlog = (data, authorToken, token) => {
     const key = 'updatable';
-    formdata.append("token", BlogToken);
-    formdata.append("authorToken", authorToken);
-    console.log(formdata, "formdata")
+    return async (dispatch) => {
+        return axios({
+            method: 'put',
+            url: `${url}/blogPost/updateBlog`,
+            headers: { 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('Login')).data.jwtToken.token}` },
+            data: { ...data, authorToken, token },
+        }).then(response => {
+            dispatch({
+                type: 'UPDATE_BLOG',
+                payload: response.data,
+            })
+            console.log(response, "response")
+        }).catch((error) => {
+            if (error.response !== undefined) {
+                message.error({ content: `UserGroup : ${error.response.data.message}`, key, duration: 2 })
+            } else {
+                message.error({ content: 'Update::net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
+            }
+            return error;
+        });
+    };
+};
+export const DeleteBlog = (token, authorToken) => {
+    const key = 'updatable';
     return async (dispatch) => {
         return axios({
             method: 'delete',
             url: `${url}/blogPost/delete`,
             headers: { 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('Login')).data.jwtToken.token}` },
             params: {
-                token: BlogToken,
+                token: token,
                 authorToken: authorToken
             },
         }).then(response => {
-            console.log(response, "response")
             let get = store.getState().blogs.blogs
-            const maindata = get.filter(p => p.BlogToken !== BlogToken)
+            const maindata = get.filter(p => p.token !== token)
             dispatch({
-                type: 'DELETE_POST_DATA',
+                type: 'DELETE_BLOG_DATA',
                 payload: maindata
             })
         }).catch((error) => {
             if (error.response !== undefined) {
                 message.error({ content: `Blog : ${error.response.data.message}`, key, duration: 2 })
             } else {
-                message.error({ content: 'Please check your network connection and try again.', key, duration: 2 });
+                message.error({ content: 'net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
+            }
+            return error;
+        });
+    };
+};
+
+export const viewBlog = (token) => {
+    const key = 'updatable';
+    return async (dispatch) => {
+        return axios({
+            method: 'get',
+            url: `${url}/blogPost/view-post/${token}`,
+            headers: { 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('Login')).data.jwtToken.token}` }
+        }).then(response => {
+            dispatch({
+                type: 'VIEW_BLOG',
+                payload: response.data,
+                viewStatus: response.data.status
+            })
+        }).catch((error) => {
+            if (error.response !== undefined) {
+                message.error({ content: `Blog : ${error.response.data.message}`, key, duration: 2 })
+            } else {
+                message.error({ content: 'net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
             }
             return error;
         });

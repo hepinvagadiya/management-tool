@@ -1,5 +1,5 @@
 {
-  "name": "management-tool",
+  "name": "TestApp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -47,7 +47,5 @@
     ]
   },
   "main": "index.js",
-  "repository": "https://github.com/hepinvagadiya/management-tool.git",
-  "author": "hepinvagadiya <hepinvagdiya@gmail.com>",
   "license": "MIT"
 }

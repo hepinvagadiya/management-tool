@@ -254,6 +254,69 @@ html, body {
     }
   }
 }
+//progress//
+.ant-progress {
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 14px;
+  line-height: 0.4;
+  list-style: none;
+  display: flex;
+  flex-direction: column-reverse;
+}
+.ant-progress-text {
+  display: inline;
+  width: 2em;
+  color: #69C25B;
+  word-break: normal;
+  font-style: normal;
+  margin-left: 0;
+  font-size: 9px;
+  font-weight: normal;
+  line-height: 11px;
+  letter-spacing: 0.65px;
+  align-items: center;
+}
+.ant-progress-inner {
+  position: relative;
+  display: inline-block;
+  width: 70%;
+  overflow: hidden;
+  vertical-align: middle;
+  background: rgba(196, 196, 196, 0.01);
+  border: 1px solid rgba(136, 205, 255, 0.14);
+  border-radius: 0px;
+  .ant-progress-success-bg, .ant-progress-bg {
+      position: relative;
+      background-color: #88CDFF;
+      border-radius: 0px;
+
+      &::before {
+          background: #222222;
+          border-radius: 0px;
+      }
+  }
+}
+.subject{
+  background-color: #292A2B;
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  line-height: 13px;
+  letter-spacing: 0.85px;
+  align-items: center;
+  color: #8FA8BA;
+  width: fit-content;
+  padding: 6px;
+  border-radius: 8px;
+  margin: 0px 13px 0px 8px;
+  cursor: pointer;
+
+  .close{
+      padding-left: 6px;
+      cursor: pointer;
+  }
+}
 //Modal// 
 .ant-modal-content{
   background-color: #292A2B;
@@ -298,6 +361,12 @@ html, body {
         color: #ffffff;
         letter-spacing: 0.35px;
       }
+      .note{
+        font-size: 13px;
+        color: #be6d00;
+        letter-spacing: 0.35px;
+        padding-top: 10px;
+      }
       .viewHeader{
         font-size: 16px;
         color: #ffffff;
@@ -331,7 +400,7 @@ html, body {
       }
       .viewImg{
         height: 14rem;
-        width: 33rem;
+        width: 28rem;
       }
       .sideHeading{
         font-size: 12px;
@@ -390,8 +459,10 @@ html, body {
         padding: 0px 17px;
         color: ${props => props.theme.body.createEleColor};
         border: none;
+        // animation: 
+        // pulse 3s ease infinite alternate, 
+        // nudge 5s linear infinite alternate;
        } 
-
        .cancelEle{
         background-color: #181818f0;
         letter-spacing: 0.82px;
@@ -419,10 +490,48 @@ html, body {
       grid-gap: 10px;
       grid-template-columns: 30% 70%;
       .leftContent{
-        
+        display: grid;
+        .content{
+          padding: 10px 0px 0px 6px;
+          .project{
+            font-style: normal;
+            font-size: 12px;
+            letter-spacing: 0.75px;
+            font-weight: 500;
+            color: #88CDFF;
+            line-height: 14px;
+          }
+          .projectName{
+            font-size: 11px;
+            font-style: normal;
+            letter-spacing: 0.75px;
+            font-weight: normal;
+            color: #E5E5E5;
+            line-height: 13px;
+          }
+        }
       }
       .rightContent{
-
+        display: inline-grid;
+        .content{
+          padding: 10px 0px 0px 6px;
+          .project{
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 500;
+            letter-spacing: 0.75px;
+            line-height: 14px;
+            color: #88CDFF;
+          }
+          .projectDetails{
+            font-style: normal;
+            font-size: 12px;
+            font-weight: normal;
+            letter-spacing: 0.75px;
+            line-height: 14px;
+            color: #E5E5E5;
+          }
+        }
       }
     }
   .taskName{
@@ -576,7 +685,7 @@ html, body {
     .ant-upload-list-item-info {
       height: 100%;
       padding: 0 4px;
-      margin: -3px 0px 0px 20px;
+      margin: 0px 0px 0px 3px;
       background-color: #222222;
       color:#8FA8BA;
       border-radius: 8px;
@@ -590,13 +699,18 @@ html, body {
             path{
               fill: transparent;
             }
-          }
+          } 
         }
       }
       .ant-form-item-control-input-content {
         flex: none;
       }
     }
+    .ant-upload-list {
+      max-height: 66px !important;
+      max-width: fit-content;
+      overflow-x: auto;
+  }
     .ant-upload-list-item-error, .ant-upload-list-item-error .ant-upload-text-icon > .anticon, .ant-upload-list-item-error .ant-upload-list-item-name {
       color: #8FA8BA;
     }
@@ -628,6 +742,8 @@ html, body {
       border-radius: 2px;
       border: 1px solid #e8e8e82b; 
       color: ${props => props.theme.color}; 
+      max-height: 59px;
+      overflow-x: auto;
     }
     .ant-select-multiple .ant-select-selection-item {
       background: #292A2B;

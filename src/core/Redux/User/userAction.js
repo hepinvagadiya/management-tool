@@ -1,8 +1,8 @@
 import store from '../store'
 import axios from 'axios';
 import { message } from 'antd';
+const url = 'http://10.1.1.20:8085'
 
-var url = 'http://10.1.1.20:8085'
 export const UserData = () => {
     const key = 'updatable';
     return async (dispatch) => {
@@ -18,8 +18,9 @@ export const UserData = () => {
         }).catch((error) => {
             if (error.response !== undefined) {
                 message.error({ content: `User : ${error.response.data.message}`, key, duration: 2 })
+                if (error.response.status === 401) { sessionStorage.clear(); window.location.replace("/") }
             } else {
-                message.error({ content: 'Authentication : Please check your network connection and try again.', key, duration: 2 });
+                message.error({ content: 'net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
             }
             return error;
         });
@@ -42,7 +43,7 @@ export const Registration = (data) => {
             if (error.response !== undefined) {
                 message.error({ content: `User : ${error.response.data.message}`, key, duration: 2 })
             } else {
-                message.error({ content: 'Please check your network connection and try again.', key, duration: 2 });
+                message.error({ content: 'net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
             }
             return error;
         });
@@ -67,7 +68,7 @@ export const DeleteUser = (record) => {
             if (error.response !== undefined) {
                 message.error({ content: `User : ${error.response.data.message}`, key, duration: 2 })
             } else {
-                message.error({ content: 'Please check your network connection and try again.', key, duration: 2 });
+                message.error({ content: 'net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
             }
             return error;
         });
@@ -90,7 +91,7 @@ export const FindUser = (record) => {
             if (error.response !== undefined) {
                 message.error({ content: `User : ${error.response.data.message}`, key, duration: 2 })
             } else {
-                message.error({ content: 'Please check your network connection and try again.', key, duration: 2 });
+                message.error({ content: 'net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
             }
             return error;
         });
@@ -102,8 +103,8 @@ export const Update = (data, token, index) => {
         return axios({
             method: 'put',
             url: `${url}/user/update/${token}`,
+            headers: { 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('Login')).data.jwtToken.token}` },
             data: data,
-            headers: { 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('Login')).data.jwtToken.token}` }
         }).then(response => {
             dispatch({
                 type: 'USER_UPDATE',
@@ -114,7 +115,7 @@ export const Update = (data, token, index) => {
             if (error.response !== undefined) {
                 message.error({ content: `User : ${error.response.data.message}`, key, duration: 2 })
             } else {
-                message.error({ content: 'Please check your network connection and try again.', key, duration: 2 });
+                message.error({ content: 'net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
             }
             return error;
         });

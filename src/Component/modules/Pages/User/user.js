@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { MTButton } from '../../component/MTForm';
+import { MTButton, MTInput, MTSelect } from '../../component/MTForm';
 import { UserStyle } from './userStyle'
 import { Table, Tooltip } from 'antd';
 import MTModal from '../../component/MTmodel/modal';
 import { Button, Form, Input, Radio, } from 'antd';
-import { Select } from 'antd';
 import { UserData, Registration, DeleteUser, FindUser, Update } from '../../../../core/Redux/User/userAction';
 import { useDispatch, useSelector } from 'react-redux';
 import Icons from '../../../modules/component/Icons/icons'
 
 export const User = () => {
     const [form] = Form.useForm();
-    const { Option } = Select;
     const dispatch = useDispatch()
     const user = useSelector(state => state)
     const [newUser, setNewUser] = useState(false);
@@ -19,7 +17,7 @@ export const User = () => {
     const [contact, setContact] = useState();
     const [delet, setDelete] = useState(false);
     const [title, setTitle] = useState("");
-    const [index, setToken] = useState("")
+    const [DeleteIndex, setToken] = useState("")
     const [editToken, setEdittoken] = useState("")
     const [loading, setLoading] = useState(false);
     const [select, selectIndex] = useState("")
@@ -27,7 +25,6 @@ export const User = () => {
         required: 'Email is required!',
         types: { email: 'Email is not a valid email!', },
     };
-
     useEffect(() => {
         dispatch(UserData())
     }, [dispatch])
@@ -45,11 +42,11 @@ export const User = () => {
             form.setFieldsValue(user.table.findUser.data[0]);
             if (user.table.findUser.status === true) { setContact(user.table.findUser.data[0].contact) }
         }
-    }, [user.table.status, user.table.findUser, user.table.editStatus, user.table.table, form])
+    }, [user.table.status, user.table.findUser, user.table.editStatus, user.table.table, user.table.delStatus, form])
     const columns = [
         {
-            "title": "User Name",
             render: listUsers => `${listUsers.firstName} ${listUsers.lastName}`,
+            "title": "User Name",
             "key": "firstName",
             "width": '20%',
             "ellipsis": true,
@@ -104,16 +101,8 @@ export const User = () => {
             ),
         },
     ];
-    const opt = ['A', 'A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-']
-    const restrict = (event) => {
-        const regex = new RegExp("^[a-zA-Z]+$");
-        const key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-        if (!regex.test(key)) {
-            event.preventDefault();
-            return false;
-        }
-    }
-
+    const bloodgroup = ['A', 'A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-']
+    const designation = ['Graphic Designer', 'Web Designer', 'Tester', 'Product Manager']
     const CreateModal = () => {
         document.body.classList.remove('ReactModal__Body--before-close')
         document.body.classList.add('ReactModal__Body--open')
@@ -127,10 +116,10 @@ export const User = () => {
         selectIndex(token);
         if (user.table.findStatus) { setEditUser(true); }
     }
-    const deleteTableRow = (record, title) => {
+    const deleteTableRow = (record, Title) => {
         document.body.classList.add('ReactModal__Body--open')
         setDelete(true);
-        setTitle(title);
+        setTitle(Title);
         setToken(record);
     }
     const userActions = (value) => {
@@ -141,7 +130,7 @@ export const User = () => {
         } else if (newUser) {
             dispatch(Registration(value))
         } else {
-            dispatch(DeleteUser(index))
+            dispatch(DeleteUser(DeleteIndex))
         }
         setLoading(true);
     }
@@ -152,11 +141,6 @@ export const User = () => {
         setDelete(false);
         setLoading(false);
         setEditUser(false)
-    }
-    const contectValid = (event) => {
-        if (event.charCode === 46) {
-            event.preventDefault();
-        }
     }
     const checkMobileNo = () => {
         if (contact === "") { return Promise.reject('Contect is required'); }
@@ -177,6 +161,7 @@ export const User = () => {
                 onCancel={onCancel}
                 closable={delet ? false : true}
                 maskClosable={false}
+                width={580}
                 footer={delet ? [
                     <Button key="submit" loading={loading} className="deleteEle" onClick={userActions}>Delete</Button>,
                     <Button key="back" className="cancelEle" onClick={onCancel}>Cancel</Button>
@@ -185,94 +170,71 @@ export const User = () => {
                 {delet ? <span>
                     <p className="warning">Are you sure to delete this User permenently?</p>
                     <Icons type="usersMenu" /> <span className="title">{title}</span>
+                    <p className="note">Note : If you delete this user then it's all data will be deleted and Won't be recovered</p>
                 </span> :
                     <Form layout="inline" validateMessages={validateMessages} id="userform" form={form} onFinish={userActions}>
-                        <div className="inputs-inline">
-                            <div className="label">First Name</div>
-                            <Form.Item name="firstName" rules={[{ required: true, message: 'Please input First Name!' }]} >
-                                <Input
-                                    type="text"
-                                    autoComplete="off"
-                                    onKeyPress={e => restrict(e)}
-                                    placeholder="Enter First Name"
-                                />
-                            </Form.Item>
-                        </div>
-                        <div className="inputs-inline">
-                            <div className="label">Last Name</div>
-                            <Form.Item name="lastName" rules={[{ required: true, message: 'Please input Last Name!' }]} >
-                                <Input
-                                    name="lastname"
-                                    autoComplete="off"
-                                    onKeyPress={e => restrict(e)}
-                                    type="text"
-                                    placeholder="Enter Last Name"
-                                />
-                            </Form.Item>
-                        </div>
-                        <div className="inputs">
-                            <div className="label">Email</div>
-                            <Form.Item name="email" rules={[{ type: 'email', required: true }]}>
-                                <Input
-                                    name="email"
-                                    autoComplete="off"
-                                    type="text"
-                                    placeholder="Enter Email Address"
-                                />
-                            </Form.Item>
-                        </div>
-                        <div className="inputs-inline" style={{ padding: "6px 10px 0px 13px" }}>
-                            <div className="label">Username</div>
-                            <Form.Item name="username" rules={[{ required: true, message: 'Please input Username!' }]} >
-                                <Input
-                                    name="username"
-                                    autoComplete="off"
-                                    onKeyPress={e => restrict(e)}
-                                    type="text"
-                                    placeholder="Enter User Name"
-                                />
-                            </Form.Item>
-                        </div>
-                        <div className="inputs-inline" style={{ padding: "6px 10px 0px 13px" }}>
-                            <div className="label">Role</div>
-                            <Form.Item name="role" rules={[{ required: true, message: 'Please Select Role!' }]} >
-                                <Select placeholder="Select Role">
-                                    <Option value="ROLE_ADMIN">Admin</Option>
-                                    <Option value="ROLE_USER">User</Option>
-                                </Select>
-                            </Form.Item>
-                        </div>
-                        <div className="inputs-inline">
-                            <div className="label">Contact No.</div>
-                            <Form.Item name="contact" rules={[{ validator: checkMobileNo, required: true }]}>
-                                <Input
-                                    type="number"
-                                    autoComplete="off"
-                                    onKeyPress={e => contectValid(e)}
-                                    placeholder="Enter Contact No"
-                                    onChange={e => setContact(e.target.value)}
-                                />
-                            </Form.Item>
-                        </div>
-                        <div className="inputs-inline">
-                            <div className="label">Designation</div>
-                            <Form.Item name="designation" rules={[{ required: true, message: 'Please Select Designation!' }]} >
-                                <Select placeholder="Select designation">
-                                    <Option value="Graphic Designer">Graphic Designer</Option>
-                                    <Option value="Web Devloper">Web Devloper</Option>
-                                </Select>
-                            </Form.Item>
-                        </div>
-                        <div className="inputs-inline">
-                            <div className="label">Blood Group</div>
-                            <Form.Item name="bloodGroup" rules={[{ required: true, message: 'Please Select bloodGroup!' }]}>
-                                <Select placeholder="Select bloodgroup">
-                                    {opt.map((menu, index) => (
-                                        <Option key={index} value={menu}>{menu}</Option>
-                                    ))}
-                                </Select>
-                            </Form.Item>
-                        </div>
+                        <MTInput
+                            className="inputs-inline"
+                            name="firstName"
+                            type="text"
+                            label="First Name"
+                            placeholder="Enter First Name"
+                            errorMessage="Please input First Name!"
+                            onKeyPress={true}
+                        />
+                        <MTInput
+                            className="inputs-inline"
+                            name="lastName"
+                            type="text"
+                            label="Last Name"
+                            placeholder="Enter Last Name"
+                            errorMessage="Please input Last Name!"
+                            onKeyPress={true}
+                        />
+                        <MTInput
+                            className="inputs-inline"
+                            name="email"
+                            type="text"
+                            label="Email"
+                            placeholder="Enter Email Address"
+                            onKeyPress={false}
+                            formtype='email'
+                        />
+                        <MTInput
+                            className="inputs-inline"
+                            name="username"
+                            type="text"
+                            label="Username"
+                            placeholder="Enter Username"
+                            errorMessage="Please input Username!"
+                            onKeyPress={true}
+                        />
+                        <MTInput
+                            className="inputs-inline"
+                            name="contact"
+                            type="number"
+                            label="Contact No."
+                            placeholder="Enter Contact No"
+                            onKeyPress='contect'
+                            onChange={e => setContact(e.target.value)}
+                            validator={checkMobileNo}
+                        />
+                        <MTSelect
+                            className="inputs-inline"
+                            name="designation"
+                            label="Designation"
+                            errorMessage='Please Select Designation!'
+                            placeholder="Select designation"
+                            data={designation}
+                        />
+                        <MTSelect
+                            className="inputs-inline"
+                            name="bloodGroup"
+                            label="Blood Group"
+                            errorMessage='Please Select bloodGroup!'
+                            placeholder="Select bloodgroup"
+                            data={bloodgroup}
+                        />
                         <div className="inputs-inline" style={{ padding: "6px 10px 0px 13px" }}>
                             <div className="label">Gender</div>
                             <Form.Item name="gender" rules={[{ required: true, message: 'Please Select Gender!' }]} >
@@ -282,15 +244,17 @@ export const User = () => {
                                 </Radio.Group>
                             </Form.Item>
                         </div>
-
-                        <div className="inputs" style={{ padding: "6px 0px 0px 9px" }}>
-                            <div className="label">Address<sup>*</sup></div>
-                            <Form.Item name="address" rules={[{ required: true, message: 'Please input your Address!' }]}                        >
-                                <Input placeholder="Enter address" autoComplete="off" onKeyPress={e => restrict(e)} />
-                            </Form.Item>
-                        </div>
+                        <MTInput
+                            className="inputs"
+                            name="address"
+                            type="text"
+                            label="Address"
+                            placeholder="Enter address"
+                            message="Please input your Address!"
+                            onKeyPress={true}
+                        />
                         <div className="inputs-inline">
-                            <div className="label">Password<sup>*</sup></div>
+                            <div className="label">Password</div>
                             <Form.Item
                                 name="password"
                                 hasFeedback
@@ -309,7 +273,7 @@ export const User = () => {
                             </Form.Item>
                         </div>
                         <div className="inputs-inline">
-                            <div className="label">Confirm Password<sup>*</sup></div>
+                            <div className="label">Confirm Password</div>
                             <Form.Item
                                 name="confirmPassword"
                                 dependencies={['password']}

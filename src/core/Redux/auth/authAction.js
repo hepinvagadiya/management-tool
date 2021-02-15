@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { message } from 'antd';
 import { sideBar } from '../../Array/array'
-var url = 'http://10.1.1.20:8085'
+
+const url = 'http://10.1.1.20:8085'
 
 export const Authentication = (value) => {
     const key = 'updatable';
-    message.loading({ content: 'Verifying User...', key });
+    message.loading({ content: 'Verifying User...', duration: 10 });
     return async (dispatch) => {
         return axios({
             method: 'post',
@@ -26,7 +27,7 @@ export const Authentication = (value) => {
                 if (error.data && error.status === 404) {
                     message.error({ content: 'User not found', key, duration: 2 })
                 } else {
-                    message.error({ content: 'Authentication : Please check your network connection and try again.', key, duration: 2 });
+                    message.error({ content: 'net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
                 }
                 return error;
             });
@@ -51,7 +52,7 @@ export const ForgetPassword = (email) => {
                 if (error.response !== undefined) {
                     message.error({ content: error.response.data.message, key, duration: 2 })
                 } else {
-                    message.error({ content: 'Authentication : Please check your network connection and try again.', key, duration: 2 });
+                    message.error({ content: 'net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
                 }
                 return error;
             });
@@ -79,7 +80,7 @@ export const GetOtp = (otp) => {
                 if (error.response !== undefined) {
                     message.error({ content: error.response.data.message, key, duration: 2 })
                 } else {
-                    message.error({ content: 'Authentication : Please check your network connection and try again.', key, duration: 2 });
+                    message.error({ content: 'net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
                 }
                 return error;
             });
@@ -108,7 +109,7 @@ export const ChangePassword = (value) => {
                 if (error.response !== undefined) {
                     message.error({ content: error.response.data.message, key, duration: 2 })
                 } else {
-                    message.error({ content: 'Authentication : Please check your network connection and try again.', key, duration: 2 });
+                    message.error({ content: 'net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
                 }
                 return error;
             });

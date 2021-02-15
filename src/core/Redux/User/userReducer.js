@@ -34,7 +34,7 @@ export default (state = initState, action) => {
                 }
             )
         case 'USER_UPDATE':
-            const maintable = [...state.table].slice();
+            const maintable = [...state.table]
             maintable[action.index] = action.payload.data
             return (
                 state = {
