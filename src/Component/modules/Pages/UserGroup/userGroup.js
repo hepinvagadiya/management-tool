@@ -56,6 +56,7 @@ export const UserGroup = () => {
             "dataIndex": "action",
             "key": "action",
             "ellipsis": true,
+            // eslint-disable-next-line react/display-name
             render: (text, record, index) => (
                 <span>
                     <Tooltip placement="bottom" title="Edit">
@@ -79,9 +80,9 @@ export const UserGroup = () => {
         form.resetFields();
         setCreateUserGro(true)
     };
-    const deleteTableRow = (title, token) => {
+    const deleteTableRow = (Deletetitle, token) => {
         setDelete(true);
-        setTitle(title);
+        setTitle(Deletetitle);
         setToken(token)
     }
     const selectRow = (record, token) => {

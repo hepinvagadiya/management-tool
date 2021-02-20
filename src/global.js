@@ -459,10 +459,8 @@ html, body {
         padding: 0px 17px;
         color: ${props => props.theme.body.createEleColor};
         border: none;
-        // animation: 
-        // pulse 3s ease infinite alternate, 
-        // nudge 5s linear infinite alternate;
        } 
+
        .cancelEle{
         background-color: #181818f0;
         letter-spacing: 0.82px;
@@ -685,7 +683,7 @@ html, body {
     .ant-upload-list-item-info {
       height: 100%;
       padding: 0 4px;
-      margin: 0px 0px 0px 3px;
+      margin: -3px 0px 0px 20px;
       background-color: #222222;
       color:#8FA8BA;
       border-radius: 8px;
@@ -699,18 +697,13 @@ html, body {
             path{
               fill: transparent;
             }
-          } 
+          }
         }
       }
       .ant-form-item-control-input-content {
         flex: none;
       }
     }
-    .ant-upload-list {
-      max-height: 66px !important;
-      max-width: fit-content;
-      overflow-x: auto;
-  }
     .ant-upload-list-item-error, .ant-upload-list-item-error .ant-upload-text-icon > .anticon, .ant-upload-list-item-error .ant-upload-list-item-name {
       color: #8FA8BA;
     }
@@ -742,8 +735,6 @@ html, body {
       border-radius: 2px;
       border: 1px solid #e8e8e82b; 
       color: ${props => props.theme.color}; 
-      max-height: 59px;
-      overflow-x: auto;
     }
     .ant-select-multiple .ant-select-selection-item {
       background: #292A2B;

@@ -29,7 +29,7 @@ export const Topbar = () => {
                 title={<img className="logo" src={Logo} alt="dsff"></img>}
                 extra={[
                     <div key='0' className="user" onClick={LogoutModalOpen} style={{ cursor: "pointer" }}>
-                        <div className="pic">HV</div>
+                        <div className="pic" >HV</div>
                     </div>
                 ]}
             />

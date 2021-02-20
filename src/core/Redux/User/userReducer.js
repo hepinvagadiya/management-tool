@@ -1,47 +1,47 @@
 const initState = {
     table: [],
 };
-export default (state = initState, action) => {
+const user = (state = initState, action) => {
     switch (action.type) {
         case 'GET_USER_DATA':
-            return (
-                state = {
-                    ...state,
-                    table: action.payload.data,
-                }
-            )
+            state = {
+                ...state,
+                table: action.payload.data,
+            }
+            break;
         case 'USER_REGISTRATION':
-            return (
-                state = {
-                    table: [...state.table, action.payload.data],
-                    status: action.payload.status,
-                }
-            )
+            state = {
+                table: [...state.table, action.payload.data],
+                status: action.payload.status,
+            }
+            break;
         case 'DELETE_USER':
-            return (
-                state = {
-                    ...state,
-                    table: action.payload,
-                    delStatus: action.delStatus
-                }
-            )
+            state = {
+                ...state,
+                table: action.payload,
+                delStatus: action.delStatus
+            }
+            break;
         case 'FIND_USER_DATA':
-            return (
-                state = {
-                    table: [...state.table],
-                    findUser: action.payload.data,
-                    findStatus: action.findStatus
-                }
-            )
+            state = {
+                table: [...state.table],
+                findUser: action.payload.data,
+                findStatus: action.findStatus
+            }
+            break;
         case 'USER_UPDATE':
+            // eslint-disable-next-line no-case-declarations
             const maintable = [...state.table]
             maintable[action.index] = action.payload.data
-            return (
-                state = {
-                    table: maintable,
-                    editStatus: action.payload.status,
-                }
-            )
+            state = {
+                table: maintable,
+                editStatus: action.payload.status,
+            }
+            break;
+        default:
+            return state
     }
     return state
 };
+
+export default user;

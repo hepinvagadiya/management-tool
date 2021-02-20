@@ -17,10 +17,11 @@ export const User = () => {
     const [contact, setContact] = useState();
     const [delet, setDelete] = useState(false);
     const [title, setTitle] = useState("");
-    const [DeleteIndex, setToken] = useState("")
+    const [DeleteToken, setDeleteToken] = useState("")
     const [editToken, setEdittoken] = useState("")
     const [loading, setLoading] = useState(false);
     const [select, selectIndex] = useState("")
+    
     const validateMessages = {
         required: 'Email is required!',
         types: { email: 'Email is not a valid email!', },
@@ -45,8 +46,8 @@ export const User = () => {
     }, [user.table.status, user.table.findUser, user.table.editStatus, user.table.table, user.table.delStatus, form])
     const columns = [
         {
-            render: listUsers => `${listUsers.firstName} ${listUsers.lastName}`,
             "title": "User Name",
+            render: listUsers => `${listUsers.firstName} ${listUsers.lastName}`,
             "key": "firstName",
             "width": '20%',
             "ellipsis": true,
@@ -85,6 +86,7 @@ export const User = () => {
             "dataIndex": "action",
             "key": "action",
             "ellipsis": true,
+            // eslint-disable-next-line react/display-name
             render: (text, record, index) => (
                 <span>
                     <Tooltip placement="bottom" title="Edit">
@@ -120,7 +122,7 @@ export const User = () => {
         document.body.classList.add('ReactModal__Body--open')
         setDelete(true);
         setTitle(Title);
-        setToken(record);
+        setDeleteToken(record);
     }
     const userActions = (value) => {
         document.body.classList.add('ReactModal__Body--before-close')
@@ -130,7 +132,7 @@ export const User = () => {
         } else if (newUser) {
             dispatch(Registration(value))
         } else {
-            dispatch(DeleteUser(DeleteIndex))
+            dispatch(DeleteUser(DeleteToken))
         }
         setLoading(true);
     }
@@ -170,7 +172,7 @@ export const User = () => {
                 {delet ? <span>
                     <p className="warning">Are you sure to delete this User permenently?</p>
                     <Icons type="usersMenu" /> <span className="title">{title}</span>
-                    <p className="note">Note : If you delete this user then it's all data will be deleted and Won't be recovered</p>
+                    <p className="note">{`Note : If you delete this user then it's all data will be deleted and Won't be recovered`}</p>
                 </span> :
                     <Form layout="inline" validateMessages={validateMessages} id="userform" form={form} onFinish={userActions}>
                         <MTInput

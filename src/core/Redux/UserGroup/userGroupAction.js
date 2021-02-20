@@ -1,8 +1,8 @@
 import axios from 'axios';
 import store from '../store'
 import { message } from 'antd';
-var url = 'http://10.1.1.20:8085'
 
+const url = 'http://10.1.1.20:8085'
 export const UserGroupData = () => {
     const key = 'updatable';
     return async (dispatch) => {

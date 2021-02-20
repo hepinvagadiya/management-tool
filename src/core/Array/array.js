@@ -1,3 +1,4 @@
+import React from 'react'
 import Icons from '../../Component/modules/component/Icons/icons';
 
 export const columns = [
@@ -29,8 +30,8 @@ export const columns = [
         "title": "Action",
         "dataIndex": "action",
         "key": "action",
-        render: () => (
-            <span> <Icons type="post_edit" />   <Icons type="post_delete" /> </span>
+        // eslint-disable-next-line react/display-name
+        render: () => (<span><Icons type="post_edit" />  <Icons type="post_delete" /></span>
         ),
     }
 ];

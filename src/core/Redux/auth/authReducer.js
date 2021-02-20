@@ -4,32 +4,31 @@ const initState = {
     otp: [],
     changePassword: [],
 };
-export default (state = initState, action) => {
+const Authentication = (state = initState, action) => {
     switch (action.type) {
         case 'FOUND_USER':
-            return (
-                state = {
-                    auth: action.payload,
-                }
-            );
+            state = {
+                auth: action.payload,
+            }
+            break;
         case 'FORGET_PASSWORD':
-            return (
-                state = {
-                    email: action.payload,
-                }
-            );
+            state = {
+                email: action.payload,
+            }
+            break;
         case 'REQUEST_OTP':
-            return (
-                state = {
-                    otp: action.payload,
-                }
-            );
+            state = {
+                otp: action.payload,
+            }
+            break;
         case 'CHANGE_PASSWORD':
-            return (
-                state = {
-                    changePassword: action.payload,
-                }
-            );
+            state = {
+                changePassword: action.payload,
+            }
+            break;
+        default:
+            state = { ...state }
     }
     return state;
-};  
+};
+export default Authentication;

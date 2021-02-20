@@ -3,14 +3,14 @@ import SignInWrapper from './SigninStyle';
 import Logo from '../../../../core/images/logo.svg';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { MTButton } from '../../component/MTForm';
-import { Form, Input } from 'antd';
+import { MTButton, MTInput } from '../../component/MTForm';
+import { Form } from 'antd';
 import { Authentication } from '../../../../core/Redux/auth/authAction';
 
 export const SignIn = () => {
-    const dispatch = useDispatch()
-    const submit = (value) => {
-        dispatch(Authentication(value))
+    const dispatch = useDispatch();
+    const Submit = (Value) => {
+        dispatch(Authentication(Value))
     }
     return (
         <SignInWrapper >
@@ -35,30 +35,27 @@ export const SignIn = () => {
                     <div className="right">
                         <div className="welcome">Welcome back</div>
                         <div className="login">Login to your account</div>
-                        <Form onFinish={submit} >
-                            <div className="inputs">
-                                <div className="label">UserName<sup>*</sup></div>
-                                <Form.Item name="username" rules={[{ required: true, message: 'Please input your Username!' }]} >
-                                    <Input
-                                        name="username"
-                                        autoComplete="off"
-                                        type="text"
-                                        placeholder="Username"
-                                    />
-                                </Form.Item>
-                            </div>
-                            <div className="inputs">
-                                <div className="label">Password<sup>*</sup></div>
-                                <Form.Item name="password" rules={[{ required: true, message: 'Please input your Password!' }]} >
-                                    <Input.Password
-                                        className="username"
-                                        autoComplete="off"
-                                        name="password"
-                                        type="password"
-                                        placeholder="Password"
-                                    />
-                                </Form.Item>
-                            </div>
+                        <Form onFinish={Submit} >
+                            <MTInput
+                                className="inputs"
+                                name="username"
+                                type="text"
+                                label="UserName"
+                                placeholder="Username"
+                                errorMessage="Please input your Username!"
+                                onKeyPress={true}
+                                id="username"
+                            />
+                            <MTInput
+                                className="inputs"
+                                name="password"
+                                type="text"
+                                label="Password"
+                                placeholder="Password"
+                                errorMessage="Please input your Password!"
+                                onKeyPress={false}
+                                id="password"
+                            />
                             <Link to={'/ForgetPassword'} >
                                 <div className="forgetpw">Forgot password?</div>
                             </Link>
@@ -71,6 +68,6 @@ export const SignIn = () => {
             </div>
         </SignInWrapper>
     );
-}
 
+}
 export default SignIn;

@@ -1,8 +1,8 @@
 import store from '../store'
 import axios from 'axios';
 import { message } from 'antd';
-const url = 'http://10.1.1.20:8085'
 
+const url = 'http://10.1.1.20:8085'
 export const UserData = () => {
     const key = 'updatable';
     return async (dispatch) => {
@@ -103,13 +103,14 @@ export const Update = (data, token, index) => {
         return axios({
             method: 'put',
             url: `${url}/user/update/${token}`,
-            headers: { 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('Login')).data.jwtToken.token}` },
             data: data,
+            headers: { 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('Login')).data.jwtToken.token}` }
         }).then(response => {
+            const mainTable = store.getState().table.table
+            mainTable[index] = response.data
             dispatch({
                 type: 'USER_UPDATE',
-                payload: response.data,
-                index: index
+                payload: mainTable,
             })
         }).catch((error) => {
             if (error.response !== undefined) {

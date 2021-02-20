@@ -6,6 +6,7 @@ import { Card, Popover, Button, Input, Form } from 'antd';
 import CardContent from './CardContent'
 import { useDispatch, useSelector } from 'react-redux';
 import { ProgressData } from '../../../../core/Redux/Task-Management/taskAction';
+import PropTypes from 'prop-types';
 
 export const TaskManagement = () => {
     let TaskList = useSelector(state => state).ProgressList.ProgressList[0]
@@ -23,7 +24,7 @@ export const TaskManagement = () => {
     }
     const close = (keyName) => {
         console.log(keyName, "Subject")
-        const maindata = Object.fromEntries(Object.entries(TaskList.globalFilter).filter(([key, value]) => key === keyName))
+        const maindata = Object.fromEntries(Object.entries(TaskList.globalFilter).filter(([key]) => key === keyName))
         // maindata.filter(item => item[index] !== index)
         // TaskList.globalFilter.filter(item => item.Subject !== Subject)
         console.log(maindata, "filter2")
@@ -64,7 +65,7 @@ export const TaskManagement = () => {
                 return <div key={index} className="subject">{key[0]} = {key[1]}<span className="close" onClick={() => close(index)}><Icons type="closeFilter" /></span></div>
             })}
             {FilterItem === undefined ? null : FilterItem.map((menu, index) => (
-                <div className="subject">{menu.fieldname} = {menu.fieldvalue} <span className="close"><Icons type="closeFilter" /></span></div>
+                <div className="subject" key={index}>{menu.fieldname} = {menu.fieldvalue} <span className="close"><Icons type="closeFilter" /></span></div>
             ))}
             <Button className="search">Search</Button>
         </div>
@@ -158,3 +159,8 @@ export const TaskManagement = () => {
 }
 
 export default TaskManagement;
+
+TaskManagement.propTypes = {
+    value: PropTypes.string,
+    index: PropTypes.string,
+};

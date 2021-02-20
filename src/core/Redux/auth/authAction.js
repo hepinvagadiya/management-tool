@@ -3,7 +3,6 @@ import { message } from 'antd';
 import { sideBar } from '../../Array/array'
 
 const url = 'http://10.1.1.20:8085'
-
 export const Authentication = (value) => {
     const key = 'updatable';
     message.loading({ content: 'Verifying User...', duration: 10 });
@@ -19,7 +18,7 @@ export const Authentication = (value) => {
                 window.location.replace(`/ZeronSec${sideBar[0].SideMenu[sessionStorage.getItem('current')].routingPath}`)
             }
             dispatch({
-                type: 'FOUND_USER',
+                type: 'SIGN_IN',
                 payload: response.data
             })
         })
@@ -58,7 +57,6 @@ export const ForgetPassword = (email) => {
             });
     };
 };
-
 export const GetOtp = (otp) => {
     const key = 'updatable';
     message.loading({ content: 'Verifying OTP...', key });
@@ -86,7 +84,6 @@ export const GetOtp = (otp) => {
             });
     };
 };
-
 export const ChangePassword = (value) => {
     const key = 'updatable';
     message.loading({ content: 'Verifying Passwords...', key });

@@ -7,6 +7,7 @@ import { Card, Button, Form, Input, Upload, Select, Tooltip, message, Image } fr
 import Icons from '../../component/Icons/icons';
 import MTModal from '../../component/MTmodel/modal';
 import { DownloadOutlined } from '@ant-design/icons';
+// import { Pagination } from 'antd';
 import axios from 'axios';
 
 export const Blog = () => {
@@ -21,7 +22,6 @@ export const Blog = () => {
     const [loading, setLoading] = useState(false);
     const [title, setTitle] = useState("");
     const [BlogToken, setBlogToken] = useState("")
-    const [EditToken, setEditToken] = useState("")
     const [authorToken, setauthorToken] = useState("")
     const [fileList, updateFileList] = useState([]);
     const children = [];
@@ -33,24 +33,24 @@ export const Blog = () => {
     }, [dispatch])
     useEffect(() => {
         if (blogs.status) { setCreate(false); setLoading(false); form.resetFields(); }
-        if (blogs.UpdateStatus) { setEdit(false); setLoading(false); form.resetFields(); }
         if (edit && blogs.viewStatus) {
             form.setFieldsValue({
                 title: blogs.viewBlog.title,
                 content: blogs.viewBlog.content,
                 hashTags: blogs.viewBlog.hashTags.split(','),
                 coverImageToken: [{ 'name': blogs.viewBlog.coverImageName, 'uid': -1 }],
+                // filesToken: blogs.viewBlog.fileNames.map((h, k) => ({ 'name': h, 'uid': Math.random() }))
             });
-            updateFileList(blogs.viewBlog.fileNames.map((h, k) => ({ 'uid': Math.random(), 'name': h })))
         }
-    }, [edit, blogs.status, blogs.viewStatus, blogs.UpdateStatus, blogs.viewBlog, form])
-    const props1 = {
+    }, [edit, blogs.status, blogs.viewStatus, blogs.viewBlog, form])
+    const CoverImage = {
         "name": 'image',
         'method': 'post',
         'action': 'http://10.1.1.20:8085/blogImage/uploadCoverImage',
         'headers': { 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('Login')).data.jwtToken.token}` },
         fileList,
         onChange: info => {
+            info.file.response = null
             if (info.fileList.length === 2) {
                 updateFileList(info.fileList.pop(info.fileList[1]));
             }
@@ -68,37 +68,30 @@ export const Blog = () => {
             return false;
         },
         fileList,
-        onChange: info => {
-            if (info.file.status !== undefined) {
-                const deleteItem = fileList.filter(p => p.uid !== info.file.uid)
-                updateFileList(deleteItem)
-            }
-        },
         showUploadList: {
             showRemoveIcon: true,
             removeIcon: <Icons type="close" />,
         },
     }
-    const deleteModal = (Deletetitle, author, token) => {
+    const deleteModal = (Blogtitle, AuthorToken, token) => {
         document.body.classList.remove('ReactModal__Body--before-close')
         document.body.classList.add('ReactModal__Body--open')
         setDelete(true);
-        setTitle(Deletetitle)
+        setTitle(Blogtitle)
         setBlogToken(token)
-        setauthorToken(author)
+        setauthorToken(AuthorToken)
     };
     const CreatePostModal = () => {
         document.body.classList.remove('ReactModal__Body--before-close')
         document.body.classList.add('ReactModal__Body--open')
         setCreate(true);
-        updateFileList([])
     };
     const EditPostModal = (token) => {
         document.body.classList.remove('ReactModal__Body--before-close')
         document.body.classList.add('ReactModal__Body--open')
         setEdit(true);
         dispatch(viewBlog(token))
-        setEditToken(token)
+
     };
     const ViewPostModal = (token) => {
         document.body.classList.remove('ReactModal__Body--before-close')
@@ -131,21 +124,24 @@ export const Blog = () => {
     };
     const userActions = (value) => {
         document.body.classList.add('ReactModal__Body--before-close')
-        const AuthorToken = JSON.parse(sessionStorage.getItem('Login')).data.usertoken
         if (view) {
             setView(false);
         } else if (delet) {
             setDelete(false);
             dispatch(DeleteBlog(BlogToken, authorToken))
-        } else if (create || edit) {
+        } else if (create) {
+            console.log(value, "edit")
             value.coverImageToken = value.coverImageToken[0].response.response.token
-            value.filesToken = upload.data.map((p, i) => p.token)
+            value.filesToken = upload.data.map((p) => p.token)
             const hash = value.hashTags
             const hash1 = hash.map((p) => '#' + p)
             const hash2 = hash1.join()
             value.hashTags = hash2;
-            const token = EditToken
-            if (edit) { dispatch(updateBlog(value, AuthorToken, token)); } else { dispatch(BlogCreate(value, AuthorToken)) }
+            const AuthorToken = JSON.parse(sessionStorage.getItem('Login')).data.usertoken
+            dispatch(BlogCreate(value, AuthorToken))
+        } else {
+            console.log(value, "edit")
+            updateBlog(value)
         }
         setLoading(true);
     }
@@ -169,7 +165,7 @@ export const Blog = () => {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'image.jpg');
+            link.setAttribute('download', 'image.jpg'); //or any other extension
             document.body.appendChild(link);
             link.click();
         }, (error) => {
@@ -218,6 +214,13 @@ export const Blog = () => {
                             ))}
                         </div>
                     </div>
+                    {/* <Pagination
+                        showSizeChanger
+                        onShowSizeChange={onShowSizeChange}
+                        defaultCurrent={1}
+                        total={50}
+                        pageSize={10}
+                    /> */}
                 </div>
             </div>
             <MTModal
@@ -252,7 +255,7 @@ export const Blog = () => {
                                 getValueFromEvent={normFile}
                                 rules={[{ required: true, message: 'Please Attech PNG file!' }]}
                             >
-                                <Upload accept='.png' {...props1} className="upload-list-inline">
+                                <Upload accept='.png' {...CoverImage} className="upload-list-inline">
                                     <MTButton className="select" >Select</MTButton>
                                 </Upload>
                             </Form.Item>

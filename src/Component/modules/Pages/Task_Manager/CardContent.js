@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Progress, Input, Form, Button, Tooltip, Radio } from 'antd';
 import Icons from '../../component/Icons/icons';
 import MTModal from '../../component/MTmodel/modal';
+import PropTypes from 'prop-types';
 
 export const CardContent = (props) => {
     const [form] = Form.useForm();
@@ -125,7 +126,7 @@ export const CardContent = (props) => {
                             </span>
                             <span className="content">
                                 <span className="project">Start Date: </span><br></br>
-                                <span className="projectName">{menu.startDate}</span>   
+                                <span className="projectName">{menu.startDate}</span>
                             </span>
                             <span className="content">
                                 <span className="project">Due Date: </span><br></br>
@@ -235,3 +236,8 @@ export const CardContent = (props) => {
     );
 }
 export default CardContent;
+
+CardContent.propTypes = {
+    menu: PropTypes.string,
+    content: PropTypes.string,
+};

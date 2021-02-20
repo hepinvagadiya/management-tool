@@ -2,8 +2,7 @@ import axios from 'axios';
 import store from '../store'
 import { message } from 'antd';
 
-var url = 'http://10.1.1.20:8085'
-
+const url = 'http://10.1.1.20:8085'
 export const BlogData = () => {
     const key = 'updatable';
     return async (dispatch) => {
@@ -31,14 +30,14 @@ export const BlogData = () => {
         });
     };
 };
-export const BlogCreate = (data, authorToken) => {
+export const BlogCreate = (data, AuthorToken) => {
     const key = 'updatable';
     return async (dispatch) => {
         return axios({
             method: 'post',
             url: `${url}/blogPost/createBlog`,
             headers: { 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('Login')).data.jwtToken.token}` },
-            data: { ...data, authorToken },
+            data: { ...data, AuthorToken },
         }).then(response => {
             dispatch({
                 type: 'CREATE_NEW_BLOG',
@@ -54,25 +53,24 @@ export const BlogCreate = (data, authorToken) => {
         });
     };
 };
-export const updateBlog = (data, authorToken, token) => {
+export const updateBlog = (data) => {
     const key = 'updatable';
     return async (dispatch) => {
         return axios({
             method: 'put',
-            url: `${url}/blogPost/updateBlog`,
+            url: `${url}blogPost/updateBlog`,
             headers: { 'Authorization': `Bearer ${JSON.parse(sessionStorage.getItem('Login')).data.jwtToken.token}` },
-            data: { ...data, authorToken, token },
+            data: data,
         }).then(response => {
             dispatch({
                 type: 'UPDATE_BLOG',
                 payload: response.data,
             })
-            console.log(response, "response")
         }).catch((error) => {
             if (error.response !== undefined) {
                 message.error({ content: `UserGroup : ${error.response.data.message}`, key, duration: 2 })
             } else {
-                message.error({ content: 'Update::net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
+                message.error({ content: 'net::ERR_CONNECTION_TIMED_OUT', key, duration: 2 });
             }
             return error;
         });
@@ -90,6 +88,7 @@ export const DeleteBlog = (token, authorToken) => {
                 authorToken: authorToken
             },
         }).then(response => {
+            console.log(response,"response")
             let get = store.getState().blogs.blogs
             const maindata = get.filter(p => p.token !== token)
             dispatch({
@@ -106,7 +105,6 @@ export const DeleteBlog = (token, authorToken) => {
         });
     };
 };
-
 export const viewBlog = (token) => {
     const key = 'updatable';
     return async (dispatch) => {

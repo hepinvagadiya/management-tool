@@ -2,56 +2,54 @@ const initState = {
     groupTable: [],
     getAllUser: []
 };
-export default (state = initState, action) => {
+const UserGroup = (state = initState, action) => {
     switch (action.type) {
         case 'GET_USER_GROUP_DATA':
-            return (
-                state = {
-                    ...state,
-                    groupTable: action.payload.data,
-                }
-            )
+            state = {
+                ...state,
+                groupTable: action.payload.data,
+            }
+            break;
         case 'GET_USERS_DATA':
-            return (
-                state = {
-                    ...state,
-                    getAllUser: action.payload.data,
-                }
-            )
+            state = {
+                ...state,
+                getAllUser: action.payload.data,
+            }
+            break;
         case 'USER_GROUP_REGISTRATION':
-            return (
-                state = {
-                    ...state,
-                    groupTable: [...state.groupTable, action.payload.data],
-                    status: action.payload.status,
-                }
-            )
+            state = {
+                ...state,
+                groupTable: [...state.groupTable, action.payload.data],
+                status: action.payload.status,
+            }
+            break;
         case 'DELETE_USER_GROUP':
-            return (
-                state = {
-                    ...state,
-                    groupTable: action.payload,
-                    delStatus: action.delStatus
-                }
-            )
+            state = {
+                ...state,
+                groupTable: action.payload,
+                delStatus: action.delStatus
+            }
+            break;
         case 'FIND_USERGROUP_DATA':
-            return (
-                state = {
-                    ...state,
-                    findStatus: action.payload.data.status,
-                    findUserGroup: action.payload.data,
-                }
-            )
+            state = {
+                ...state,
+                findStatus: action.payload.data.status,
+                findUserGroup: action.payload.data,
+            }
+            break;
         case 'USER_GROUP_UPDATE':
+            // eslint-disable-next-line no-case-declarations
             const maintable = [...state.groupTable]
             maintable[action.index] = action.payload.data
-            return (
-                state = {
-                    groupTable: maintable,
-                    getAllUser: [...state.getAllUser],
-                    editStatus: action.payload.status,
-                }
-            )
+            state = {
+                groupTable: maintable,
+                getAllUser: [...state.getAllUser],
+                editStatus: action.payload.status,
+            }
+            break;
+        default:
+            state = { ...state }
     }
     return state
 };
+export default UserGroup;
